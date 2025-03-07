@@ -1,0 +1,5 @@
+#WorkSpaceGeneralStyles{
+  display: flex; /* Usamos flexbox para organizar elementos horizontalmente */
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  overflow: hidden; /* Evita scrolls inesperados */
+}
