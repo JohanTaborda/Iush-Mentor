@@ -20,7 +20,7 @@ import MainPanel from "./MainPanel/MainPanel.jsx";
 const Main = () => {
 
     //Constantes
-    const[mainComponent, setMainComponent] = useState(false);
+    const[mainComponent, setMainComponent] = useState(true); //Constante que permite el cambio del panel principal al navbar y workspace
 
     // -----------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ const Main = () => {
 
     return(
         <>
-           {mainComponent ? (
+           {mainComponent ? ( //Si mainComponent es verdadero, se muestra App (Navbar y Workspace), si es falso se muestra MainPanel.
                 <App/>
             ) : (
                 <MainPanel setMainComponent={setMainComponent}/>

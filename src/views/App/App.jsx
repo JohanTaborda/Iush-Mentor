@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css' // Estilos personalizados para el componente App.
 
 //Importamos los componentes Hijos
@@ -21,12 +21,18 @@ const App = () => {
   // Variables.
 
   // Constantes.
+  const[buttonSelected, setButtonSelected] = useState("Tutorias");
 
   // -----------------------------------------------------------------------------------
   // -----------------------------------------------------------------------------------
   // Funciones.
   // -----------------------------------------------------------------------------------
   // -----------------------------------------------------------------------------------
+  const renderSections = () => {
+    switch(buttonSelected){
+      
+    }
+  }
 
   // -----------------------------------------------------------------------------------
   // -----------------------------------------------------------------------------------
@@ -36,7 +42,7 @@ const App = () => {
   
   return (
     <div id='WorkSpaceGeneralStyles'>
-      <Navbar/>
+      <Navbar setButtonSelected={setButtonSelected} />
       <WorkSpace/>
     </div>
   )

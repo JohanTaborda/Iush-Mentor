@@ -1,0 +1,103 @@
+.containerSidebar{ /*Propiedades para el bloque general del navbar*/
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(#285194,  #0C192E);
+    height: 100vh;
+    width: 230px;
+    transition: width 0.3s ease-in-out, transform 0.4s ease-in-out;
+    overflow: hidden;
+}
+
+.sidebar__elements{ /*Propiedades para el bloque que almacena los elementos del navbar*/
+    height: calc(100vh - 70px);
+    width: 90%;
+    margin-top: 20px;
+}
+
+.sidebar__header{ /*Propiedades para el header del navbar*/
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.sidebar__title{ /*Propiedades para el titulo*/
+    font-size: 25px;
+    font-family: "Outfit";
+    font-weight: 800;
+    color: #f7f7f7;
+    text-wrap: nowrap;
+}
+
+#sidebar__iconMenu{ /*Propiedades para el icono que permite minimizar el navbar*/
+    font-size: 30px;
+    color: #f7f7f7;
+    cursor: pointer;
+}
+
+.sidebarMinimized{width: 60px;} /*Ancho que toma el navbar cuando esta minimizado*/
+
+.sidebar__buttons{ /*Propiedades para el contenedor que almacena los botones del componente.*/
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    height: 100% ;
+}
+
+.sidebar--button { /*Propiedades para cada uno de los botones del componente.*/
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    height: 40px;
+    padding-left: 12px; /*Validar si dejarno o quitarlo.*/
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #fff;
+    opacity: 0.4;
+    text-wrap: nowrap;
+}
+
+#sidebar--button__navbarMinized{ /*Propiedades que toman los iconos cuando la barra esta minimizada.*/
+    justify-content: center;
+    padding-left: 4px;
+    background-color: transparent;
+    color: #fff;
+}
+
+#sidebar--button__navbarMinized:hover{opacity: 1;} /*Hover para los iconos cuando la barra esta minimizada.*/
+
+.sidebar--button:hover{ /*Hover para cada uno de los botones del componente*/
+    opacity: 0.5;
+    background-color: #f9f9f9;
+    color: #000;
+}
+
+.sidebar__button--active{ /*Propiedad que se toma cuando se le da clic a uno de los botones.*/
+    opacity: 1;
+    background-color: #f9f9f9;
+    color: #000;
+}
+
+.sidebar__button--active:hover{opacity: 1;} /*Si el botón esta activo, se le da una opacidad de 1*/
+
+.sidebar__icons{font-size: 20px;} /*Tamaño para los iconos que estan en los botones.*/
+
+.sidebar--button__Text{ /*Propiedades par los textos de los botones*/
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "Outfit";
+    cursor: pointer;
+}
+
+#sidebar--button__opinion{ /*Propiedades para el botón de 'Cuentos tu Opinión'.*/
+    margin-top: auto;  
+    justify-content: center;
+    padding-left: 4px;
+    background-color: transparent;
+    color: #fff;
+}
+
+#sidebar--button__opinion:hover{opacity: 1;} /*Hover para el botón de 'Opinion'*/
