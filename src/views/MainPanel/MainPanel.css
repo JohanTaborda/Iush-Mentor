@@ -1,0 +1,284 @@
+/* General Styles */
+body {
+  height: 100%;
+  font-family: 'Manrope', sans-serif;
+  background: linear-gradient(to bottom, #3F639F, #ADD8E6); 
+  margin: 0;
+  padding: 0;
+  color: whitesmoke;
+}
+
+/* Header Styles */
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #285194;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  position: relative;
+}
+
+/* Línea blanca debajo de la barra de encabezado */
+.header-bar::after {
+  content: '';
+  position: absolute;
+  bottom: -2%;
+  left: 0;
+  width: 100%;
+  height: 2%;
+  background-color: white;
+}
+
+/* Estilos para la sección izquierda del encabezado */
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Icono en el encabezado */
+.header-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+/* Título en el encabezado */
+.header-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Botón de inicio de sesión */
+.login-btn {
+  background-color: #597EBC;
+  color: rgb(241, 234, 234);
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Efecto hover para el botón de inicio de sesión */
+.login-btn:hover {
+  background-color: #7A9EDC; 
+}
+
+/* Main Container */
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: rgb(163, 182, 243, 0.8);
+}
+
+/* Panel Content */
+.panel-content {
+  flex: 1;
+  background: linear-gradient(to bottom, #3F639F, #ADD8E6); 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: rgb(163, 182, 243, 0.8);
+}
+
+/* Content Article */
+.content-article {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Title */
+/* Título principal */
+.title {
+  font-size: 2.5em;
+  color: white;
+  margin-bottom: 10px;
+  text-align: center;
+  max-width: 600px; 
+  margin: 0 auto; 
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: 1.2em;
+  color: white;
+  text-align: center;
+  max-width: 600px; 
+  margin: 0 auto; 
+}
+
+/* Categories */
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+}
+
+/* Botones de categoría */
+.category-btn {
+  flex: 1;
+  max-width: 300px;
+  font-size: 18px;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ddd9f7;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Efecto hover para los botones de categoría */
+.category-btn:hover {
+  transform: translateY(-5px); /* Levanta el botón */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra */
+}
+
+/* Texto de la escuela */
+.school-text {
+  display: block;
+  font-size: 16px; 
+  font-family: 'manrope', sans-serif;
+  color: black; 
+  margin-bottom: 5px;
+}
+
+/* About Section */
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(163, 182, 243, 0.5); /* Ajustado para ser más transparente */
+  padding: 30px;
+  margin: 20px;
+  border-radius: 10px;
+  text-align: justify;
+  color: black;
+  border: 1px solid white; /* Borde delgado de color blanco */
+}
+
+/* Texto sobre nosotros */
+.about-text {
+  flex: 1;
+  padding-right: 20px;
+}
+
+/* Imagen sobre nosotros */
+.about-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilos para la imagen sobre nosotros */
+.about-image img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* Expert Section */
+.expert-path {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 15px; 
+  margin: 10px; 
+  border-radius: 10px;
+  color: black;
+  text-align: center;
+}
+
+/* Opciones de expertos */
+.expert-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Asegura que las tarjetas se alineen horizontalmente */
+}
+
+/* Tarjetas de expertos */
+.expert-card {
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  background: rgba(187, 200, 221, 0.5); /* Ajustado para ser transparente */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1 1 300px; /* Ajusta el ancho de las tarjetas */
+  max-width: 300px; /* Ajusta el ancho máximo de las tarjetas */
+  color: black;
+}
+
+/* Efecto hover para las tarjetas de expertos */
+.expert-card:hover {
+  transform: translateY(-5px); /* Levanta la tarjeta */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra */
+}
+
+/* Icono de expertos */
+.expert-icon {
+  font-size: 36px; /* Ajustar este valor según tus necesidades */
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 5px;
+  background: #BBC8DD;
+  font-weight: bold;
+  color: black;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .categories {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .expert-card {
+    flex: 1 1 45%; /* Ajusta el ancho de las tarjetas */
+    max-width: 45%; /* Ajusta el ancho máximo de las tarjetas */
+  }
+}
+
+@media (max-width: 600px) {
+  .header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .login-btn {
+    align-self: flex-end;
+    margin-top: 10px;
+  }
+  
+  .categories {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .expert-card {
+    flex: 1 1 90%; /* Ajusta el ancho de las tarjetas */
+    max-width: 90%; /* Ajusta el ancho máximo de las tarjetas */
+  }
+  
+  .about {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .about-text {
+    padding-right: 0;
+    margin-bottom: 20px;
+  }
+  
+  .about-image {
+    justify-content: center;
+  }
+}

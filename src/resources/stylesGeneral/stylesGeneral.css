@@ -2,10 +2,10 @@
 /*Fuente primaria*/
 @font-face {
     font-family: 'Outfit' ;
-    src: url('../../../util/fonts/Outfit-VariableFont_wght.ttf');
+    src: url('../fonts/Outfit-VariableFont_wght.ttf');
 }
 /*Fuente secundaria*/
 @font-face {
     font-family: 'Manrope' ;
-    src: url('../../../util/fonts/Manrope-VariableFont_wght.ttf');
+    src: url('../fonts/Manrope-VariableFont_wght.ttf');
 }
