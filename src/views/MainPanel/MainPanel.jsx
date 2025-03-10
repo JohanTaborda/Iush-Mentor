@@ -3,7 +3,7 @@ import "./MainPanel.css" // Estilos personalizados para el componente MainPanel.
 import "./MainPanel" // Funciones personalizadas para el componente MainPanel.
 
 //Importamos los componentes Hijos
-import Auth from "./components/Auth/Auth.jsx";
+import Auth from "./components/Auth/Auth.jsx"
 
 /*
     Descripción.
