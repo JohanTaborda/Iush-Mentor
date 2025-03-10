@@ -6,6 +6,7 @@
     height: 100vh;
     width: 230px;
     transition: width 0.3s ease-in-out, transform 0.4s ease-in-out;
+    flex-shrink: 0;
     overflow: hidden;
 }
 
@@ -19,6 +20,8 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    text-wrap: nowrap;
+
 }
 
 .sidebar__title{ /*Propiedades para el titulo*/
@@ -33,6 +36,7 @@
     font-size: 30px;
     color: #f7f7f7;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .sidebarMinimized{width: 60px;} /*Ancho que toma el navbar cuando esta minimizado*/
@@ -101,3 +105,41 @@
 }
 
 #sidebar--button__opinion:hover{opacity: 1;} /*Hover para el botón de 'Opinion'*/
+
+.custom-tooltip { /*Propiedades para el bloque del Tooltip*/
+    background-color: #285194 !important; 
+    color: white !important; 
+    font-size: 12px !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    font-family: "Outfit" !important;
+    box-shadow: 0 0 5px 0 #0C192E !important;
+}
+
+.custom-arrowTooltip {color: #285194 !important; } /*Propiedades para la flecha del Tooltip, en este caso le cambiamos el color.*/
+
+/*media query, para estilos específicos cuando el ancho de la pantalla es de 768px o menor.*/
+@media screen and (max-width: 768px) {
+    .containerSidebar{ /*Propiedades para el bloque general del navbar*/
+        margin-top: auto;
+        background: linear-gradient(#030507,  #152f5a);
+        height: 60px;
+        width: 100vw;
+    }
+    
+    .sidebar__header{display: none; } /*Propiedades para el header del navbar, osea ocultamos este contenedor*/
+
+    .sidebar__elements { /*Propiedades para el bloque que almacena los elementos del navbar*/
+        width: 100%;
+        margin-top: 12px;
+    }
+
+    .sidebar__buttons { /*Propiedades para el contenedor que almacena los botones del componente.*/
+        flex-direction: row;
+        margin: 0;       
+    }
+
+    .sidebar--button__Text {display: none; } /* Oculta el texto de los botones*/
+
+    #sidebar--button__opinion{ margin-top: 0;  } /*Propiedades para el botón de 'Cuentos tu Opinión'. Lo alineamos a los demás botones.*/
+}
