@@ -9,3 +9,36 @@
     font-family: 'Manrope' ;
     src: url('../fonts/Manrope-VariableFont_wght.ttf');
 }
+
+:root{ /*Deshabilitamos la opción para seleccionar elementos en la aplicación*/
+    user-select: none;
+}
+
+/*Estilos Generales para las ventanas Emergentes*/
+
+.overlayGeneral{ /*Bloque Principal para el overlay*/
+    position: fixed; /*Coloca el elemento de forma fija en la ventana del navegador,*/
+    top: 0; /*Tanto el top como el left estan asegurando que cubra toda la pantalla.*/
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Un color semitransparente para oscurecer */
+    backdrop-filter: blur(0.1px); /* Añade un desenfoque al fondo, mejorando la legibilidad del contenido en primer plano. */
+    z-index: 999; /* Debe estar detrás de la mini ventana, por lo tanto la ventana emergente se deja en 1000 y esta se deja en 999 */
+}
+
+.containerGeneralOverlay{ /*Estilos para el contenedor que almacena el icono y el texto del componente*/
+    position: fixed; /*Establece que el elemento se posicionará de forma fija en la ventana del navegador*/
+    display: flex;
+    top: 50%; /*Estas propiedades colocan el elemento en el centro de la ventana del navegador, tomando como referencia el 50% del alto y del ancho de la ventana.*/
+    left: 50%;
+    transform: translate(-50%, -50%); /*Esta transformación ajusta la posición del elemento para que su centro coincida con el centro de la ventana.*/
+    background: #fff;
+    color: #000;
+    width: 250px ;
+    height: 150px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /*Sombra al rededor de la ventana emergente*/
+    z-index: 1000; /*Este elemento, establece un apilamiento del elemento, esto quiere decir, que si ponemos un valor alto asegura que esta ventana emergente esté por encima de otros elementos en la página.*/
+}
