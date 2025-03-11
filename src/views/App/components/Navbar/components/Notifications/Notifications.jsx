@@ -1,10 +1,6 @@
-import React, { useState } from "react";
-import "./Auth.css" // Estilos personalizados para el componente Auth.
-import "./Auth" // Funciones personalizadas para el componente Auth.
-
-//Importamos los componentes Hijos
-import Login from "./Components/Login/Login.jsx"
-import Register from "./Components/Register/Register.jsx"
+import React from "react";
+import "./Notifications" // Funciones personalizadas para el componente Notifications.
+import "./Notifications.css" // Estilos personalizados para el componente Notifications.
 
 /*
     Descripción.
@@ -18,11 +14,12 @@ import Register from "./Components/Register/Register.jsx"
         * retorno1 (tipo): Descripción.
 */
 
-const Auth = ({setMainComponent}) => {
+//Recibimos mediante props el setter que nos permite cerrar la ventana emergente.
+const Notifications = ({setVisWindowsNotifications}) => {
+
     // Variables.
 
     // Constantes.
-    const [visRegister, setVisRegister] = useState(false);
 
     // -----------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------
@@ -36,17 +33,16 @@ const Auth = ({setMainComponent}) => {
     // -----------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------
 
-
     return(
         <>
-            {visRegister ? (
-                <Register/>
-            ) : (
-                <Login setVisRegister={setVisRegister} setMainComponent={setMainComponent}/>
-            )}
-        
+            <div className="overlayGeneral"> {/*Bloque principal que contiene el overlay del componente.*/}
+                <div className="containerGeneralOverlay"> {/*Contenedor central, que almacena toda la información interactiva del componente. */}
+                    Espacio para trabajar la ventana emergente de Notificaciones. {/*Mensaje del espacio de trabajo */}
+                    <button onClick={() => setVisWindowsNotifications(false)}>Cerrar</button> {/*Botón que permite cambiar el estado del setter recibido por props para cerrar la ventana. */}
+                </div>
+           </div>
         </>
     )
 }
 
-export default Auth;
+export default Notifications;

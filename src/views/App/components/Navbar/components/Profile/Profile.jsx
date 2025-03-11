@@ -1,10 +1,6 @@
-import React, { useState } from "react";
-import "./Main.css" // Estilos personalizados para el componente Main.
-import "./Main" // Funciones personalizadas para el componente Main.
-
-//Importamos los componentes Hijos
-import App from "./App/App.jsx"
-import MainPanel from "./MainPanel/MainPanel.jsx";
+import React from "react";
+import "./Profile" // Funciones personalizadas para el componente Profile.
+import "./Profile.css" // Estilos personalizados para el componente Profile.
 
 /*
     Descripción.
@@ -17,10 +13,13 @@ import MainPanel from "./MainPanel/MainPanel.jsx";
 
         * retorno1 (tipo): Descripción.
 */
-const Main = () => {
 
-    //Constantes
-    const[mainComponent, setMainComponent] = useState(false); //Constante que permite el cambio del panel principal al navbar y workspace
+//Recibimos mediante props el setter que nos permite cerrar la ventana emergente.
+const Profile = ({setVisWindowsProfile}) => {
+
+    // Variables.
+
+    // Constantes.
 
     // -----------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------
@@ -36,16 +35,14 @@ const Main = () => {
 
     return(
         <>
-           {mainComponent ? ( //Si mainComponent es verdadero, se muestra App (Navbar y Workspace), si es falso se muestra MainPanel.
-                <App/>
-            ) : (
-                <MainPanel setMainComponent={setMainComponent}/>
-           )}
+           <div className="overlayGeneral"> {/*Bloque principal que contiene el overlay del componente.*/}
+                <div className="containerGeneralOverlay"> {/*Contenedor central, que almacena toda la información interactiva del componente. */}
+                    Espacio para trabajar la ventana emergente de Perfil. {/*Mensaje del espacio de trabajo */}
+                    <button onClick={() => setVisWindowsProfile(false)}>Cerrar</button> {/*Botón que permite cambiar el estado del setter recibido por props para cerrar la ventana. */}
+                </div>
+           </div>
         </>
     )
 }
 
-export default Main;
-
-
-
+export default Profile;

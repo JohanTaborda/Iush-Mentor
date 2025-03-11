@@ -1,0 +1,158 @@
+.Login__container{ /* se diseña el contenedor para que se vea de una forma mas organizada y agradable de ver*/
+    display: flex;
+    background-color: white;
+    height: 440px;
+    width: 770px;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    z-index: 5;
+
+    border-radius: 10px !important;
+    font-family: "Outfit";
+}
+.Login__welcome{ /* se diseña el contenedero de estructura de bienvenida */
+    display: block;
+    background-color: #fff;
+    overflow: hidden;
+    justify-items: flex;
+    height: 440px;
+    width: 500px;
+    font-size: 10px;
+    padding: 10px;
+    border-radius: 10px ;
+}
+.img_IUSH{ /*se le da el estilo al logo de la pagina web */
+    height: 100%;
+    width: 450px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.overlay{ /*diseño para que se vea el fondo medio opaco al darle iniciar sesión */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(0.1px);
+    z-index: 1;
+}
+.Login_WelcomeInitial{  /* diseño del contenedor de bienvenidos y el texto*/
+    margin-top: 40px;
+    margin-left: 20px;
+    width: 255px;
+}
+.login_forms{  /* diseñp del formulario con los input*/
+    display: flex;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+    padding: 10px 20px 0 20px;
+}
+#LoginInput {  /* le damos el diseño a los input del login*/
+    width: 100%;
+    padding: 7px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+  }
+
+.login_forms #BtnWelcome{  /* se le hace el diseño al boton ingresar*/
+    background-color: #007bff;
+    color: white; 
+    border: none;
+    padding: 10px 40px;
+    font-size: 14px !important;
+    border-radius: 8px; 
+    width: 100%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    height: 36px;
+    font-size: 12px;
+}
+.Login_error{  /* estilo que se le da al error cuando no se ponen datos en los inputs y se le da al boton de ingresar */
+    margin: 20px;
+    font-weight: 800;
+}
+
+.Login_Welcometittle{  /*se le da el estilo al bienvenidos del login */
+    font-size: 20px;
+    font-weight: 650;
+}
+#click_register{  /*Al apartado de registrarse se le da un diseño */
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    text-align: center;
+    color: #007bff;
+    font-weight: 800;
+}
+.Login__Register{  /* se organiza el contenedor donde esta ubicado el registro */
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    font-size: 14px;
+    gap: 10px;
+}
+
+.input__password{  /* estilo que se le da al input de la contraseña para una mejor ubicacion del icono*/
+    padding-right: 35px !important;
+}
+
+.icons_eyes{  /* tamaño que se le dan a los iconos*/
+    font-size: 18px;
+}
+
+.container__password{ /* para que los iconos sigan permaneciendo ahi sin importar que la pagina se abra desde un pc o celular*/
+    position: relative;
+}
+
+#ubicacion__icon{  /* ubicacion del icono de ojo*/
+    position: absolute;
+    right: 10px;
+    top: 12px;
+}
+.mss_top{  /* estilo que se le da a la letra para que se vea de una forma mejor */
+    font-weight: 450;
+    font-size: 12px;
+}
+
+.icon_cap{font-size: 20px;}
+
+@media(max-width:775px){
+    .img_IUSH{
+        display: none;
+    }
+    .Login__Register{
+        display: flex;
+        font-size: 10px;
+        gap: 8px;
+    }
+    #click_register{
+        font-size: 11px;
+    }
+    .Login_error{
+        height: 10px;
+    }
+    .Login__welcome{ /* se diseña el contenedero de estructura de bienvenida */
+        justify-items: center;
+    }
+    .Login_Welcometittle{  /*se le da el estilo al bienvenidos del login */
+        font-size: 40px;
+        font-weight: 650;
+    }
+    .Login__container{ /* se diseña el contenedor para que se vea de una forma mas organizada y agradable de ver*/
+        height: 440px;
+        width: 50%;
+    }
+}
+
+@media(max-width:575px){
+    .Login__container{ /* se diseña el contenedor para que se vea de una forma mas organizada y agradable de ver*/
+        width: 80%
+    }
+}

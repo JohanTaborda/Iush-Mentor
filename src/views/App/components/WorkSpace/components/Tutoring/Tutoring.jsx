@@ -1,10 +1,6 @@
-import React, { useState } from "react";
-import "./Main.css" // Estilos personalizados para el componente Main.
-import "./Main" // Funciones personalizadas para el componente Main.
-
-//Importamos los componentes Hijos
-import App from "./App/App.jsx"
-import MainPanel from "./MainPanel/MainPanel.jsx";
+import React from "react";
+import "./Tutoring" // Funciones personalizadas para el componente Tutoring.
+import "./Tutoring.css" // Estilos personalizados para el componente Tutoring.
 
 /*
     Descripción.
@@ -17,10 +13,12 @@ import MainPanel from "./MainPanel/MainPanel.jsx";
 
         * retorno1 (tipo): Descripción.
 */
-const Main = () => {
 
-    //Constantes
-    const[mainComponent, setMainComponent] = useState(false); //Constante que permite el cambio del panel principal al navbar y workspace
+const Tutoring = () => {
+
+    // Variables.
+
+    // Constantes.
 
     // -----------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------
@@ -36,16 +34,9 @@ const Main = () => {
 
     return(
         <>
-           {mainComponent ? ( //Si mainComponent es verdadero, se muestra App (Navbar y Workspace), si es falso se muestra MainPanel.
-                <App/>
-            ) : (
-                <MainPanel setMainComponent={setMainComponent}/>
-           )}
+            Espacio para trabajar las Tutorias.
         </>
     )
 }
 
-export default Main;
-
-
-
+export default Tutoring;
