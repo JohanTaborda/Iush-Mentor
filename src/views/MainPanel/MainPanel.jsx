@@ -39,7 +39,7 @@ const MainPanel = ({setMainComponent}) => {
                 <button onClick={() => setVisAuth(true)}>Iniciar Sesión</button>
             </div>
             {visAuth && (
-                <Auth/>
+                <Auth setMainComponent={setMainComponent}/>
             )}
         </>
     )
