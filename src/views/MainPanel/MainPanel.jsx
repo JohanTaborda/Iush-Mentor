@@ -5,7 +5,6 @@ import "./MainPanel" // Funciones personalizadas para el componente MainPanel.
 
 //Importamos los componentes Hijos
 import Auth from "./components/Auth/Auth.jsx"
-=======
 //importar iconos
 import { FcReadingEbook } from "react-icons/fc";
 import { FcFinePrint } from "react-icons/fc";
@@ -14,10 +13,7 @@ import { FcIdea } from "react-icons/fc";
 import { FcLibrary } from "react-icons/fc";
 
 
-//Importar los componentes Hijos
-import Auth from "./components/Auth/Auth.jsx";
-
-const Header = () => {
+const Header = ({setMainComponent}) => {
   const[visAuth, setVisAuth] = useState(false);
   return (
     <header className="header_MainPanel_bar">
@@ -31,7 +27,7 @@ const Header = () => {
       </div>
       <button onClick={() => setVisAuth(true)} className="login_btn_MainPanel">Iniciar Sesión</button>
       {visAuth && (
-            <Auth/>
+            <Auth setMainComponent={setMainComponent} />
         )}
     </header>
   );
@@ -58,42 +54,11 @@ const ExpertCard = ({ title, subtitle, icon }) => {
 };
 
 const MainPanel = ({setMainComponent}) => {
-
-    // Constantes.
-    const[visAuth, setVisAuth] = useState(false);
-
-    // -----------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------
-    // Funciones.
-    // -----------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------
- 
-    // -----------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------
-    // Componente.
-    // -----------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------
-
-    return(
-        <>
-            <div>
-                <h1>Espacio para MainPanel</h1>
-                <button onClick={() => setVisAuth(true)}>Iniciar Sesión</button>
-            </div>
-            {visAuth && (
-                <Auth setMainComponent={setMainComponent}/>
-            )}
-        </>
-    )
-}
-
-export default MainPanel;
-=======
   
 
   return (
     <div className="main_container">
-      <Header />
+      <Header setMainComponent={setMainComponent} />
       <div className="panel_content">
         <article className="content_article">
           <h1 className="title_main">El nuevo sistema de
@@ -142,4 +107,3 @@ export default MainPanel;
   );
 };
 export default MainPanel;
-
