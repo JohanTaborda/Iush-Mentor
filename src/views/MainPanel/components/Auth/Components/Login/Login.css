@@ -1,31 +1,32 @@
 .Login__container{ /* se diseña el contenedor para que se vea de una forma mas organizada y agradable de ver*/
     display: flex;
     background-color: white;
-    height: 80vh;
-    width: 60vw;
+    height: 440px;
+    width: 770px;
     position: absolute;
     inset: 0;
     margin: auto;
     z-index: 5;
-    border-top-left-radius: 5%;
-    border-bottom-left-radius: 5%;
+
+    border-radius: 10px !important;
     font-family: "Outfit";
 }
 .Login__welcome{ /* se diseña el contenedero de estructura de bienvenida */
     display: block;
-    background-color: white;
+    background-color: #fff;
     overflow: hidden;
     justify-items: flex;
     height: 440px;
     width: 500px;
     font-size: 10px;
     padding: 10px;
+    border-radius: 10px ;
 }
 .img_IUSH{ /*se le da el estilo al logo de la pagina web */
-    height: 441px;
+    height: 100%;
     width: 450px;
-    border-top-left-radius: 5%;
-    border-bottom-left-radius: 5%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 .overlay{ /*diseño para que se vea el fondo medio opaco al darle iniciar sesión */
     position: fixed;
@@ -62,19 +63,16 @@
   }
 
 .login_forms #BtnWelcome{  /* se le hace el diseño al boton ingresar*/
-    text-align: center;
     background-color: #007bff;
     color: white; 
     border: none;
-    padding: 15px 30px;
-    font-size: 18px;
+    padding: 10px 40px;
+    font-size: 14px !important;
     border-radius: 8px; 
     width: 100%;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     height: 36px;
     font-size: 12px;
-    display: flex;
-    align-items: center;
 }
 .Login_error{  /* estilo que se le da al error cuando no se ponen datos en los inputs y se le da al boton de ingresar */
     margin: 20px;
@@ -87,7 +85,7 @@
 }
 #click_register{  /*Al apartado de registrarse se le da un diseño */
     cursor: pointer;
-    font-size: 20px;
+    font-size: 14px;
     display: flex;
     text-align: center;
     color: #007bff;
@@ -97,10 +95,9 @@
     display: flex;
     text-align: center;
     justify-content: center;
-    font-size: 19px;
+    font-size: 14px;
+    gap: 10px;
 }
-
-
 
 .input__password{  /* estilo que se le da al input de la contraseña para una mejor ubicacion del icono*/
     padding-right: 35px !important;
@@ -123,29 +120,39 @@
     font-weight: 450;
     font-size: 12px;
 }
-@media(max-width:600px){
+
+.icon_cap{font-size: 20px;}
+
+@media(max-width:775px){
     .img_IUSH{
         display: none;
-    }
-    .Login__container{
-        display: flex;
-        height: 500px;
-        font-family: "Outfit";
-    }
-    .mss_top{
-        display: flex;
-        padding-right: 90px;
     }
     .Login__Register{
         display: flex;
         font-size: 10px;
+        gap: 8px;
     }
     #click_register{
         font-size: 11px;
     }
     .Login_error{
-        padding-block-end: 0px;
         height: 10px;
+    }
+    .Login__welcome{ /* se diseña el contenedero de estructura de bienvenida */
+        justify-items: center;
+    }
+    .Login_Welcometittle{  /*se le da el estilo al bienvenidos del login */
+        font-size: 40px;
+        font-weight: 650;
+    }
+    .Login__container{ /* se diseña el contenedor para que se vea de una forma mas organizada y agradable de ver*/
+        height: 440px;
+        width: 50%;
     }
 }
 
+@media(max-width:575px){
+    .Login__container{ /* se diseña el contenedor para que se vea de una forma mas organizada y agradable de ver*/
+        width: 80%
+    }
+}
