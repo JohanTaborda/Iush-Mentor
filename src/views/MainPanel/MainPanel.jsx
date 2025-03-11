@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./MainPanel.css" // Estilos personalizados para el componente MainPanel.
 import "./MainPanel" // Funciones personalizadas para el componente MainPanel.
 
+
+//Importamos los componentes Hijos
+import Auth from "./components/Auth/Auth.jsx"
 //importar iconos
 import { FcReadingEbook } from "react-icons/fc";
 import { FcFinePrint } from "react-icons/fc";
@@ -9,10 +12,8 @@ import { FcMindMap } from "react-icons/fc";
 import { FcIdea } from "react-icons/fc";
 import { FcLibrary } from "react-icons/fc";
 
-//Importar los componentes Hijos
-import Auth from "./components/Auth/Auth.jsx";
 
-const Header = () => {
+const Header = ({setMainComponent}) => {
   const[visAuth, setVisAuth] = useState(false);
   return (
     <header className="header_MainPanel_bar">
@@ -26,7 +27,7 @@ const Header = () => {
       </div>
       <button onClick={() => setVisAuth(true)} className="login_btn_MainPanel">Iniciar Sesión</button>
       {visAuth && (
-            <Auth/>
+            <Auth setMainComponent={setMainComponent} />
         )}
     </header>
   );
@@ -57,7 +58,7 @@ const MainPanel = ({setMainComponent}) => {
 
   return (
     <div className="main_container">
-      <Header />
+      <Header setMainComponent={setMainComponent} />
       <div className="panel_content">
         <article className="content_article">
           <h1 className="title_main">El nuevo sistema de
