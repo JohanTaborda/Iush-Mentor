@@ -5,8 +5,8 @@ import "./Navbar.css" // Estilos personalizados para el componente Navbar.
 import Tooltip from '@mui/material/Tooltip'; //De la importación "@mui/material/Tooltip" utilizamos la función del Tooltip, el cual nos sirve para los botones.
 
 //Importamos los componentes Hijos - Ventana Emergentes
-import Profile from "./components/Profile/Profile.jsx";
-import Notifications from "./components/Notifications/Notifications.jsx";
+import Profile from "../../pages/Profile/Profile.jsx";
+import Notifications from "../../pages/Notifications/Notifications.jsx";
 
 //Iconos para el navbar
 import { IoMenu } from "react-icons/io5";
