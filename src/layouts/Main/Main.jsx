@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./Main.css" // Estilos personalizados para el componente Main.
-import "./Main" // Funciones personalizadas para el componente Main.
+import "./Main.jsx" // Funciones personalizadas para el componente Main.
 
 //Importamos los componentes Hijos
-import App from "./App/App.jsx"
-import MainPanel from "./MainPanel/MainPanel.jsx";
+import App from "./components/App/App.jsx"
+import MainPanel from "./components/MainPanel/MainPanel.jsx";
 
 /*
     Descripción.

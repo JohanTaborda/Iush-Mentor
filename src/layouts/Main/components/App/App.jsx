@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import './App.css' // Estilos personalizados para el componente App.
 
 //Importamos los componentes Hijos
-import Navbar from './components/Navbar/Navbar.jsx'
-import WorkSpace from './components/WorkSpace/WorkSpace.jsx'
+import Navbar from "../../../Navbar/Navbar.jsx"
+import WorkSpace from "../../../WorkSpace/WorkSpace.jsx"
 
 /*
     Descripción.

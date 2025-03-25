@@ -3,10 +3,10 @@ import "./WorkSpace.css" // Estilos personalizados para el componente WorkSpace.
 import "./WorkSpace" // Funciones personalizadas para el componente WorkSpace.
 
 //Importamos los componentes Hijos
-import Tutoring from "./components/Tutoring/Tutoring.jsx";
-import Routes from "./components/Routes/Routes.jsx";
-import Forum from "./components/Forum/Forum.jsx";
-import Calendar from "./components/Calendar/Calendar.jsx";
+import Tutoring from "../../pages/Tutoring/Tutoring.jsx"
+import Routes from "../../pages/Routes/Routes.jsx";
+import Forum from "../../pages/Forum/Forum.jsx";
+import Calendar from "../../pages/Calendar/Calendar.jsx";
 
 /*
     Descripción.

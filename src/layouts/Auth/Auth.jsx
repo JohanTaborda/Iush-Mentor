@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./Auth.css" // Estilos personalizados para el componente Auth.
-import "./Auth" // Funciones personalizadas para el componente Auth.
+import "./Auth.js" // Funciones personalizadas para el componente Auth.
 
 //Importamos los componentes Hijos
-import Login from "./Components/Login/Login.jsx"
-import Register from "./Components/Register/Register.jsx"
+import Login from "../../pages/Login/Login.jsx"
+import Register from "../../pages/Register/Register.jsx"
 
 /*
     Descripción.
