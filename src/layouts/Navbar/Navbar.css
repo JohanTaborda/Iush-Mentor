@@ -21,7 +21,6 @@
     align-items: center;
     justify-content: space-around;
     text-wrap: nowrap;
-
 }
 
 .sidebar__title{ /*Propiedades para el titulo*/
@@ -48,7 +47,7 @@
     height: 100% ;
 }
 
-.sidebar--button { /*Propiedades para cada uno de los botones del componente.*/
+.sidebar--button, .button--opinionNav { /*Propiedades para cada uno de los botones del componente.*/
     display: flex;
     align-items: center;
     gap: 15px;
@@ -79,6 +78,11 @@
     color: #000;
 }
 
+.button--opinionNav:hover{ /*Hover para el botón de Opiniones.*/
+    opacity: 1;
+    background-color: #f9f9f9;
+}
+
 .sidebar__button--active{ /*Propiedad que se toma cuando se le da clic a uno de los botones.*/
     opacity: 1;
     background-color: #f9f9f9;
@@ -97,14 +101,24 @@
 }
 
 #sidebar--button__opinion{ /*Propiedades para el botón de 'Cuentos tu Opinión'.*/
-    margin-top: auto;  
-    justify-content: center;
     padding-left: 4px;
     background-color: transparent;
     color: #fff;
 }
 
 #sidebar--button__opinion:hover{opacity: 1;} /*Hover para el botón de 'Opinion'*/
+
+#sidebar--button__exit{ /*Propiedades para el botón de 'Cuentos tu Opinión'.*/
+    margin-top: auto;  
+    justify-content: center;
+    padding-left: 4px;
+    background-color: transparent;
+    color: #fff;
+    opacity: 1;
+}
+
+#sidebar--button__exit:hover{opacity: 0.5;} /*Hover para el botón de 'Opinion'*/
+
 
 .custom-tooltip { /*Propiedades para el bloque del Tooltip*/
     background-color: #285194 !important; 
@@ -138,8 +152,8 @@
         flex-direction: row;
         margin: 0;       
     }
-
+    
     .sidebar--button__Text {display: none; } /* Oculta el texto de los botones*/
 
-    #sidebar--button__opinion{ margin-top: 0;  } /*Propiedades para el botón de 'Cuentos tu Opinión'. Lo alineamos a los demás botones.*/
+    #sidebar--button__exit{ margin-top: 0;  } /*Propiedades para el botón de 'Cuentos tu Opinión'. Lo alineamos a los demás botones.*/
 }
