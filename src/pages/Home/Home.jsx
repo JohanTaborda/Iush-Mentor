@@ -1,6 +1,6 @@
 import React from "react";
-import "./Calendar" // Funciones personalizadas para el componente Calendar.
-import "./Calendar.css" // Estilos personalizados para el componente Calendar.
+import "./Home" // Funciones personalizadas para el componente Home.
+import "./Home.css" // Estilos personalizados para el componente Home.
 
 /*
     Descripción.
@@ -14,7 +14,7 @@ import "./Calendar.css" // Estilos personalizados para el componente Calendar.
         * retorno1 (tipo): Descripción.
 */
 
-const Calendar = () => {
+const Home = () => {
 
     // Variables.
 
@@ -34,9 +34,9 @@ const Calendar = () => {
 
     return(
         <>
-            Espacio para trabajar el Calendario.
+            Espacio para trabajar la sección de Inicio.
         </>
     )
 }
 
-export default Calendar;
+export default Home;

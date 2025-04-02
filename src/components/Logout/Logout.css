@@ -1,0 +1,57 @@
+#containerGeneralLogout{
+    height: 160px;
+    width: 384px;
+    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(#285194,  #0C192E);
+}
+
+.Logout__title{
+    font-size: 30px;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    font-family: "Outfit";
+    color: #fff;
+}
+
+.logout__buttons{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    width: 100%;
+    gap: 20px;
+}
+
+.buttons--interactive{
+    border: 0;
+    border-radius: 8px;
+    height: 40px;
+    width: 80px;
+    font-size: 15px;
+    font-family: "Outfit";
+    transition: transform 0.2s ease-in-out;
+}
+
+.buttons--interactive:hover{transform: scale(1.05);}
+
+#button--cancel{background-color: #c2bdbd;}
+
+#button--cancel:hover{background-color: #b1abab;}
+
+#button--acept{
+    background-color: #0e6ac0;
+    color: #fff;
+}
+
+#button--acept:hover{
+    background-color: #106fc7;
+}
+
+/*media query, para estilos específicos cuando el ancho de la pantalla es de 391px o menor.*/
+@media screen and (max-width: 391px) {
+    #containerGeneralLogout{width: 92vw;}
+}
