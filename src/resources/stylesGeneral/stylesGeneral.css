@@ -32,7 +32,8 @@
     display: flex;
     top: 50%; /*Estas propiedades colocan el elemento en el centro de la ventana del navegador, tomando como referencia el 50% del alto y del ancho de la ventana.*/
     left: 50%;
-    transform: translate(-50%, -50%); /*Esta transformación ajusta la posición del elemento para que su centro coincida con el centro de la ventana.*/
+    transform: translate(-50%, -50%) translateY(100%); 
+    transition: transform 0.5s ease, opacity 0.5s ease; /*Esta transformación ajusta la posición del elemento para que su centro coincida con el centro de la ventana.*/
     background: #fff;
     color: #000;
     width: 250px ;
@@ -41,4 +42,14 @@
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /*Sombra al rededor de la ventana emergente*/
     z-index: 1000; /*Este elemento, establece un apilamiento del elemento, esto quiere decir, que si ponemos un valor alto asegura que esta ventana emergente esté por encima de otros elementos en la página.*/
+}
+
+.containerGeneralOverlay.active{ /*Animación que se genera cuando el contenedor aparece.*/
+    transform: translate(-50%, -50%) translateY(0);
+    opacity: 1;
+}
+
+.containerGeneralOverlay.hidden{ /*Animación que se genera cuando el contenedor se oculta.*/
+    transform: translate(-50%, -50%) translateY(100%);
+    opacity: 0;
 }
