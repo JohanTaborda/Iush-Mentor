@@ -25,8 +25,8 @@
 .img_IUSH{ /*se le da el estilo al logo de la pagina web */
     height: 100%;
     width: 450px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 9px;
 }
 .overlay{ /*diseño para que se vea el fondo medio opaco al darle iniciar sesión */
     position: fixed;
@@ -52,14 +52,14 @@
     flex-direction: column;
     padding: 10px 20px 0 20px;
 }
-#LoginInput {  /* le damos el diseño a los input del login*/
+.input_Credential {  /* le damos el diseño a los input del login*/
     width: 100%;
+    height: 37px !important;
     padding: 7px;
-    font-size: 16px;
+    font-size: 13.5px;
     border: 2px solid #ccc;
     border-radius: 5px;
     outline: none;
-    width: 100%;
   }
 
 .login_forms #BtnWelcome{  /* se le hace el diseño al boton ingresar*/
@@ -75,8 +75,10 @@
     font-size: 12px;
 }
 .Login_error{  /* estilo que se le da al error cuando no se ponen datos en los inputs y se le da al boton de ingresar */
-    margin: 20px;
-    font-weight: 800;
+    margin: 7px;
+    font-weight: 1000;
+    color: red;
+    text-align: center;
 }
 
 .Login_Welcometittle{  /*se le da el estilo al bienvenidos del login */
@@ -85,7 +87,7 @@
 }
 #click_register{  /*Al apartado de registrarse se le da un diseño */
     cursor: pointer;
-    font-size: 14px;
+    font-size: 18px;
     display: flex;
     text-align: center;
     color: #007bff;
@@ -95,33 +97,50 @@
     display: flex;
     text-align: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 18px;
     gap: 10px;
-}
 
-.input__password{  /* estilo que se le da al input de la contraseña para una mejor ubicacion del icono*/
-    padding-right: 35px !important;
 }
-
 .icons_eyes{  /* tamaño que se le dan a los iconos*/
     font-size: 18px;
+    bottom: 100px !important;
 }
 
 .container__password{ /* para que los iconos sigan permaneciendo ahi sin importar que la pagina se abra desde un pc o celular*/
     position: relative;
+    width: 100%;
 }
 
 #ubicacion__icon{  /* ubicacion del icono de ojo*/
     position: absolute;
     right: 10px;
-    top: 12px;
+    top: 10px;
+    cursor: pointer;
 }
 .mss_top{  /* estilo que se le da a la letra para que se vea de una forma mejor */
     font-weight: 450;
     font-size: 12px;
 }
+input::placeholder {
+    font-size: 12px; 
+    color: gray;
+  }
 
 .icon_cap{font-size: 20px;}
+
+.icon_close{
+    font-size: 38px !important;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.icon_close:hover{
+    background-color: gainsboro;
+}
+.input__Credentials{
+
+}
 
 @media(max-width:775px){
     .img_IUSH{
@@ -155,4 +174,5 @@
     .Login__container{ /* se diseña el contenedor para que se vea de una forma mas organizada y agradable de ver*/
         width: 80%
     }
-}
+} 
+

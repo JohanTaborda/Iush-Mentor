@@ -18,7 +18,7 @@ import Register from "../../pages/Register/Register.jsx"
         * retorno1 (tipo): Descripción.
 */
 
-const Auth = ({setMainComponent}) => {
+const Auth = ({setMainComponent, setVisAuth}) => {
     // Variables.
 
     // Constantes.
@@ -42,7 +42,7 @@ const Auth = ({setMainComponent}) => {
             {visRegister ? (
                 <Register/>
             ) : (
-                <Login setVisRegister={setVisRegister} setMainComponent={setMainComponent}/>
+                <Login setVisRegister={setVisRegister} setMainComponent={setMainComponent} setVisAuth={setVisAuth} />
             )}
         
         </>
