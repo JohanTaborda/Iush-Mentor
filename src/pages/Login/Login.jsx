@@ -29,6 +29,10 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
         } else if (password !== validarContraseña || user !== validarUsuario) {
             setErrors("Credenciales incorrectas");
         }
+
+        if(user == validarUsuario && password == validarContraseña){ 
+            setMainComponent(true)
+        }
     };
 
     const icon__eyeEnable = () => (
@@ -65,7 +69,7 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
                                 <span id="ubicacion__icon">{showPwd ? icon__eyeDisabled() : icon__eyeEnable()}</span>
                             </div>
                             <div>
-                                <button id="BtnWelcome">INGRESAR</button> 
+                                <button id="BtnWelcome" >INGRESAR</button> 
                                 <p className="Login_error">{errors}</p>
                             </div>
                             <div className="Login__Register">
