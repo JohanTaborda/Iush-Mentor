@@ -70,8 +70,8 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
                             </div>
                             <div>
                                 <button id="BtnWelcome" >INGRESAR</button> 
-                                <p className="Login_error">{errors}</p>
                             </div>
+                                <p className="Login_error">{errors}</p>
                             <div className="Login__Register">
                                 <p className="Login_not">¿No tienes cuenta? </p>
                                 <a onClick={() => setVisRegister(false)} id="click_register">

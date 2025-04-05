@@ -48,7 +48,7 @@
     background-color: white;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     flex-direction: column;
     padding: 10px 20px 0 20px;
 }
@@ -75,11 +75,10 @@
     font-size: 12px;
 }
 .Login_error{  /* estilo que se le da al error cuando no se ponen datos en los inputs y se le da al boton de ingresar */
-    margin: 7px;
-    font-weight: 1000;
+    font-weight: 500;
     color: red;
     text-align: center;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .Login_Welcometittle{  /*se le da el estilo al bienvenidos del login */
@@ -92,7 +91,7 @@
     display: flex;
     text-align: center;
     color: #007bff;
-    font-weight: 800;
+    font-weight: 600;
 }
 .Login__Register{  /* se organiza el contenedor donde esta ubicado el registro */
     display: flex;
@@ -139,9 +138,7 @@ input::placeholder {
 .icon_close:hover{
     background-color: gainsboro;
 }
-.input__Credentials{
 
-}
 
 @media(max-width:775px){
     .img_IUSH{
@@ -149,11 +146,11 @@ input::placeholder {
     }
     .Login__Register{
         display: flex;
-        font-size: 10px;
-        gap: 8px;
+        font-size: 16px;
+        text-wrap: nowrap;
     }
     #click_register{
-        font-size: 11px;
+        font-size: 16px;
     }
     .Login_error{
         height: 10px;
@@ -176,4 +173,10 @@ input::placeholder {
         width: 80%
     }
 } 
+@media(max-width:400px){
+    .Login__Register{
+        display: flex;
+        gap: 8px;
+    }
+}
 
