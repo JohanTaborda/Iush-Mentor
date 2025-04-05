@@ -23,10 +23,7 @@ const Header = ({ setMainComponent }) => {
       </div>
       <button onClick={() => setVisAuth(true)} className="login_btn_MainPanel">Iniciar Sesión</button>
       {visAuth && (
-
-            <Auth setMainComponent={setMainComponent} setVisAuth={setVisAuth} />
-        )}
-        <Auth setMainComponent={setMainComponent} />
+        <Auth setMainComponent={setMainComponent} setVisAuth={setVisAuth} />
       )}
     </header>
   );
