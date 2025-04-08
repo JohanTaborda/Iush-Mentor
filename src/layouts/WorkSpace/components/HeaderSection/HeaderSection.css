@@ -1,0 +1,128 @@
+.header__Section{
+    background-color: #285194;
+    height: 70px;
+    /*border-left: 1px solid #fff ;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.container__Search{
+    display: flex; 
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.input__Search{
+    height: 40px;
+    width: 35vw;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    padding: 0 32px;
+    font-family: "Manrope";
+    font-weight: 400;
+}
+
+.span__Search{
+    position: absolute;
+    margin: 6px 7px;
+}
+
+.span_Delete{
+    position: absolute;
+    right: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.input_icons{position: relative;}
+
+.button--create{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: "Outfit";
+}
+
+.button--notification{
+    background-color: transparent !important;
+    border: none;
+}
+
+.button--notification::after {display: none;}
+
+.container_buttons{
+    display: flex;
+    margin-right: 10px;
+}
+
+.switche--color{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    height: 50px;
+}
+
+#custom-switch{
+    height: 23px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.icons__lenguage{
+    height: 30px;
+}
+
+.title__notifications{
+    margin: 0;
+    padding: 5px;
+    height: 40px;
+    width: 100;
+    font-size: 20px;
+    font-family: "Outfit";
+    text-align: center;
+}
+
+.container__notifications, .prueba{padding: 0;}
+
+.elements__notifications{
+    display: flex;
+    flex-direction: column;
+    max-height: 150px;
+    width: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.elements__notifications::-webkit-scrollbar{width: 0;}
+
+.label__info{
+    height: 40px;
+    padding: 10px;
+    overflow: hidden;            
+    text-overflow: ellipsis;   
+    display: block;
+    font-family: "Manrope";
+    font-size: 15px;
+}
+
+.label__notInfo{
+    text-align: center;
+    height: 40px;
+    padding: 5px;
+    width: 100%;
+}
+
+.items__notifications{
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+}
+
