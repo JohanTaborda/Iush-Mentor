@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "./Logout" // Funciones personalizadas para el componente Logout.
 import "./Logout.css" // Estilos personalizados para el componente Logout.
 
 //Recibimos mediante props los siguientes setter: 

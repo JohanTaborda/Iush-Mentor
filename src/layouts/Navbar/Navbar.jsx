@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"; //Importamos los hooks.
-import "./Navbar" // Funciones personalizadas para el componente Navbar.
 import "./Navbar.css" // Estilos personalizados para el componente Navbar.
 
 import Tooltip from '@mui/material/Tooltip'; //De la importación "@mui/material/Tooltip" utilizamos la función del Tooltip, el cual nos sirve para los botones.
@@ -10,8 +9,7 @@ import Logout from "../../components/Logout/Logout.jsx"; //Componente para cerra
 //Iconos para el navbar
 import { IoMenu } from "react-icons/io5";
 import { IoMdHome, IoMdExit } from "react-icons/io";
-import { FaChartLine } from "react-icons/fa";
-import { MdNotificationsActive, MdForum } from "react-icons/md";
+import {  MdForum } from "react-icons/md";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { SiCodementor } from "react-icons/si";
 
@@ -30,8 +28,6 @@ const Navbar = ({setButtonSelected, setMainComponent}) => {
     //Funciones para los iconos
     const icon_Menu = () => <IoMenu id="sidebar__iconMenu" onClick={() => setSidebarMinimized(!sidebarMinimized) }/> //Icono para minimizar la barra.
     const icon_Home = () => <IoMdHome className="sidebar__icons"/> //Icono para el botón de "Tutorias"
-    const icon_Chart = () => <FaChartLine  className="sidebar__icons"/> //Icono para el botón de "Mis Rutas"
-    const icon_Notification = () => <MdNotificationsActive  className="sidebar__icons"/> //Icono para el botón de "Notificaciones"
     const icon_Forum = () => <HiOutlineUserGroup  className="sidebar__icons"/> //Icono para el botón de Foro
     const icon_Opinion = () => <MdForum  className="sidebar__icons"/> //Icono para el botón de Opinión
     const icon_Tutoring = () => <SiCodementor  className="sidebar__icons"/> //Icono para el botón de "Inicio".
@@ -41,7 +37,6 @@ const Navbar = ({setButtonSelected, setMainComponent}) => {
     const buttonSections = [ //Cada uno de los arrays es un botón.
        {title: "Inicio", icon: icon_Home()},
        {title: "Tutorias", icon: icon_Tutoring()},
-       {title: "Mis Rutas", icon: icon_Chart()},
        {title: "Foro", icon: icon_Forum()},
        {title: "Danos tu opinión", icon: icon_Opinion()},
     ]
@@ -53,7 +48,10 @@ const Navbar = ({setButtonSelected, setMainComponent}) => {
             setButtonSelected(type)  //Actualizamos el prop recibido para navegar por las secciones, según el botón seleccionado.
             sessionStorage.setItem('setButtonSelected', type); //En setButtonSelected, mediante el valor que este en 'Type' lo vamos a guardar en el sessionStorage.
             sessionStorage.setItem('optionSelected', type); //En optionSelected, con el valor recibido en 'type' vamos almacenarlo en el sessionStorage.
-        } 
+        }else {
+            window.open('https://forms.gle/3qxgAimXt7iTzXiD6', '_blank');
+        }
+        
     }
    
     useEffect(() => { //useEffect que cambia el estado setSidebarMinimized cuando el ancho es menor a 768, para tomar otros estilos el navbar.

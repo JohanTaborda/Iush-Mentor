@@ -1,5 +1,4 @@
 import React from "react";
-import "./Tutoring" // Funciones personalizadas para el componente Tutoring.
 import "./Tutoring.css" // Estilos personalizados para el componente Tutoring.
 
 /*

@@ -1,5 +1,4 @@
 import React from "react";
-import "./Home" // Funciones personalizadas para el componente Home.
 import "./Home.css" // Estilos personalizados para el componente Home.
 
 /*

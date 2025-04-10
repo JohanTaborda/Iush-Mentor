@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./MainPanel.css"; // Estilos personalizados para el componente MainPanel.
-import "./MainPanel.js";  // Funciones personalizadas para el componente MainPanel.
 
 //Importamos los componentes Hijos
 import Auth from "../../../Auth/Auth.jsx";

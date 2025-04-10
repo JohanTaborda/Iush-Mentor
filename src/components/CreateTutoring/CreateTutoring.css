@@ -1,0 +1,5 @@
+#container__createTutoring{ 
+    /*Luego de tener botón para aceptar o cancelar, se debe quitar ese transform y en el jsx, agregar la misma clase
+    que tiene el componente de 'Logout'. Para obtener la animación.*/
+    transform: translate(-50%, -50%) translateY(0); 
+}

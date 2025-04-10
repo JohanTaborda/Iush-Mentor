@@ -1,5 +1,4 @@
 import React, { useState } from "react"; 
-import "./Login";  
 import "./Login.css";  
 import { FaRegEyeSlash } from "react-icons/fa6"; 
 import { FaRegEye } from "react-icons/fa"; 

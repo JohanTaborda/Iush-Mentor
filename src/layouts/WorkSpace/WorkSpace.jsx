@@ -1,6 +1,5 @@
 import React from "react";
 import "./WorkSpace.css" // Estilos personalizados para el componente WorkSpace.
-import "./WorkSpace" // Funciones personalizadas para el componente WorkSpace.
 
 //Importamos los componentes Hijos
 import HeaderSection from "./components/HeaderSection/HeaderSection.jsx"; //Componente que muestra el encabezado (filtro), de la aplicación
@@ -12,7 +11,7 @@ const WorkSpace = ({buttonSelected}) => {
 
     return(
         <div className="container__Workspace">
-            <HeaderSection/>
+            <HeaderSection buttonSelected={buttonSelected}/>
             <DataSection buttonSelected={buttonSelected} />
         </div>
     )
