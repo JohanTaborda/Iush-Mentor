@@ -1,3 +1,17 @@
 .textSections{ /*Propiedad para el contenedor que almacena el componente renderizado.*/
     font-size: 40px;
 }
+.mainDataSection {
+	background-color: whitesmoke;
+	height: 100vh;
+	overflow-y: auto;
+	padding: 1rem;
+	box-sizing: border-box;
+  }
+  
+  /* En móviles, deja espacio para navbar si lo tienes fijo abajo */
+  @media screen and (max-width: 760px) {
+	.mainDataSection {
+	  height: calc(100vh - 130px);
+	}
+  }

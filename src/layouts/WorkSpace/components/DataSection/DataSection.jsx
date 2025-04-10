@@ -37,10 +37,11 @@ const DataSection = ({buttonSelected}) => {
     }
 
     return(
-        <div className="textSections"> {/*Bloque que almacena el componente renderizado.*/}
+        <div className="mainDataSection"> 
+        {/*Bloque que almacena el componente renderizado.*/}
             {renderSections()} {/*Llamamos la función para renderizar el componente. */}
         </div>
     )
 }
-
 export default DataSection;
+

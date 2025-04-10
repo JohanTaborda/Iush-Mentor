@@ -1,0 +1,69 @@
+/* Estilo base para la tarjeta de subcategoría */
+.subcategory-card {
+  background-color: #f0f8ff; /* Azul muy claro, da un toque limpio y moderno */
+  border-radius: 0.5rem; /* Bordes redondeados */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Sombra suave */
+  padding: 0.75rem; /* Espaciado interno general */
+  min-width: 200px;
+  max-width: 240px;
+  flex: 1 0 auto; /* No crecer, no reducir, ocupar su espacio */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animaciones suaves */
+  font-size: 0.85rem; /* Tamaño de fuente base */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribuye contenido verticalmente */
+}
+
+/* Efecto al pasar el mouse por encima de la tarjeta */
+.subcategory-card:hover {
+  transform: translateY(-3px); /* Eleva ligeramente la tarjeta */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más marcada */
+}
+
+/* Encabezado de la tarjeta: ícono + título */
+.subcategory-card__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilo del ícono de la subcategoría */
+.subcategory-card__icon {
+  margin-right: 0.4rem;
+  font-size: 1.4rem;
+}
+
+/* Título del programa */
+.subcategory-card__title {
+  font-family: 'Outfit', sans-serif; /* Fuente moderna para títulos */
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #1e293b; /* Azul oscuro */
+}
+
+/* Descripción breve del programa */
+.subcategory-card__description {
+  font-family: 'Manrope', sans-serif; /* Fuente para texto descriptivo */
+  font-size: 0.85rem;
+  color: #555; /* Gris medio */
+}
+
+/* Botón para acceder a las tutorías */
+.subcategory-card__button {
+  background-color: #184ea5; /* Azul brillante (estilo Tailwind) */
+  color: #fff;
+  border: none;
+  padding: 0.3rem 0.75rem;
+  border-radius: 0.4rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  align-self: flex-start; /* Alinea el botón a la izquierda */
+  transition: background-color 0.3s ease; /* Suaviza cambio de color al hover */
+}
+
+/* Efecto hover del botón */
+.subcategory-card__button:hover {
+  background-color: #6091fa; /* Azul más oscuro al pasar el mouse */
+}
