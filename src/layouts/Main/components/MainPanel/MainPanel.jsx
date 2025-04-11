@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./MainPanel.css"; // Estilos personalizados para el componente MainPanel.
 import "./MainPanel.js";  // Funciones personalizadas para el componente MainPanel.
+
+import { Link, useLocation } from "react-router-dom";
 
 //Importamos los componentes Hijos
 import Auth from "../../../Auth/Auth.jsx";
@@ -10,7 +12,14 @@ import { FcReadingEbook, FcFinePrint, FcMindMap, FcIdea, FcLibrary } from "react
 
 //Componente Header
 const Header = ({ setMainComponent }) => {
+  const location = useLocation();
+
   const [visAuth, setVisAuth] = useState(false);
+
+  useEffect(() => {
+    {location.pathname === "/ingresar" ? setVisAuth(true) : setVisAuth(false)}
+  }, [location.pathname]);
+
   return (
     <header className="header_MainPanel_bar">
       <div className="header_MainPanel_left">
@@ -21,7 +30,7 @@ const Header = ({ setMainComponent }) => {
         />
         <h1 className="header_MainPanel_tittle">IUSH Mentor</h1>
       </div>
-      <button onClick={() => setVisAuth(true)} className="login_btn_MainPanel">Iniciar Sesión</button>
+        <Link to="/ingresar" > <button onClick={() => setVisAuth(true)} className="login_btn_MainPanel">Iniciar Sesión</button> </Link> 
       {visAuth && (
         <Auth setMainComponent={setMainComponent} setVisAuth={setVisAuth} />
       )}
