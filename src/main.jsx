@@ -1,4 +1,3 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import "./resources/stylesGeneral/stylesGeneral.css" //Importamos Estilos Generales.
 
@@ -6,10 +5,12 @@ import "./resources/stylesGeneral/stylesGeneral.css" //Importamos Estilos Genera
 import 'bootstrap/dist/css/bootstrap.css'; 
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+import { BrowserRouter } from 'react-router-dom'; //Activamos el sistema de rutas en la aplicación.
+
 import Main from './layouts/Main/Main.jsx';
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
+    <BrowserRouter>
       <Main />
-    </StrictMode>
+    </BrowserRouter>
 )
