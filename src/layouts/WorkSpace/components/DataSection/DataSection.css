@@ -2,16 +2,15 @@
     font-size: 40px;
 }
 .mainDataSection {
-	background-color: whitesmoke;
 	height: 100vh;
+	background-color: whitesmoke; /* Fondo gris muy claro */
 	overflow-y: auto;
-	padding: 1rem;
-	box-sizing: border-box;
-  }
+	overflow-x: hidden;
+}
   
-  /* En móviles, deja espacio para navbar si lo tienes fijo abajo */
+  /* En móviles, deja espacio para navbar si está fijo abajo */
   @media screen and (max-width: 760px) {
 	.mainDataSection {
-	  height: calc(100vh - 130px);
+	  height: calc(100vh - 85px);
 	}
   }

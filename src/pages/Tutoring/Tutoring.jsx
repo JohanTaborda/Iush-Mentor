@@ -62,15 +62,17 @@ const CarouselArrow = ({ direction, onClick }) => (
 // ============================
 const SubschoolCarousel = ({ title, data }) => {
   const [startIndex, setStartIndex] = useState(0); // Índice inicial del carrusel
-  const [itemsPerPage, setItemsPerPage] = useState(3); // Tarjetas visibles según tamaño
+  const [itemsPerPage, setItemsPerPage] = useState(5); // Tarjetas visibles según tamaño
 
   // Detecta tamaño de pantalla para ajustar items visibles
   useEffect(() => {
     const updateItemsPerPage = () => {
       const width = window.innerWidth;
-      if (width < 600) setItemsPerPage(1);
+      if (width < 550) setItemsPerPage(1);
       else if (width < 992) setItemsPerPage(2);
-      else setItemsPerPage(3);
+      else if (width < 1150) setItemsPerPage(3);
+      else if (width < 1300) setItemsPerPage(4);
+      else setItemsPerPage(5); //Máximo 5 en pantallas grandes
     };
     updateItemsPerPage();
     window.addEventListener("resize", updateItemsPerPage);
