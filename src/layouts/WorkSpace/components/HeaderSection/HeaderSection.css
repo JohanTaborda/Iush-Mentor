@@ -56,12 +56,11 @@
     font-family: "Outfit";
     height: 40px;
     width: 130px;
-    background-color: #4e79c5;
-    color: #fff;
+    background-color: #fff;
+    color: #000;
 }
 
 .button--create:hover{ /*Hover para los botones de crear.*/
-    background-color: #597EBC;
     transform: scale(1.02);
     box-shadow: 0 0 10px 0 #000;
 }
@@ -162,9 +161,9 @@
 
 .title__bienvenida{ /*Propiedades para el titulo que sale en la sección de inicio*/
     text-align: center;
-    font-size: 32px;
+    font-size: 28px;
     font-family: "Outfit";
-    font-weight: 800;
+    font-weight: 550;
     color: #fff;
 }
 

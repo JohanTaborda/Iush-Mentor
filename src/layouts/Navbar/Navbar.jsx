@@ -10,7 +10,6 @@ import Logout from "../../components/Logout/Logout.jsx"; //Componente para cerra
 import { IoMenu } from "react-icons/io5";
 import { IoMdHome, IoMdExit } from "react-icons/io";
 import {  MdForum } from "react-icons/md";
-import { MdForum } from "react-icons/md";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { SiCodementor } from "react-icons/si";
 
@@ -33,13 +32,6 @@ const Navbar = ({setButtonSelected, setMainComponent}) => {
     const icon_Tutoring = () => <SiCodementor  className="sidebar__icons"/> //Icono para el botón de "Inicio".
     const icon_Exit = () => <IoMdExit  className="sidebar__icons"/> //Icono para el botón de "Salir".
     
-    //Este array de objetos almacena cada uno de los textos e iconos para cada uno de los botones del navbar. 
-    const buttonSections = [ //Cada uno de los arrays es un botón.
-       {title: "Inicio", icon: icon_Home()},
-       {title: "Tutorias", icon: icon_Tutoring()},
-       {title: "Foro", icon: icon_Forum()},
-       {title: "Danos tu opinión", icon: icon_Opinion()},
-    ]
     useEffect(() => {
         // Buscamos la ruta que coincida con el pathname actual
         const currentRoute = buttonSections.find(item => item.path && location.pathname.startsWith(item.path) ) || { title: "inicio" };  // Valor por defecto si no encuentra coincidencia

@@ -37,7 +37,7 @@ const HeaderSection = ({buttonSelected}) => {
     const icon_system = () => <FaInfoCircle style={{fontSize:"20px", color:"#fff"}}/>
     const icon_notiUser = () => <PiBookOpenUserBold style={{fontSize:"20px", color:"#fff"}}/>
     const icon_settings = () => <LuSettings style={{fontSize:"20px", color:"#fff"}}/>
-    const icon_add = () => <IoMdAdd style={{fontSize:"20px", color:"#fff"}}/>
+    const icon_add = () => <IoMdAdd style={{fontSize:"20px", color:"#000"}}/>
 
     const phrases = [ //Arreglo que almacena las frases a mostrar en 'Inicio', estas se muestran de forma aleatoria, con el indice de phrasesIndex.
         ["¡Bienvenid@ a tu espacio de tutorías!"],
