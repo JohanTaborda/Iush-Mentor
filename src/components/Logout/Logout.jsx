@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./Logout.css" // Estilos personalizados para el componente Logout.
+import { Link } from "react-router-dom";
 
 //Recibimos mediante props los siguientes setter: 
 //El primero sirve para cerrar la ventana y seguir dentro de App.
@@ -30,7 +31,7 @@ const Logout = ({setVisWindowsLogout, setMainComponent}) => {
                 <h1 className="Logout__title">¿Desea Cerrar Sesión?</h1>
                 <div className="logout__buttons">
                     <button className="buttons--interactive" id="button--cancel" onClick={() => handleCloseWindow()}>Cancelar</button>
-                    <button className="buttons--interactive" id="button--acept" onClick={() => handleCloseSesion()}>Aceptar</button>
+                    <Link to="/" > <button className="buttons--interactive" id="button--acept" onClick={() => handleCloseSesion()}>Aceptar</button></Link> 
                 </div>
             </section>
         </div>
