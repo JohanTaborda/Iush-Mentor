@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "./Logout" // Funciones personalizadas para el componente Logout.
 import "./Logout.css" // Estilos personalizados para el componente Logout.
 import { Link } from "react-router-dom";
 

@@ -121,7 +121,7 @@
     font-weight: 450;
     font-size: 12px;
 }
-input::placeholder {
+.input_Credential::placeholder {
     font-size: 12px; 
     color: gray;
   }
@@ -138,7 +138,6 @@ input::placeholder {
 .icon_close:hover{
     background-color: gainsboro;
 }
-
 
 @media(max-width:775px){
     .img_IUSH{

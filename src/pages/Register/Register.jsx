@@ -1,5 +1,4 @@
 import React from "react";
-import "./Register" // Funciones personalizadas para el componente Register.
 import "./Register.css" // Estilos personalizados para el componente Register.
 
 /*

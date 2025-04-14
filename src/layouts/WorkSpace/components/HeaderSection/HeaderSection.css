@@ -1,0 +1,200 @@
+.header__Section{ /*Propiedad para el contenedor principal del componente.*/
+    background-color: #275092;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.container__Search{ /*Propiedades para toda la sección de Tutorias.*/
+    display: flex; 
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+    margin-left: 5px;
+}
+
+.input__Search{ /*Propiedades para el buscador de tutorias (Input)*/
+    height: 40px;
+    width: 35vw;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    padding: 0 32px;
+    font-family: "Outfit";
+    font-weight: 400;
+}
+
+.input__Search::placeholder{ /*Propiedades para el placeholder del input de busqueda.*/
+    font-size: 15px;
+    font-family: "Outfit";
+}
+
+.span__Search{ /*Propiedades para el icono de la lupa que se encuentra en la parte izquierda del input*/
+    position: absolute;
+    margin: 6px 7px;
+}
+
+.span_Delete{ /*Propiedades para el icono de la X que se encuentra en la parte derecha del input, este sale al escribir texto.*/
+    position: absolute;
+    right: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.input_icons{position: relative;} /*Propiedades para los iconos y el input.*/
+
+.button--create{ /*Propiedades para el botón de 'Crear Tutoria' & crear 'Nuevo Hilo'.*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: "Outfit";
+    height: 40px;
+    width: 130px;
+    background-color: #fff;
+    color: #000;
+}
+
+.button--create:hover{ /*Hover para los botones de crear.*/
+    transform: scale(1.02);
+    box-shadow: 0 0 10px 0 #000;
+}
+
+#button--add{width: 210px; font-size: 18px;} /*Propiedades para el icono de añadir '+' que se encuentra en el botón de 'Nuevo Hilo'*/
+
+.button--notification, .button--profile{ /*Propiedades para los botones con dropdown*/
+    background-color: transparent !important;
+    border: none;
+}
+.button--notification:hover, .button--profile:hover{transform: scale(1.08);} /*Efecto para cada botón*/
+
+.button--notification::after, .button--profile::after {display: none;} /*Quitamos la flecha de cada botón*/
+
+.img__user{ border-radius: 50%; width: 32px; } /*Propiedades para la foto del perfil del usuario.*/
+
+.container_buttons{ /*Contenedor que almacena los botones de dropdown.*/
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.switche--color{ /*Propiedades para el contenedor que almacena el switche que esta en el dropdown de perfil.*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    height: 50px;
+    background-color: #285194;
+    color: #fff;
+}
+
+.switche--color:hover{background-color: rgb(49, 98, 175); color: #fff;}
+
+#custom-switch{ /*Propiedades para el switche*/
+    height: 23px;
+    width: 50px;
+    cursor: pointer;
+}
+
+.title__notifications{ /*Propiedades para el titulo de notificaciones.*/
+    margin: 0;
+    padding: 5px;
+    height: 40px;
+    width: 100;
+    font-size: 20px;
+    font-family: "Outfit";
+    text-align: center;
+}
+
+.container__notifications { /*Propiedades para el contenedor de notificaciones*/
+    padding: 0 0 15px 0; 
+    /*background: linear-gradient(#285194,  #0C192E);*/
+    background-color: #285194;
+    color: #fff;
+}
+
+.elements__notifications{ /*Contenedor que genera el scroll cuando hay muchas notificaciones.*/
+    display: flex;
+    flex-direction: column;
+    max-height: 150px;
+    width: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.elements__notifications::-webkit-scrollbar{width: 0;} /*Propiedades para el scroll*/
+
+.items__notifications{ /*Propiedades para cada notificación que se genere*/
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    color: #fff;
+}
+
+.items__notifications:hover{
+    background: transparent; 
+    color: #fff;
+    transform: scale(1.02);
+}
+
+.label__info{ /*propiedades para el texto que se muestra en cada notificacion*/
+    height: 40px;
+    padding: 10px;
+    overflow: hidden;            
+    text-overflow: ellipsis;   
+    display: block;
+    font-family: "Manrope";
+    font-size: 15px;
+}
+
+.label__notInfo{ /*Propiedades para el texto que sale cuando no hay notificaciones.*/
+    text-align: center;
+    height: 40px;
+    padding: 5px;
+    width: 100%;
+}
+
+.title__bienvenida{ /*Propiedades para el titulo que sale en la sección de inicio*/
+    text-align: center;
+    font-size: 28px;
+    font-family: "Outfit";
+    font-weight: 550;
+    color: #fff;
+}
+
+.title__settings{ /*Propiedades para el titulo de 'Configuración'.*/
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: "Outfit";
+}
+
+/*Media querys para adpartase a diferentes tipos de pantallas.*/
+
+@media screen and (max-width: 1100px) {
+    .title__bienvenida{ font-size: 24px;}
+}
+
+@media screen and (max-width: 768px) {
+    .button--create{
+        justify-content: center;
+        gap: 10px;
+        font-size: 16px;
+        height: 40px;
+        width: 100%;
+    } 
+}
+
+@media screen and (max-width: 464px) {
+    .title__bienvenida{font-size: 17.5px; }
+    #button--add{
+        width: 100%;
+        font-size: 17px;
+        overflow: hidden;
+    }
+}

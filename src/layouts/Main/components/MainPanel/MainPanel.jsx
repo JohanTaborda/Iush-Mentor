@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./MainPanel.css"; // Estilos personalizados para el componente MainPanel.
-import "./MainPanel.js";  // Funciones personalizadas para el componente MainPanel.
 
 import { Link, useLocation } from "react-router-dom";
 

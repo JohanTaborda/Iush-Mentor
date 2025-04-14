@@ -1,5 +1,4 @@
 import React from "react";
-import "./Forum" // Funciones personalizadas para el componente Forum.
 import "./Forum.css" // Estilos personalizados para el componente Forum.
 
 /*

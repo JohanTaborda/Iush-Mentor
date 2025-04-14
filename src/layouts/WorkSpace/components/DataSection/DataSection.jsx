@@ -6,19 +6,19 @@ import { Routes, Route, Navigate, useNavigate } from "react-router-dom"; //Navig
 
 //Importamos los componentes Hijos
 import Tutoring from "../../../../pages/Tutoring/Tutoring.jsx";
+
 import Forum from "../../../../pages/Forum/Forum.jsx";
 import Home from "../../../../pages/Home/Home.jsx";
 
 const DataSection = ({ buttonSelected }) => {
 
   const navigate = useNavigate();
-
-  useEffect(() => { //Efecto que permite navegar entre las rutas según el botón seleccionado
-    switch (buttonSelected) {
-      case "Inicio": navigate("/inicio"); break;
-      case "Tutorias": navigate("/tutorias"); break;
-      case "Foro": navigate("/foro"); break;
-    }
+    useEffect(() => { //Efecto que permite navegar entre las rutas según el botón seleccionado
+      switch (buttonSelected) {
+        case "Inicio": navigate("/inicio"); break;
+        case "Tutorias": navigate("/tutorias"); break;
+        case "Foro": navigate("/foro"); break;
+      }
   }, [buttonSelected, navigate]); //Dependencia
   
 

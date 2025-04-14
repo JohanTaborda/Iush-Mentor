@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"; //Importamos los hooks.
-import "./Navbar" // Funciones personalizadas para el componente Navbar.
 import "./Navbar.css" // Estilos personalizados para el componente Navbar.
 
 import Tooltip from '@mui/material/Tooltip'; //De la importación "@mui/material/Tooltip" utilizamos la función del Tooltip, el cual nos sirve para los botones.
@@ -10,7 +9,7 @@ import Logout from "../../components/Logout/Logout.jsx"; //Componente para cerra
 //Iconos para el navbar
 import { IoMenu } from "react-icons/io5";
 import { IoMdHome, IoMdExit } from "react-icons/io";
-import { MdForum } from "react-icons/md";
+import {  MdForum } from "react-icons/md";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { SiCodementor } from "react-icons/si";
 
@@ -33,7 +32,6 @@ const Navbar = ({setButtonSelected, setMainComponent}) => {
     const icon_Tutoring = () => <SiCodementor  className="sidebar__icons"/> //Icono para el botón de "Inicio".
     const icon_Exit = () => <IoMdExit  className="sidebar__icons"/> //Icono para el botón de "Salir".
     
-
     useEffect(() => {
         // Buscamos la ruta que coincida con el pathname actual
         const currentRoute = buttonSections.find(item => item.path && location.pathname.startsWith(item.path) ) || { title: "inicio" };  // Valor por defecto si no encuentra coincidencia
@@ -63,7 +61,10 @@ const Navbar = ({setButtonSelected, setMainComponent}) => {
             setButtonSelected(type)  //Actualizamos el prop recibido para navegar por las secciones, según el botón seleccionado.
             sessionStorage.setItem('setButtonSelected', type); //En setButtonSelected, mediante el valor que este en 'Type' lo vamos a guardar en el sessionStorage.
             sessionStorage.setItem('optionSelected', type); //En optionSelected, con el valor recibido en 'type' vamos almacenarlo en el sessionStorage.
-        } 
+        }else {
+            window.open('https://forms.gle/3qxgAimXt7iTzXiD6', '_blank');
+        }
+        
     }
    
     useEffect(() => { //useEffect que cambia el estado setSidebarMinimized cuando el ancho es menor a 768, para tomar otros estilos el navbar.
