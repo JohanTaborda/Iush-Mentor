@@ -18,7 +18,8 @@ const Subcategories = ({ title, description, icon }) => {
       <p className="subcategory-card__description">{description}</p>
       
       {/* Botón para ver tutorías disponibles (a futuro será funcional) */}
-      <button className="subcategory-card__button">Ver tutorías</button>
+      <button className="subcategory-card__button" 
+      onClick={() => alert("Esta función estará disponible cuando se habiliten las rutas.")}> Ver tutorías</button>
     </div>
   );
 };

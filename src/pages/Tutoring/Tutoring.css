@@ -18,7 +18,7 @@
 /* Título del fieldset */
 .tutoring__legend {
   font-family: 'Outfit', sans-serif; /* Fuente moderna para títulos */
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: bold;
   padding: 0 0.5rem;
   background-color: white;

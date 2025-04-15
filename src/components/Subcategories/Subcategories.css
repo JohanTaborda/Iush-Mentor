@@ -3,11 +3,11 @@
   background-color: #f0f8ff; /* Azul muy claro, da un toque limpio y moderno */
   border-radius: 0.5rem; /* Bordes redondeados */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Sombra suave */
-  padding: 0.75rem; /* Espaciado interno general */
+  padding: 0.85rem; /* Espaciado interno general */
   max-width: 240px;
   flex: 1 0 auto; /* No crecer, no reducir, ocupar su espacio */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animaciones suaves */
-  font-size: 0.85rem; /* Tamaño de fuente base */
+  font-size: 0.95rem; /* Tamaño de fuente base */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -24,19 +24,19 @@
 .subcategory-card__header {
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 /* Estilo del ícono de la subcategoría */
 .subcategory-card__icon {
-  margin-right: 0.4rem;
+  margin-right: 0.45rem;
   font-size: 1.4rem;
 }
 
 /* Título del programa */
 .subcategory-card__title {
   font-family: 'Outfit', sans-serif; /* Fuente moderna para títulos */
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: 600;
   margin: 0;
   color: #1e293b; /* Azul oscuro */
@@ -45,8 +45,9 @@
 /* Descripción breve del programa */
 .subcategory-card__description {
   font-family: 'Manrope', sans-serif; /* Fuente para texto descriptivo */
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: #555; /* Gris medio */
+  align-content: center;
 }
 
 /* Botón para acceder a las tutorías */
@@ -56,9 +57,9 @@
   border: none;
   padding: 0.3rem 0.75rem;
   border-radius: 0.4rem;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   cursor: pointer;
-  align-self: flex-start; /* Alinea el botón a la izquierda */
+  align-self:center; /* Alinea el botón a la izquierda */
   transition: background-color 0.3s ease; /* Suaviza cambio de color al hover */
 }
 

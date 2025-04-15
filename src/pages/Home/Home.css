@@ -1,0 +1,103 @@
+/* Estilo para los títulos de los fieldset */
+.tittle-container {
+  font-family: 'Outfit', sans-serif;  /* Fuente decorativa para el título */
+  font-size: 1.25rem;                  /* Tamaño de letra */
+  font-weight: bold;                  /* Letra en negrita */
+  margin-bottom: 0.5rem;              /* Espacio inferior */
+}
+
+/* Estilo para el contenedor de tutorías como tutor */
+.preset-container {
+  font-family: 'Manrope', sans-serif; /* Fuente moderna y legible */
+  font-size: 1rem;
+  color: #4a4a4a;                     /* Texto gris oscuro */
+  background-color: white;       /* Fondo gris claro */
+  border: 1px solid #ccc;
+  border-radius: 0.75rem;                /* Bordes redondeados */
+  padding: 0.75rem 1rem;                     /* Espaciado interno */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  margin-bottom: 1.5rem;                /* Espacio entre fieldsets */
+  margin-top: 2rem;
+  margin-inline: auto; /* Centra horizontalmente */
+}
+
+/* Estilo para el contenedor de tutorías como estudiante */
+.mytutorials-container {
+  font-family: 'Manrope', sans-serif; /* Fuente moderna y legible */
+  font-size: 1rem;
+  color: #4a4a4a;                     /* Texto gris oscuro */
+  background-color: white;       /* Fondo gris claro */
+  border: 1px solid #ccc;
+  border-radius: 0.75rem;                /* Bordes redondeados */
+  padding: 0.75rem 1rem;                     /* Espaciado interno */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  margin-bottom: 1.5rem;                /* Espacio entre fieldsets */
+  margin-inline: auto; /* Centra horizontalmente */
+  padding-inline: 1rem; /* Agrega espacio a los lados para todo lo que esté dentro del <section> */
+}
+
+/* Estilo base para los botones "Agendar" */
+.preset-btn {
+  background-color: #184ea5;          /* Azul brillante (sobrescribe el color anterior) */
+  color: white;                       /* Texto blanco */
+  font-family: 'Manrope', sans-serif;
+  border: none;
+  font-size: medium;                  /* Tamaño de fuente medio */
+  padding: 0.5rem 1.3rem;             /* Altura y ancho del botón */
+  border-radius: 0.6rem;              /* Bordes redondeados */
+  cursor: pointer;                    /* Manito al pasar el mouse */
+  align-self: flex-start;             /* Alinea el botón a la izquierda en contenedores flex */
+  transition: background-color 0.3s ease; /* Transición suave al cambiar color */
+}
+section {
+  padding-inline: 0.8rem;
+  max-width: 100%;
+  margin: 0 auto;
+}
+/* Responsividad: el botón se adapta al ancho completo en pantallas pequeñas */
+@media (max-width: 480px) {
+  .preset-btn {
+    width: 100%;                      /* Ocupa todo el ancho del contenedor */
+    box-sizing: border-box;          /* El padding se incluye dentro del ancho */
+  }
+}
+
+/* Estilo al pasar el mouse por el botón */
+.preset-btn:hover {
+  background-color: #6091fa;         /* Azul más claro (hover) */
+}
+
+/* Estilo del contenedor del calendario */
+.calendar-container {
+  font-family: 'Manrope', sans-serif;
+  color: #4a4a4a;
+  background-color: whitesmoke;
+  border-radius: 0.75rem;            /* ⚠️ IMPORTANTE: rem no debe llevar espacio */
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  border: none;
+  display: flex;                     /* Para alinear el calendario */
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Estilo específico para el componente Calendar */
+.calendar-container .react-calendar {
+  font-family: 'Manrope', sans-serif;
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el título del calendario */
+.tittle-calendar {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
