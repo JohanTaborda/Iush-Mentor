@@ -1,0 +1,111 @@
+/* Estilo principal para la vista de tutorías */
+.tutoring {
+  padding: 1rem 1.5rem; /* Espaciado interno */
+}
+
+/* Estilo del contenedor tipo fieldset (por escuela) */
+.tutoring__fieldset {
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 0.75rem; /* Bordes redondeados */
+  margin-bottom: 1.5rem; /* Separación entre fieldsets */
+  padding: 0.75rem 1rem; /* Espaciado interno */
+  background-color: #ffffff; /* Fondo blanco */
+  overflow: hidden; /* Oculta contenido que se desborde */
+  width: 100%; 
+  margin-inline: auto; /* Centra horizontalmente */
+}
+
+/* Título del fieldset */
+.tutoring__legend {
+  font-family: 'Outfit', sans-serif; /* Fuente moderna para títulos */
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 0 0.5rem;
+  background-color: white;
+  color: #1e293b; /* Azul oscuro */
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+/* Contenedor general del carrusel con flechas y tarjetas */
+.tutoring__carousel {
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* Flecha izquierda, carrusel, flecha derecha */
+  align-items: center;
+  gap: 0.5rem; /* Espacio entre columnas */
+  padding: 0.1rem 0.5rem;
+}
+
+/* Zona visible del carrusel (oculta lo que sobresale) */
+.tutoring__cards-wrapper {
+  overflow: hidden; /* Oculta tarjetas que están fuera del rango visible */
+  padding-inline: 0.5rem; /* Espacio lateral interno */
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Contenedor de todas las tarjetas que se deslizan horizontalmente */
+.tutoring__cards {
+  display: flex;
+  transition: transform 0.5s ease-in-out; /* Animación de desplazamiento */
+  will-change: transform; /* Optimiza rendimiento */
+}
+
+/* Estilo individual de cada tarjeta en el carrusel */
+.tutoring__card {
+  flex: 0 0 calc(100% / 3); /* Ocupa un tercio del espacio por defecto */
+  box-sizing: border-box;
+  padding: 0.5rem; /*Reduce si es mayor*/
+}
+
+/* Responsividad para tablets */
+@media (max-width: 991px) {
+  .tutoring__card {
+    flex: 0 0 45%; /* 2 tarjetas por fila aproximadamente */
+  }
+}
+
+/* Responsividad para móviles */
+@media (max-width: 599px) {
+  .tutoring__card {
+    flex: 0 0 100%; /* 1 tarjeta por fila */
+  }
+  .tutoring__carousel {
+    grid-template-columns: 10px 1fr 10px; /* Flecha izquierda, carrusel, flecha derecha */
+  }
+  .carousel-arrow--left {
+    margin-left: -0.7rem !important;
+  }
+}
+
+/* Estilo general para las flechas del carrusel */
+.carousel-arrow {
+  background-color: rgba(0, 0, 0, 0.05); /* Fondo gris muy claro */
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: 50%; /* Botón circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10; /* Asegura visibilidad */
+  transition: background-color 0.3s ease;
+  height: 30px;
+  width: 30px;
+}
+
+/* Efecto hover para mejorar experiencia visual */
+.carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Posicionamiento adicional para la flecha izquierda */
+.carousel-arrow--left {
+  margin-left: 0.25rem;
+}
+
+/* Posicionamiento adicional para la flecha derecha */
+.carousel-arrow--right {
+  margin-right: 0.25rem;
+}
