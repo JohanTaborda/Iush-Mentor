@@ -1,5 +1,4 @@
 import React from "react";
-import "./Notifications" // Funciones personalizadas para el componente Notifications.
 import "./Notifications.css" // Estilos personalizados para el componente Notifications.
 
 /*

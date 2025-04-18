@@ -1,15 +1,11 @@
-// Importamos React y el hook useState para manejar el estado
-import React, { useState } from "react";
-// Importamos useEffect para ejecutar efectos secundarios (como guardar info)
-import { useEffect } from "react";
-// useNavigate nos permitiría cambiar de ruta (aunque no lo usamos aún aquí)
-import { useNavigate } from "react-router-dom";
+
+import React, { useState, useEffect } from "react";// Importamos React y hooks para manejar estados
+import { useNavigate } from "react-router-dom";// useNavigate nos permitiría cambiar de ruta 
 // Importamos los componentes hijos
 import App from "./components/App/App.jsx";
 import MainPanel from "./components/MainPanel/MainPanel.jsx";
+import "./Main.css" // Estilos personalizados para el componente Main.
 
-
-// Componente principal que decidirá qué mostrar: App o MainPanel según Login
 const Main = () => {
   
   // useState con valor inicial derivado de window.name para tener persistencia en la página

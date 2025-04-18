@@ -1,12 +1,7 @@
-// Importación de React y hooks necesarios
-import React, { useState, useEffect } from "react";
-
-// Importación del componente de tarjetas (Subcategorías)
-import Subcategories from "../../components/Subcategories/Subcategories";
-
-// Importación del archivo de estilos específicos para esta vista
-import "./Tutoring.css";
-
+import React, { useState, useEffect } from "react";// Importación de React y hooks necesarios
+import "./Tutoring.css" // Estilos personalizados para el componente Tutoring.
+import Subcategories from "../../components/Subcategories/Subcategories";// Importación del componente de tarjetas (Subcategorías)
+import "./Tutoring.css";// Importación del archivo de estilos específicos para esta vista
 // Importación de iconos representativos desde react-icons/fc
 import {
   FcPrevious, FcNext, FcStatistics, FcCustomerSupport, FcCurrencyExchange, FcBusiness,

@@ -1,11 +1,13 @@
 import React, { useState } from "react"; 
-import "./Login";  
 import "./Login.css";  
 import { FaRegEyeSlash } from "react-icons/fa6"; 
 import { FaRegEye } from "react-icons/fa"; 
 import { GiGraduateCap } from "react-icons/gi"; 
 import { Modal } from "bootstrap";
 import { IoIosClose } from "react-icons/io";
+
+import { Link } from "react-router-dom";
+
 
 const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => { 
 
@@ -56,7 +58,7 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
                              alt="img-mentor" className="img_IUSH" />
                     </div>
                     <div className="Login__welcome">
-                    {icon__close()}
+                        <Link to="/" >{icon__close()}</Link> 
                         <div className="Login_WelcomeInitial">
                             <h3 className="Login_Welcometittle">Bienvenid@s:</h3>
                             <p className="mss_top">Accede a nuestra comunidad de mentores expertos en diseño, tecnología, inteligencia artificial y más. {icon__cap()} </p>
@@ -74,9 +76,7 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
                                 <p className="Login_error">{errors}</p>
                             <div className="Login__Register">
                                 <p className="Login_not">¿No tienes cuenta? </p>
-                                <a onClick={() => setVisRegister(false)} id="click_register">
-                                    Regístrate
-                                </a>
+                                <Link to="/registro"> <label onClick={() => setVisRegister(false)} id="click_register">Regístrate</label> </Link> 
                             </div>
                         </form>
                     </div>

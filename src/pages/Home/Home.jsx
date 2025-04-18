@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';// Importa el hook useNavigate de
 import { useState } from 'react';// Importa el hook useState para manejar el estado del calendario
 import Calendar from 'react-calendar';// Importa el componente de calendario
 import 'react-calendar/dist/Calendar.css';// Importa los estilos por defecto del calendario
+import React from "react";//Componente Principal Home
+import "./Home.css" // Estilos personalizados para el componente Home.
 
-//Componente Principal Home
+
 const Home = () => {
   // Estado para guardar la fecha seleccionada en el calendario
   const [date, setDate] = useState(new Date());
