@@ -49,7 +49,7 @@
   align-self: flex-start;             /* Alinea el botón a la izquierda en contenedores flex */
   transition: background-color 0.3s ease; /* Transición suave al cambiar color */
 }
-section {
+.general-container {
   padding-inline: 0.8rem;
   max-width: 100%;
   margin: 0 auto;

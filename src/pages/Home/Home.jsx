@@ -11,7 +11,7 @@ const Home = () => {
 
   return (
     <main>
-      <section>
+      <section className="general-container">
         {/* Contenedor de tutorías a dirigir como tutor */}
         <fieldset className="preset-container">
           <legend className="tittle-container">Tutorías a dirigir como tutor</legend>
