@@ -1,6 +1,6 @@
 import React from "react";// Importa React (necesario para componentes JSX)
 import "./Home.css";// Importa los estilos específicos de este componente
-import { useNavigate } from 'react-router-dom';// Importa el hook useNavigate de react-router-dom (aunque por ahora no se usa)
+import { useNavigate } from 'react-router-dom';// Importa el hook useNavigate de react-router-dom 
 import { useState } from 'react';// Importa el hook useState para manejar el estado del calendario
 import Calendar from 'react-calendar';// Importa el componente de calendario
 import 'react-calendar/dist/Calendar.css';// Importa los estilos por defecto del calendario
@@ -8,7 +8,7 @@ import 'react-calendar/dist/Calendar.css';// Importa los estilos por defecto del
 const Home = () => {
   // Estado para guardar la fecha seleccionada en el calendario
   const [date, setDate] = useState(new Date());
-
+  const navigate = useNavigate();
   return (
     <main>
       <section className="general-container">
@@ -17,10 +17,10 @@ const Home = () => {
           <legend className="tittle-container">Tutorías a dirigir como tutor</legend>
           <p>Aún no has creado ninguna tutoría.</p>
 
-          {/* Botón Agendar deshabilitado temporalmente, muestra alerta mientras no hay rutas disponibles */}
+          {/* Botón Agendar */}
           <button
             className="preset-btn"
-            onClick={() => alert("Esta función estará disponible cuando se habiliten las rutas.")}>
+            onClick={() => navigate("/tutorias")}>
             Agendar
           </button>
         </fieldset>
@@ -30,10 +30,10 @@ const Home = () => {
           <legend className="tittle-container">Tutorías inscritas como estudiante</legend>
           <p>Aquí aparecerán las tutorías que tú crees.</p>
 
-          {/* Botón Agendar deshabilitado temporalmente, muestra alerta mientras no hay rutas disponibles */}
+          {/* Botón Agendar*/}
           <button
             className="preset-btn"
-            onClick={() => alert("Esta función estará disponible cuando se habiliten las rutas.")}>
+            onClick={() => navigate("/tutorias")}>
             Agendar
           </button>
         </fieldset>
