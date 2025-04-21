@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import "./WorkSpace.css" // Estilos personalizados para el componente WorkSpace.
 
 //Importamos los componentes Hijos
@@ -8,13 +8,31 @@ import DataSection from "./components/DataSection/DataSection.jsx"; //Componente
 //Recibimos desde App.jsx el prop de buttonSelected, el cual almacena el valor del botón seleccionado en el navbar
 const WorkSpace = ({buttonSelected}) => {
     // Constantes.
+    const [searchTerm, setSearchTerm] = useState(""); // Estado que almacena el texto que el usuario escribe en el buscador
 
-    return(
+    return (
         <div className="container__Workspace">
-            <HeaderSection buttonSelected={buttonSelected}/>
-            <DataSection buttonSelected={buttonSelected} />
+          {/* Renderizamos el componente HeaderSection (input) */}
+          {/* Le enviamos 2 cosas por props:
+              - buttonSelected: que ya venía desde App.jsx
+              - onSearchChange: le pasamos la función setSearchTerm, 
+                para que HeaderSection pueda decirle a WorkSpace cuál es el texto escrito */}
+          <HeaderSection 
+            buttonSelected={buttonSelected} 
+            onSearchChange={setSearchTerm} 
+          />
+      
+          {/* Renderizamos el componente DataSection (fichas/carruseles) */}
+          {/* También le enviamos 2 props:
+              - buttonSelected: que ya usaba
+              - searchTerm: el valor que escribió el usuario en el input
+                Esto le permite a DataSection saber qué texto se está buscando */}
+          <DataSection 
+            buttonSelected={buttonSelected} 
+            searchTerm={searchTerm}
+          />
         </div>
-    )
-}
+      );
+    }      
 
 export default WorkSpace;

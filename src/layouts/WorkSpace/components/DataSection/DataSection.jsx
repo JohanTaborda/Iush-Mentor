@@ -8,7 +8,7 @@ import Tutoring from "../../../../pages/Tutoring/Tutoring.jsx";
 import Forum from "../../../../pages/Forum/Forum.jsx";
 import Home from "../../../../pages/Home/Home.jsx";
 
-const DataSection = ({ buttonSelected }) => {
+const DataSection = ({ buttonSelected, searchTerm }) => { // Recibimos desde WorkSpace el texto que el usuario escribió en el buscador
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,8 +33,8 @@ const DataSection = ({ buttonSelected }) => {
       <Routes>
         {/* Rutas generales */}
         <Route path="/inicio" element={<Home />} />
-        {/* Ruta específica de tutorías */}
-        <Route path="/tutorias" element={<Tutoring />} />
+        {/* Ruta específica de tutorías, le pasamos el texto del input como prop */}
+        <Route path="/tutorias" element={<Tutoring searchTerm={searchTerm} />} />
         {/* Ruta específica del foro */}
         <Route path="/foro" element={<Forum />} />
         {/* Ruta por defecto al iniciar sesión */}

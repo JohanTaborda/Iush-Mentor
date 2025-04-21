@@ -137,19 +137,45 @@ const SubschoolCarousel = ({ title, data }) => {
 // VISTA PRINCIPAL DE TUTORÍAS
 // ============================
 // Renderiza los dos carruseles por escuela
-const Tutoring = () => {
-  return (
-    <main className="tutoring">
-      <SubschoolCarousel
-        title="Escuela de Ciencias Creativas"
-        data={creativeSubschools}
-      />
-      <SubschoolCarousel
-        title="Escuela de Ciencias Administrativas, Sociales y Humanas"
-        data={adminSubschools}
-      />
-    </main>
-  );
+// Recibimos el texto del input desde WorkSpace
+  const Tutoring = ({ searchTerm }) => {
+    // Filtramos subescuelas creativas según el texto buscado (insensible a mayúsculas)
+    const creativeFiltered = creativeSubschools.filter((item) =>
+      item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // Filtramos subescuelas administrativas según el texto buscado
+    const adminFiltered = adminSubschools.filter((item) =>
+      item.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    return (
+      <main className="tutoring">
+        {creativeFiltered.length > 0 ? (
+            // Si hay coincidencias, mostramos el carrusel de subescuelas creativas
+            <SubschoolCarousel
+              title="Escuela de Ciencias Creativas"
+              data={creativeFiltered}
+            />
+          ) : (
+            // Si no hay coincidencias, mostramos este mensaje
+            <p className="tutoring__no-results">
+              No se encontraron resultados en escuela de Ciencias Creativas.
+            </p>
+          )}
+        {adminFiltered.length > 0 ? (
+            // Si hay coincidencias, mostramos el carrusel de subescuelas administrativas
+            <SubschoolCarousel
+              title="Escuela de Ciencias Administrativas, Sociales y Humanas"
+              data={adminFiltered}
+            />
+          ) : (
+            // Si no hay coincidencias, mostramos este mensaje
+            <p className="tutoring__no-results">
+              No se encontraron resultados en Escuela Ciencias Administrativas, Sociales y Humanas.
+            </p>
+          )}
+      </main>
+    );
 };
 
 export default Tutoring;
