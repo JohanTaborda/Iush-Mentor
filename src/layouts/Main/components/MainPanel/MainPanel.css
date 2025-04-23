@@ -47,12 +47,12 @@
   gap: 5px;
   font-size: 16px;
   font-family: "Outfit";
-
 }
 
 /* Efecto hover para el botón de inicio de sesión */
-.login_btn_MainPanel:hover {
-  background-color: #7A9EDC; 
+.login_btn_MainPanel:hover{ /*Hover para los botones de crear.*/
+  transform: scale(1.02);
+  box-shadow: 0 0 10px 0 #000;
 }
 
 /* Contenedor principal MainPanel */

@@ -73,6 +73,9 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     height: 36px;
     font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .Login_error{  /* estilo que se le da al error cuando no se ponen datos en los inputs y se le da al boton de ingresar */

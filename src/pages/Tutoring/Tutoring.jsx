@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";// Importación de React y hooks necesarios
+import React, { useState, useEffect, useRef } from "react";// Importación de React y hooks necesarios
 import "./Tutoring.css" // Estilos personalizados para el componente Tutoring.
 import Subcategories from "../../components/Subcategories/Subcategories";// Importación del componente de tarjetas (Subcategorías)
 import "./Tutoring.css";// Importación del archivo de estilos específicos para esta vista
@@ -74,6 +74,10 @@ const SubschoolCarousel = ({ title, data }) => {
     return () => window.removeEventListener("resize", updateItemsPerPage);
   }, []);
 
+  useEffect(() => {
+    setStartIndex(0); // Reinicia el índice cuando cambia el contenido
+  }, [data]);
+
   const maxIndex = Math.max(0, data.length - itemsPerPage); // Evita desbordes en el carrusel
 
   // Avanzar carrusel (sin sobrepasar el final)
@@ -137,45 +141,46 @@ const SubschoolCarousel = ({ title, data }) => {
 // VISTA PRINCIPAL DE TUTORÍAS
 // ============================
 // Renderiza los dos carruseles por escuela
-// Recibimos el texto del input desde WorkSpace
-  const Tutoring = ({ searchTerm }) => {
-    // Filtramos subescuelas creativas según el texto buscado (insensible a mayúsculas)
-    const creativeFiltered = creativeSubschools.filter((item) =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+// Recibe el texto del input desde WorkSpace
+const Tutoring = ({ searchTerm }) => {
+  // Función para eliminar tildes y pasar a minúsculas
+  const normalizeText = (text) =>
+    text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
-    // Filtramos subescuelas administrativas según el texto buscado
-    const adminFiltered = adminSubschools.filter((item) =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    return (
-      <main className="tutoring">
-        {creativeFiltered.length > 0 ? (
-            // Si hay coincidencias, mostramos el carrusel de subescuelas creativas
-            <SubschoolCarousel
-              title="Escuela de Ciencias Creativas"
-              data={creativeFiltered}
-            />
-          ) : (
-            // Si no hay coincidencias, mostramos este mensaje
-            <p className="tutoring__no-results">
-              No se encontraron resultados en escuela de Ciencias Creativas.
-            </p>
-          )}
-        {adminFiltered.length > 0 ? (
-            // Si hay coincidencias, mostramos el carrusel de subescuelas administrativas
-            <SubschoolCarousel
-              title="Escuela de Ciencias Administrativas, Sociales y Humanas"
-              data={adminFiltered}
-            />
-          ) : (
-            // Si no hay coincidencias, mostramos este mensaje
-            <p className="tutoring__no-results">
-              No se encontraron resultados en Escuela Ciencias Administrativas, Sociales y Humanas.
-            </p>
-          )}
-      </main>
-    );
+  // Filtramos subescuelas creativas según el texto buscado (insensible a tildes y mayúsculas)
+  const creativeFiltered = creativeSubschools.filter((item) =>
+    normalizeText(item.title).includes(normalizeText(searchTerm))
+  );
+
+  // Filtramos subescuelas administrativas igual que arriba
+  const adminFiltered = adminSubschools.filter((item) =>
+    normalizeText(item.title).includes(normalizeText(searchTerm))
+  );
+
+  return (
+    <main className="tutoring">
+      {creativeFiltered.length > 0 ? (
+        <SubschoolCarousel
+          title="Escuela de Ciencias Creativas"
+          data={creativeFiltered}
+        />
+      ) : (
+        <p className="tutoring__no-results">
+          No se encontraron resultados en escuela de Ciencias Creativas.
+        </p>
+      )}
+      {adminFiltered.length > 0 ? (
+        <SubschoolCarousel
+          title="Escuela de Ciencias Administrativas, Sociales y Humanas"
+          data={adminFiltered}
+        />
+      ) : (
+        <p className="tutoring__no-results">
+          No se encontraron resultados en Escuela Ciencias Administrativas, Sociales y Humanas.
+        </p>
+      )}
+    </main>
+  );
 };
 
 export default Tutoring;
