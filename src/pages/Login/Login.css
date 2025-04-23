@@ -7,7 +7,6 @@
     inset: 0;
     margin: auto;
     z-index: 5;
-
     border-radius: 10px !important;
     font-family: "Outfit";
 }
@@ -22,6 +21,7 @@
     padding: 10px;
     border-radius: 10px ;
 }
+
 .img_IUSH{ /*se le da el estilo al logo de la pagina web */
     height: 100%;
     width: 450px;
@@ -63,17 +63,21 @@
   }
 
 .login_forms #BtnWelcome{  /* se le hace el diseño al boton ingresar*/
-    background-color: #007bff;
+    background-color: #184ea5;
     color: white; 
     border: none;
     padding: 10px 40px;
-    font-size: 14px !important;
+    font-size: 0.95rem !important;
     border-radius: 8px; 
     width: 100%;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     height: 36px;
     font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .Login_error{  /* estilo que se le da al error cuando no se ponen datos en los inputs y se le da al boton de ingresar */
     font-weight: 500;
     color: red;
@@ -82,15 +86,32 @@
 }
 
 .Login_Welcometittle{  /*se le da el estilo al bienvenidos del login */
+    font-family: 'outfit';
+    font-size: 25px;
+    font-weight: 650;
+    text-align: center;
+}
+
+.mss_top{
+    font-family: 'manrope';
     font-size: 20px;
     font-weight: 650;
+    text-align: left;
 }
+
+.Login_not{
+    font-family: 'manrope';
+    font-size: 16px;
+    font-weight: 650;
+    text-align: left;
+}
+
 #click_register{  /*Al apartado de registrarse se le da un diseño */
     cursor: pointer;
     font-size: 18px;
     display: flex;
     text-align: center;
-    color: #007bff;
+    color: #184ea5;
     font-weight: 600;
 }
 .Login__Register{  /* se organiza el contenedor donde esta ubicado el registro */

@@ -38,12 +38,16 @@
 
 .span_Delete{ /*Propiedades para el icono de la X que se encuentra en la parte derecha del input, este sale al escribir texto.*/
     position: absolute;
-    right: 5px;
+    right: 150px;
     margin-top: 5px;
     cursor: pointer;
 }
 
-.input_icons{position: relative;} /*Propiedades para los iconos y el input.*/
+.input_icons{
+    position: relative;
+    display: flex;
+    gap: 10px;
+} /*Propiedades para los iconos y el input.*/
 
 .button--create{ /*Propiedades para el botón de 'Crear Tutoria' & crear 'Nuevo Hilo'.*/
     display: flex;
@@ -188,6 +192,11 @@
         height: 40px;
         width: 100%;
     } 
+
+    .span_Delete {
+        right: 10px; /* o el valor que se vea bien en tu caso */
+      }
+
 }
 
 @media screen and (max-width: 464px) {
@@ -196,5 +205,18 @@
         width: 100%;
         font-size: 17px;
         overflow: hidden;
+    }
+    .header__Section{ /*Propiedad para el contenedor principal del componente.*/
+        height: 90px;
+    }
+    .input_icons{
+        gap: 3px;
+        flex-direction: column;
+    } 
+    .input__Search{ /*Propiedades para el buscador de tutorias (Input)*/
+        width: 100%;
+    }
+    .button--create{ /*Propiedades para el botón de 'Crear Tutoria' & crear 'Nuevo Hilo'.*/
+        height: 40px;
     }
 }

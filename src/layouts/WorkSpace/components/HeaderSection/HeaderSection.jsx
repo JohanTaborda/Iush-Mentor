@@ -17,10 +17,14 @@ import { PiBookOpenUserBold } from "react-icons/pi";
 import { IoMoonOutline } from "react-icons/io5";
 
 //Recibimos mediante props el botón seleccionado en el navbar. Se utiliza para ocultar y mostrar componentes según la sección seleccionada.
-const HeaderSection = ({buttonSelected}) => {
+const HeaderSection = ({ buttonSelected, onSearchChange }) => {
 
     //Constantes
-    const[dataInput, setDataInput] = useState(""); //Constante que almacena y guarda la palabra copiada en el input de busqueda
+    const[dataInput, setDataInput] = useState(""); //Constante que almacena y guarda la palabra copiada en el input de búsqueda
+    useEffect(() => {// useEffect que se ejecuta cada vez que cambia el texto del input
+        onSearchChange(dataInput); // Le enviamos el texto al padre
+    }, [dataInput]); // Solo se ejecuta cuando cambia dataInput
+
     const[optionSelected, setOptionSelected] = useState(buttonSelected); //Constante que almacena el botón cliqueado en el navbar.
     const[phrasesIndex, setPhrasesIndex] = useState(0); //Estado que guarda el indice de la frase a mostrar
     const[isMobile, setIsMobile] = useState(window.innerWidth <= 447); //Usamos esta constante para validar el tamaño de la pantalla, para tomar diferentes propiedades según sea el caso.  
@@ -71,12 +75,20 @@ const HeaderSection = ({buttonSelected}) => {
     return(
         <div className="header__Section">
             <div className="container__Search">
-                <div className="input_icons" style={{display: `${optionSelected != "Tutorias" || isMobile ? "none" : "flex"}`}}>
+                <div className="input_icons" style={{display: `${optionSelected != "Tutorias"  ? "none" : "flex"}`}}>
                     <span className="span__Search" >{icon_search()}</span>
-                    <span className="span_Delete" style={{display: `${dataInput == ""  ? "none" : ""}`}}>{icon_clear()}</span>
-                    <input type="text" className="input__Search" placeholder="Buscar una Subescuela..." value={dataInput} onChange={(e) => setDataInput(e.target.value)}/>
+                    <span className="span_Delete" style={{display: `${dataInput == ""  ? "none" : ""}`}} 
+                        onClick={() => setDataInput("")} // Al hacer clic, se limpia el input
+                        >{icon_clear()} </span>
+                     <input
+                        type="text" // Tipo de campo: texto
+                        className="input__Search" // Clase para aplicar estilos desde CSS
+                        placeholder="Buscar una Subescuela..." // Texto que aparece cuando el campo está vacío
+                        value={dataInput} // El valor del input lo controla el estado dataInput
+                        onChange={(e) => setDataInput(e.target.value)} // Cada vez que el usuario escribe, actualizamos el estado
+                        />
+                    <button className="button--create" style={{display: `${optionSelected == "Tutorias" ? "flex" : "none"}`}} onClick={() => setVisCreateTutoring(true)}>{icon_pencil()} Crear Tutoria </button>
                 </div>
-                <button className="button--create" style={{display: `${optionSelected == "Tutorias" ? "flex" : "none"}`}} onClick={() => setVisCreateTutoring(true)}>{icon_pencil()} Crear Tutoria </button>
                 <button className="button--create" id="button--add" style={{display: `${optionSelected == "Foro" ? "flex" : "none"}`}}>{icon_add()} Publicar Nuevo Hilo </button>
                 <span className="title__bienvenida" style={{display: `${optionSelected != "Inicio" ? "none" : "flex"}`}}> {phrases[phrasesIndex]}</span> {/*Mostramos la frase según el indice guardado.*/}
 
