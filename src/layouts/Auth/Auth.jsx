@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Auth.css" // Estilos personalizados para el componente Auth.
 
 //Importamos los componentes Hijos
@@ -23,6 +23,10 @@ const Auth = ({setMainComponent, setVisAuth}) => {
     // Constantes.
     const [visRegister, setVisRegister] = useState(false);
 
+
+    useEffect(() => {
+        //console.log(visRegister)
+    }, [visRegister])
     // -----------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------
     // Funciones.
@@ -39,7 +43,7 @@ const Auth = ({setMainComponent, setVisAuth}) => {
     return(
         <>
             {visRegister ? (
-                <Register/>
+                <Register setVisAuth={setVisAuth} setVisRegister={setVisRegister}/>
             ) : (
                 <Login setVisRegister={setVisRegister} setMainComponent={setMainComponent} setVisAuth={setVisAuth} />
             )}

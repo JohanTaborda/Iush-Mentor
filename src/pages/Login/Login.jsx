@@ -71,12 +71,13 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
                                 <span id="ubicacion__icon">{showPwd ? icon__eyeDisabled() : icon__eyeEnable()}</span>
                             </div>
                             <div>
-                                <button id="BtnWelcome" >Ingresar</button> 
+                                <button id="BtnWelcome" >INGRESAR</button> 
                             </div>
                                 <p className="Login_error">{errors}</p>
                             <div className="Login__Register">
                                 <p className="Login_not">¿No tienes cuenta? </p>
-                                <Link to="/registro"> <label onClick={() => setVisRegister(false)} id="click_register">Regístrate</label> </Link> 
+                                <label onClick={() => setVisRegister(true)} id="click_register">Regístrate</label>
+                                <Link to="/registro">  </Link> 
                             </div>
                         </form>
                     </div>
