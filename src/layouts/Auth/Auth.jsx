@@ -5,40 +5,22 @@ import "./Auth.css" // Estilos personalizados para el componente Auth.
 import Login from "../../pages/Login/Login.jsx"
 import Register from "../../pages/Register/Register.jsx"
 
-/*
-    Descripción.
+import { useLocation } from "react-router-dom";
 
-    Lista de parámetros.
-
-        * Parámetro1 (tipo): Descripción.
-
-    Retornos:
-
-        * retorno1 (tipo): Descripción.
-*/
 
 const Auth = ({setMainComponent, setVisAuth}) => {
-    // Variables.
-
     // Constantes.
+    const location = useLocation();
     const [visRegister, setVisRegister] = useState(false);
 
+    useEffect(() => {
+        setVisRegister(location.pathname === "/registro");
+    }, [location.pathname]);
+      
 
     useEffect(() => {
         //console.log(visRegister)
     }, [visRegister])
-    // -----------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------
-    // Funciones.
-    // -----------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------
- 
-    // -----------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------
-    // Componente.
-    // -----------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------
-
 
     return(
         <>

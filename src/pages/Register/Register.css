@@ -1,4 +1,4 @@
-#containerRegister{
+#containerRegister{ /* Contenedor principal del registro */
     height: 440px;
     transform: translate(-50%, -50%) translateY(0); 
     width: 770px;
@@ -7,21 +7,21 @@
     grid-template-columns: 1fr 1.5fr;
 }
 
-.container__logo{
+.container__logo{ /* Contenedor de la imagen del logo */
     position: relative;
     height: 100%;
     width: 100%;
     overflow: hidden;
 }
 
-.imgLogoMentor{
+.imgLogoMentor{ /* Imagen del logo de Mentor */
     width: 100%;
     height: 100%;
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
 }
 
-.containerForm{
+.containerForm{ /* Contenedor del formulario de registro */
     position: relative;
     width: 100%;
     display: flex;
@@ -33,7 +33,7 @@
     border-radius: 10px;
 }
 
-.formRegister{
+.formRegister{ /* Formulario de registro */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -41,12 +41,12 @@
     gap: 10px;
 }
 
-.titleRegister{
+.titleRegister{ /* Título del formulario de registro */
     font-family: "Outfit";
 
 }
 
-.form--input{
+.form--input{ /* Estilo de los inputs del formulario */
     width: 85%;
     height: 40px;
     border-radius: 5px;
@@ -57,7 +57,7 @@
     color: #000;
 }
 
-.closeRegister{
+.closeRegister{ /* Botón de cerrar el registro */
     position: absolute;
     top: 5px;
     left: 5px;
@@ -67,25 +67,20 @@
     border-radius: 50%;
 }
 
-.closeRegister:hover{
+.closeRegister:hover{ /* Efecto hover para el botón de cerrar */
     background-color: gainsboro;
 }
 
-.form--input:focus{
-    outline: none;
-}
+.form--input:focus{ outline: none;} /* Elimina el contorno azul al hacer clic en el input */
 
-.form--input::placeholder{
-    opacity: 0.8;
-}
+.form--input::placeholder{opacity: 0.8;} /* Estilo del placeholder de los inputs */
 
-.input-error {
+.input-error {  /* Estilo para los inputs con error */
     border-color: red !important;
     background-color: #ffe6e6;
 }
 
-/* Botón de inicio de sesión */
-.button--Submit{
+.button--Submit{ /* Botón de registro */
     margin-top: 5px;
   background-color: #fff;
   padding: 8px 10px;
@@ -96,20 +91,18 @@
   border: 1px solid #c4baba;
 }
 
-/* Efecto hover para el botón de inicio de sesión */
-.button--Submit:hover{ /*Hover para los botones de crear.*/
+.button--Submit:hover{ /* Efecto hover para el botón de registro */
   transform: scale(1.02);
   box-shadow: 0 0 10px 0 #000;
 }
 
-/* Estilos generales del contenedor */
-.custom-toast-container {
+.custom-toast-container { /* Contenedor de las notificaciones */
     width: 300px;
-  }
+}
   
-  /* Responsive para pantallas más pequeñas */
-  @media screen and (max-width: 768px) {
-    .custom-toast-container {
+
+@media screen and (max-width: 768px) { /* Estilos para pantallas pequeñas */
+    .custom-toast-container { /* Contenedor de las notificaciones */ 
       width: 10vw; /* 90% del ancho de la pantalla */
       right: 0vw !important; /* evita que quede fuera */
       left: auto !important;
@@ -117,24 +110,24 @@
     }
   }
 
-@media(max-width:775px){
-    .imgLogoMentor, .container__logo{
+@media(max-width:775px){ 
+    .imgLogoMentor, .container__logo{ /* Imagen del logo y contenedor de la imagen */
         display: none;
     }
-    #containerRegister{
+    #containerRegister{ /* Contenedor principal del registro */ 
         display: grid;
         grid-template-columns: 1fr;
         width: 50%;
     }
 }
 
-@media(max-width:575px){
-    #containerRegister{
+@media(max-width:575px){ 
+    #containerRegister{ /* Contenedor principal del registro */
         width: 70%;
     }
 } 
 @media(max-width:400px){
-    #containerRegister{
+    #containerRegister{ /* Contenedor principal del registro */
         width: 90%;
     }
 }

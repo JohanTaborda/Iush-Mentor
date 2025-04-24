@@ -16,8 +16,9 @@ const Header = ({ setMainComponent }) => {
   const [visAuth, setVisAuth] = useState(false);
 
   useEffect(() => {
-    {location.pathname === "/ingresar" ? setVisAuth(true) : setVisAuth(false)}
+    setVisAuth(location.pathname.startsWith("/ingresar") || location.pathname.startsWith("/registro"));
   }, [location.pathname]);
+  
 
   return (
     <header className="header_MainPanel_bar">
