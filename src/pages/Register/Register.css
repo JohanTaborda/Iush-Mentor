@@ -1,0 +1,133 @@
+#containerRegister{ /* Contenedor principal del registro */
+    height: 440px;
+    transform: translate(-50%, -50%) translateY(0); 
+    width: 770px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+}
+
+.container__logo{ /* Contenedor de la imagen del logo */
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.imgLogoMentor{ /* Imagen del logo de Mentor */
+    width: 100%;
+    height: 100%;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+.containerForm{ /* Contenedor del formulario de registro */
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+.formRegister{ /* Formulario de registro */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.titleRegister{ /* Título del formulario de registro */
+    font-family: "Outfit";
+
+}
+
+.form--input{ /* Estilo de los inputs del formulario */
+    width: 85%;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: "Outfit";
+    padding-left: 5px;
+    border: 1px solid #c4baba;
+    color: #000;
+}
+
+.closeRegister{ /* Botón de cerrar el registro */
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 40px;
+    padding-left: 0px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.closeRegister:hover{ /* Efecto hover para el botón de cerrar */
+    background-color: gainsboro;
+}
+
+.form--input:focus{ outline: none;} /* Elimina el contorno azul al hacer clic en el input */
+
+.form--input::placeholder{opacity: 0.8;} /* Estilo del placeholder de los inputs */
+
+.input-error {  /* Estilo para los inputs con error */
+    border-color: red !important;
+    background-color: #ffe6e6;
+}
+
+.button--Submit{ /* Botón de registro */
+    margin-top: 5px;
+  background-color: #fff;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: "Outfit";
+  border: 1px solid #c4baba;
+}
+
+.button--Submit:hover{ /* Efecto hover para el botón de registro */
+  transform: scale(1.02);
+  box-shadow: 0 0 10px 0 #000;
+}
+
+.custom-toast-container { /* Contenedor de las notificaciones */
+    width: 300px;
+}
+  
+
+@media screen and (max-width: 768px) { /* Estilos para pantallas pequeñas */
+    .custom-toast-container { /* Contenedor de las notificaciones */ 
+      width: 10vw; /* 90% del ancho de la pantalla */
+      right: 0vw !important; /* evita que quede fuera */
+      left: auto !important;
+      gap: 5px;
+    }
+  }
+
+@media(max-width:775px){ 
+    .imgLogoMentor, .container__logo{ /* Imagen del logo y contenedor de la imagen */
+        display: none;
+    }
+    #containerRegister{ /* Contenedor principal del registro */ 
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 50%;
+    }
+}
+
+@media(max-width:575px){ 
+    #containerRegister{ /* Contenedor principal del registro */
+        width: 70%;
+    }
+} 
+@media(max-width:400px){
+    #containerRegister{ /* Contenedor principal del registro */
+        width: 90%;
+    }
+}
