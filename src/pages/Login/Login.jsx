@@ -5,35 +5,89 @@ import { FaRegEye } from "react-icons/fa";
 import { GiGraduateCap } from "react-icons/gi"; 
 import { Modal } from "bootstrap";
 import { IoIosClose } from "react-icons/io";
-
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 
 const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => { 
-
-    const validarUsuario = "iush-mentor@gmail.com";
-    const validarContraseña = "iush-mentor";
 
     const [user, setUser] = useState(""); 
     const [password, setPassword] = useState(""); 
     const [errors, setErrors] = useState("");  
     const [showPwd, setShowPwd] = useState(true);  
     const [closeButton, setCloseButton] = useState(false);
+    const [success, setSuccess] = useState("");  
 
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!password.trim() && !user.trim()) {
-            setErrors("Credenciales vacías");
-        } else if (!password.trim()) {
-            setErrors("Contraseña obligatoria");
-        } else if (!user.trim()) {
-            setErrors("Correo obligatorio");
-        } else if (password !== validarContraseña || user !== validarUsuario) {
-            setErrors("Credenciales incorrectas");
+    
+        if (!user.trim() || !password.trim()) {
+            toast.error("Correo y contraseña obligatorios", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return;
         }
-
-        if(user == validarUsuario && password == validarContraseña){ 
-            setMainComponent(true)
+    
+        try {
+            const response = await fetch("http://localhost:3000/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: user,
+                    password: password,
+                }),
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                toast.success("¡Bienvenido!", {
+                    position: "bottom-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                setTimeout(() => {
+                    setMainComponent(true);
+                }, 1500);
+            } else {
+                toast.error("Correo o contraseña incorrectos", {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+    
+        } catch (error) {
+            console.error("Error en login:", error);
+            toast.error("Error del servidor", {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     };
 
@@ -52,6 +106,14 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
     return (
         <>
             <div className="overlay">
+                    <ToastContainer 
+                        position="bottom-right"
+                        autoClose={2000}
+                        hideProgressBar={false}
+                        closeOnClick
+                        pauseOnHover
+                        draggable
+                    />
                 <div className="Login__container">
                     <div className="Login__img">
                         <img src="src/resources/images/logoAplication/Logo-IushMentor.png" 
@@ -64,6 +126,8 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
                             <p className="mss_top">Accede a nuestra comunidad de mentores expertos en diseño, tecnología, inteligencia artificial y más. {icon__cap()} </p>
                         </div>
 
+
+
                         <form action="login_formulario" onSubmit={handleSubmit} className="login_forms">
                             <input type="text" value={user} onChange={(e) => setUser(e.target.value)} placeholder="Email" className="input_Credential"/>
                             <div className="container__password">
@@ -74,6 +138,7 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
                                 <button id="BtnWelcome" >Ingresar</button> 
                             </div>
                                 <p className="Login_error">{errors}</p>
+                                <p className="Login_success">{success}</p>
                             <div className="Login__Register">
                                 <p className="Login_not">¿No tienes cuenta? </p>
                                 <Link to="/registro"> <label onClick={() => setVisRegister(true)} id="click_register">Regístrate</label> </Link> 

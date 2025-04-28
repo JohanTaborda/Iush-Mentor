@@ -129,6 +129,9 @@
     gap: 10px;
 
 }
+.custom-toast-container { /* Contenedor de las notificaciones */
+    width: 300px;
+}
 .icons_eyes{  /* tamaño que se le dan a los iconos*/
     font-size: 18px;
     bottom: 100px !important;
