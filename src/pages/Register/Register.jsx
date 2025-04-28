@@ -3,7 +3,6 @@ import "./Register.css";
 import logo from "../../resources/images/logoAplication/Logo-IushMentor.png"; //Importamos el logo del registro. 
 import api from '../../Api/axiosConfig'; // Importamos la configuración de Axios para realizar solicitudes HTTP
 
-
 import { IoIosClose } from "react-icons/io"; //Importamos el icono para cerrar el registro.
 import { Link } from "react-router-dom"; //Hacemos uso del link para las rutas.
 import { useForm } from "react-hook-form"; //Utilizamos useForm, para el formulario de registro.
@@ -35,22 +34,23 @@ const Register = ({setVisAuth, setVisRegister}) => {
                 password,
                 user_type,  
                 program
-              });
+            });
       
-          toast.success("¡Registro completado!");
-          setValidate(true);
+            toast.success("¡Registro completado!");
+            setValidate(true);
       
-          setTimeout(() => {
-            setVisRegister(false);
-            navigate("/ingresar");
-          }, 5000);
+            setTimeout(() => {
+                setVisRegister(false);
+                navigate("/ingresar");
+            }, 5000);
       
         } catch (error) {
           console.error('Error al registrar usuario:', error);
           toast.error("Error al registrar usuario");
         }
-      };
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         if (errors.firstName?.type === "required") toast.error("El nombre es obligatorio");
         if (errors.lastName?.type === "required") toast.error("El apellido es obligatorio");
         if (errors.email?.type === "required") toast.error("El correo es obligatorio.");
@@ -58,11 +58,16 @@ const Register = ({setVisAuth, setVisRegister}) => {
         if (errors.confirmPassword?.type === "required") toast.error("La confirmación de contraseña es obligatoria.");
         if (errors.user_type?.type === "required") toast.error("El rol es obligatorio.");
         if (errors.program?.type === "required") toast.error("El programa es obligatorio.");
-      }, [errors]);
+    }, [errors]);
       
-    
     const icon_close = () => <IoIosClose className="closeRegister" color="#000" onClick={() => setVisAuth(false)} style={{ display: validate ? "none" : "block" }}  />; //Icono para cerrar el registro.
     
+    const programas = [ "Selecciona un programa", "Administración de empresas", "Comunicación Organizacional", "Contaduría Pública", "Derecho",
+        "Mercadeo", "Negocios Internacionales", "Tecnología en gestión del talento humano", "Tecnología en gestión empresarial", "Tecnología en Gestión de Mercadeo y Ventas",
+        "Tecnología en gestión de negocios internacionales","Animación", "Ingeniería Electrónica", "Ingeniería Industrial", "Ingeniería de Sistemas", "Diseño Gráfico",
+        "Diseño de Modas", "Tecnología en sistemas", "Realización y producción musical", "Ingeniería en inteligencia de negocios"
+    ];
+      
     return (
         <div className="overlayGeneral">
             <ToastContainer position="bottom-right" autoClose={9000} hideProgressBar className="custom-toast-container"/> {/* Contenedor para las fichas de mensajes importantes */}
@@ -85,37 +90,20 @@ const Register = ({setVisAuth, setVisRegister}) => {
                         <input   {...register("password", { required: "La contraseña es obligatoria", minLength: {value: 6, message: "Minimo 6 Caracteres" }})} minLength={6} title="Mínimo 6 caracteres"
                             placeholder="Contraseña"  type="password"  className={`form--input ${errors.password ? "input-error" : ""}`}/> {/* Validamos la contraseña */}
                             
-                        <input {...register("confirmPassword", { required: true })} placeholder="Confirmar Contraseña" type="password" className={`form--input ${errors.confirmPassword ? "input-error" : ""}`}/> {/* Validamos la confirmación de la contraseña */}
+                        <input {...register("confirmPassword", { required: true })} placeholder="Confirmar Contraseña" type="password" className={`form--input $selectRol{errors.confirmPassword ? "input-error" : ""}`}/> {/* Validamos la confirmación de la contraseña */}
 
                         <div className="select-group">
-                        <select {...register("user_type", { required: "El rol es obligatorio" })} className={`form--input ${errors.user_type ? "input-error" : ""}`}>
-                            <option value="">Selecciona un rol</option>
-                            <option value="tutor">Tutor</option>
-                            <option value="aprendiz">Aprendiz</option>
-                        </select>
+                            <select {...register("user_type", { required: "El rol es obligatorio" })} className={`form--input ${errors.user_type ? "input-error" : ""}`} title="Rol Obligatorio" id="selectRol">
+                                <option value="">Selecciona un rol</option>
+                                <option value="tutor">Tutor</option>
+                                <option value="aprendiz">Aprendiz</option>
+                            </select>
 
-                        <select {...register("program", { required: "El programa es obligatorio" })} className={`form--input ${errors.program ? "input-error" : ""}`}>
-                            <option value="">Selecciona un programa</option>
-                            <option value="Administración de empresas">Administración de empresas</option>
-                            <option value="Comunicación Organizacional">Comunicación Organizacional</option>
-                            <option value="Contaduría Pública">Contaduría Pública</option>
-                            <option value="Derecho">Derecho</option>
-                            <option value="Mercadeo">Mercadeo</option>
-                            <option value="Negocios Internacionales">Negocios Internacionales</option>
-                            <option value="Tecnología en gestión del talento humano">Tecnología en gestión del talento humano</option>
-                            <option value="Tecnología en gestión empresarial">Tecnología en gestión empresarial</option>
-                            <option value="Tecnología en Gestión de Mercadeo y Ventas">Tecnología en Gestión de Mercadeo y Ventas</option>
-                            <option value="Tecnología en gestión de negocios internacionales">Tecnología en gestión de negocios internacionales</option>
-                            <option value="Animación">Animación</option>
-                            <option value="Ingeniería Electrónica">Ingeniería Electrónica</option>
-                            <option value="Ingeniería Industrial">Ingeniería Industrial</option>
-                            <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
-                            <option value="Diseño Gráfico">Diseño Gráfico</option>
-                            <option value="Diseño de Modas">Diseño de Modas</option>
-                            <option value="Tecnología en sistemas">Tecnología en sistemas</option>
-                            <option value="Realización y producción musical">Realización y producción musical</option>
-                            <option value="Ingeniería en inteligencia de negocios">Ingeniería en inteligencia de negocios</option>
-                        </select>
+                            <select {...register("program", { required: "El programa es obligatorio" })} className={`form--input ${errors.program ? "input-error" : ""}`} title="Programa Obligatorio" id="selectProgram">
+                                {programas.map((value, index) => (
+                                    <option required key={index} value={value.startsWith("Selecciona") ? "" : value}>{value}</option>
+                                ))}
+                            </select>
                         </div>
                         <input type="submit" value="Crear Cuenta" className="button--Submit" disabled={validate ? true : false} /> {/* Botón para enviar el formulario */}
                     </form>
