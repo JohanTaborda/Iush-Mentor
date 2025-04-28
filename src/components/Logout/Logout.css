@@ -6,7 +6,7 @@
     text-overflow: ellipsis;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(#285194,  #0C192E);
+    background-color: whitesmoke;
 }
 
 .Logout__title{
@@ -15,7 +15,7 @@
     width: 100%;
     margin-top: 20px;
     font-family: "Outfit";
-    color: #fff;
+    color: black;
 }
 
 .logout__buttons{
@@ -43,7 +43,7 @@
 #button--cancel:hover{background-color: #b1abab;}
 
 #button--acept{
-    background-color: #0e6ac0;
+    background-color:#184ea5;
     color: #fff;
 }
 

@@ -71,7 +71,7 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
                                 <span id="ubicacion__icon">{showPwd ? icon__eyeDisabled() : icon__eyeEnable()}</span>
                             </div>
                             <div>
-                                <button id="BtnWelcome" >INGRESAR</button> 
+                                <button id="BtnWelcome" >Ingresar</button> 
                             </div>
                                 <p className="Login_error">{errors}</p>
                             <div className="Login__Register">

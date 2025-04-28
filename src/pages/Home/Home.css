@@ -49,6 +49,11 @@
   align-self: flex-start;             /* Alinea el botón a la izquierda en contenedores flex */
   transition: background-color 0.3s ease; /* Transición suave al cambiar color */
 }
+
+.preset-btn:hover{ /* Efecto hover para el botón de registro */
+  transform: scale(1.02);
+  box-shadow: 0 0 10px 0 #000;
+}
 .general-container {
   padding-inline: 0.8rem;
   max-width: 100%;
