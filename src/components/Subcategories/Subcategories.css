@@ -65,8 +65,9 @@
 
 /* Efecto hover del botón */
 .subcategory-card__button:hover {
-  background-color: #6091fa; /* Azul más oscuro al pasar el mouse */
-}
+    transform: scale(1.02);
+    box-shadow: 0 0 10px 0 #000;
+  }
 
 @media (max-width: 599px) {
   .subcategory-card{

@@ -1,7 +1,7 @@
 #containerRegister{ /* Contenedor principal del registro */
-    height: 440px;
+    height: 540px;
     transform: translate(-50%, -50%) translateY(0); 
-    width: 770px;
+    width: 870px;
     padding: 0;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 13px;
 }
 
 .titleRegister{ /* Título del formulario de registro */
@@ -80,15 +80,28 @@
     background-color: #ffe6e6;
 }
 
+.select-group {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 13px;
+    
+}
+
+#selectRol, #selectProgram{
+    color: rgb(83, 80, 80);
+}
+
 .button--Submit{ /* Botón de registro */
-    margin-top: 5px;
-  background-color: #fff;
+  margin-top: 5px;
+  background-color: #184ea5;
   padding: 8px 10px;
   border: none;
   border-radius: 6px;
   font-size: 16px;
   font-family: "Outfit";
   border: 1px solid #c4baba;
+  color: white;
 }
 
 .button--Submit:hover{ /* Efecto hover para el botón de registro */
