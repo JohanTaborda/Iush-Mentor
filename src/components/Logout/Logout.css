@@ -36,11 +36,16 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.buttons--interactive:hover{transform: scale(1.05);}
+.buttons--interactive:hover{transform: scale(1.023);}
 
-#button--cancel{background-color: #c2bdbd;}
+#button--cancel{
+    background-color: #ffffff;
+    border: 1px solid rgb(207, 202, 202);
+}
 
-#button--cancel:hover{background-color: #b1abab;}
+#button--cancel:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
 #button--acept{
     background-color:#184ea5;

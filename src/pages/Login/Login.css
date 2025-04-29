@@ -101,7 +101,7 @@
 
 .mss_top{
     font-family: 'manrope';
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 650;
     text-align: left;
 }
@@ -182,14 +182,11 @@
     #click_register{
         font-size: 16px;
     }
-    .Login_error{
-        height: 10px;
-    }
     .Login__welcome{ /* se diseña el contenedero de estructura de bienvenida */
-        justify-items: center;
+        justify-items:center;
     }
     .Login_Welcometittle{  /*se le da el estilo al bienvenidos del login */
-        font-size: 40px;
+        font-size: 39px;
         font-weight: 650;
     }
     .Login__container{ /* se diseña el contenedor para que se vea de una forma mas organizada y agradable de ver*/
@@ -203,10 +200,4 @@
         width: 80%
     }
 } 
-@media(max-width:400px){
-    .Login__Register{
-        display: flex;
-        gap: 8px;
-    }
-}
 
