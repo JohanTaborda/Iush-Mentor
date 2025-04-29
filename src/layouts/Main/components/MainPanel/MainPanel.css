@@ -1,0 +1,633 @@
+/* Estilos del encabezado*/
+.header_MainPanel_bar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #285194;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  position: relative;
+  border-bottom: 2px solid white;
+}
+
+/* Estilos para la sección izquierda del encabezado */
+.header_MainPanel_left {
+  display: flex;
+  align-items: center;
+}
+
+/* Icono en el encabezado */
+.header_MainPanel_icon {
+  font-size: 24px;
+  margin-right: 10px;
+  width: 50px; /* Ajusta el tamaño según sea necesario */
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+
+/* Título en el encabezado */
+.header_MainPanel_tittle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding-top: 10px;
+}
+
+/* Botón de inicio de sesión */
+.login_btn_MainPanel{
+  background-color: #fff;
+  color: black;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 16px;
+  font-family: "Outfit";
+}
+
+/* Efecto hover para el botón de inicio de sesión */
+.login_btn_MainPanel:hover{ /*Hover para los botones de crear.*/
+  transform: scale(1.02);
+  box-shadow: 0 0 10px 0 #000;
+}
+
+/* Contenedor principal MainPanel */
+.main_container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Contenido Panel Principal */
+.panel_content {
+  flex: 1;
+  background: linear-gradient(to bottom, #285194, #91aac2);
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenido Article */
+.content_article {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Title: El nuevo sistema de tutorías de nuestra universidad */
+.title_main {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.5em;
+  color: white;
+  margin-bottom: 10px;
+  text-align: center;
+  max-width: 600px; 
+  margin: 0 auto; 
+  font-weight: font;
+}
+
+/* Subtitle: Miles de estudiantes y docentes unidos para potenciar el aprendizaje y el crecimiento académico*/
+.subtitle_main {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.2em;
+  color: white;
+  text-align: center;/* Estilos del encabezado*/
+  .header_MainPanel_bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #285194;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0;
+    position: relative;
+    border-bottom: 2px solid white;
+  }
+  
+  /* Estilos para la sección izquierda del encabezado */
+  .header_MainPanel_left {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Icono en el encabezado */
+  .header_MainPanel_icon {
+    font-size: 24px;
+    margin-right: 10px;
+    width: 50px; /* Ajusta el tamaño según sea necesario */
+    height: auto; /* Mantiene la proporción de la imagen */
+  }
+  
+  /* Título en el encabezado */
+  .header_MainPanel_tittle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding-top: 10px;
+  }
+  
+  /* Botón de inicio de sesión */
+  .login_btn_MainPanel{
+    background-color: #597EBC;
+    color: rgb(241, 234, 234);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  /* Efecto hover para el botón de inicio de sesión */
+  .login_btn_MainPanel:hover {
+    background-color: #7A9EDC; 
+  }
+  
+  /* Contenedor principal MainPanel */
+  .main_container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Contenido Panel Principal */
+  .panel_content {
+    flex: 1;
+    background: linear-gradient(to bottom, #285194, #91aac2);
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Contenido Article */
+  .content_article {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Title: El nuevo sistema de tutorías de nuestra universidad */
+  .title_main {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.5em;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+    max-width: 600px; 
+    margin: 0 auto; 
+    font-weight: font;
+  }
+  
+  /* Subtitle: Miles de estudiantes y docentes unidos para potenciar el aprendizaje y el crecimiento académico*/
+  .subtitle_main {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.2em;
+    color: white;
+    text-align: center;
+    max-width: 600px; 
+    margin: 0 auto; 
+  }
+  
+  /* Contenedor para los botones */
+  .content_btn_schools {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+    width: 100%; 
+    margin: 0 auto; 
+  }
+  
+  /* Estilos de los botones de escuelas */
+  .school_btn {
+    flex: 1 1 auto; /* Asegura que los botones ocupen el espacio disponible */
+    max-width: 300px;
+    font-size: 18px;
+    padding: 15px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    background: rgb(220, 227, 235);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s;
+  }
+  
+  /* Efecto hover para los botones */
+  .school_btn:hover {
+    transform: translateY(-5px); /* Levanta el botón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra */
+  }
+  
+  /* Texto de la escuela */
+  .school_text {
+    display: block;
+    font-size: 19px; 
+    font-family: 'Outfit', sans-serif;
+    color: black; 
+    margin-bottom: 5px;
+  }
+  
+  .school_description{
+    font-family: "Manrope";
+  }
+  
+  .school_icon {
+    font-size: 35px; /* Ajusta el tamaño del ícono */
+    margin-right: 8px; /* Espacio entre el ícono y el texto */
+  }
+  
+  /* About Section */
+  .about {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, #3e5e92, #4a638b,);
+    padding: 30px;
+    margin: 20px;
+    border-radius: 10px;
+    text-align: justify;
+    color: black;
+    border: 1px solid white; /* Borde delgado de color blanco */
+  }
+  
+  /* Texto sobre nosotros */
+  .about_text {
+    font-family: 'Manrope', sans-serif;
+    flex: 1;
+    padding-right: 20px;
+  }
+  
+  .about_title{
+    font-family: "Outfit";
+  }
+  
+  
+  /* Imagen sobre nosotros */
+  .about_image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    max-width: 450px; 
+    max-height: 300px; 
+    width: auto; 
+    height: auto; 
+  }
+  
+  /* Estilos para la imagen sobre nosotros */
+  .about_image img {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+  
+  /* Expert Section */
+  .expert_path {
+    background: linear-gradient(to bottom, #3e5e92, #4a638b,);
+    padding: 15px; 
+    margin: 20px; 
+    border-radius: 10px;
+    color: black;
+    text-align: center;
+    border: 1px solid white; /* Borde delgado de color blanco */
+  }
+  /* Opciones de expertos */
+  .expert_options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Asegura que las tarjetas se alineen horizontalmente */
+  }
+  
+  /* Tarjetas de expertos */
+  .expert_card {
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    background: rgb(220, 227, 235);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 1 300px; 
+    max-width: 300px; 
+    color: black;
+  }
+  
+  .expert_description{
+    font-family: "Manrope";
+  }
+  
+  /* Efecto hover para las tarjetas de expertos */
+  .expert_card:hover {
+    transform: translateY(-5px); /* Levanta la tarjeta */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra */
+  }
+  
+  /* Icono de expertos */
+  .expert_icon {
+    font-size: 70px; /* Se puede ajustar tamaño */
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  /* Footer */
+  .footer_MainPanel {
+    font-family: 'Manrope', sans-serif;
+    text-align: center;
+    padding: 5px;
+    background: #a9baca;
+    color: black;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .schools {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .expert_card {
+      flex: 1 1 45%; /* Ajusta el ancho de las tarjetas */
+      max-width: 45%; /* Ajusta el ancho máximo de las tarjetas */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .header_MainPanel_bar {
+      flex-direction: column;
+      align-items: center; /* Centra los elementos horizontalmente */
+    }
+    
+    .header_MainPanel_left {
+      display: flex;
+      flex-direction: column; /* Alinea el ícono y el título verticalmente */
+      align-items: center; /* Centra los elementos horizontalmente */
+      width: 100%; /* Asegura que ocupen todo el ancho disponible */
+    }
+    
+    .header_MainPanel_icon {
+      margin-right: 0; /* Elimina el margen derecho */
+      margin-bottom: 10px; /* Añade un margen inferior para separar el ícono del título */
+    }
+    
+    .header_MainPanel_tittle {
+      text-align: center; /* Centra el texto del título */
+    }
+    
+    .login_btn_MainPanel {
+      align-self: center; /* Centra el botón horizontalmente */
+      margin-top: 10px;
+      width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+      text-align: center; /* Centra el texto dentro del botón */
+      padding: 15px; /* Aumenta el padding para hacer el botón más grande y fácil de tocar */
+    }
+    
+    .schools {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .expert_card {
+      flex: 1 1 90%; /* Ajusta el ancho de las tarjetas */
+      max-width: 90%; /* Ajusta el ancho máximo de las tarjetas */
+    }
+    
+    .about {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .about_text {
+      padding-right: 0;
+      margin-bottom: 20px;
+    }
+    
+    .about_image {
+      justify-content: center;
+    }
+  }
+  
+  max-width: 600px; 
+  margin: 0 auto; 
+}
+
+/* Contenedor para los botones */
+.content_btn_schools {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  flex-wrap: wrap; 
+  gap: 10px; 
+  width: 100%; 
+  margin: 0 auto; 
+}
+
+/* Estilos de los botones de escuelas */
+.school_btn {
+  flex: 1 1 auto; /* Asegura que los botones ocupen el espacio disponible */
+  max-width: 300px;
+  font-size: 18px;
+  padding: 15px;
+  margin: 10px;
+  border: none;
+  border-radius: 8px;
+  background: rgb(220, 227, 235);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s;
+}
+
+/* Efecto hover para los botones */
+.school_btn:hover {
+  transform: translateY(-5px); /* Levanta el botón */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra */
+}
+
+/* Texto de la escuela */
+.school_text {
+  display: block;
+  font-size: 19px; 
+  font-family: 'Outfit', sans-serif;
+  color: black; 
+  margin-bottom: 5px;
+}
+
+.school_description{
+  font-family: "Manrope";
+}
+
+.school_icon {
+  font-size: 35px; /* Ajusta el tamaño del ícono */
+  margin-right: 8px; /* Espacio entre el ícono y el texto */
+}
+
+/* About Section */
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, #3e5e92, #4a638b,);
+  padding: 30px;
+  margin: 20px;
+  border-radius: 10px;
+  text-align: justify;
+  color: black;
+  border: 1px solid white; /* Borde delgado de color blanco */
+}
+
+/* Texto sobre nosotros */
+.about_text {
+  font-family: 'Manrope', sans-serif;
+  flex: 1;
+  padding-right: 20px;
+}
+
+.about_title{
+  font-family: "Outfit";
+}
+
+
+/* Imagen sobre nosotros */
+.about_image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 450px; 
+  max-height: 300px; 
+  width: auto; 
+  height: auto; 
+}
+
+/* Estilos para la imagen sobre nosotros */
+.about_image img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* Expert Section */
+.expert_path {
+  background: linear-gradient(to bottom, #3e5e92, #4a638b,);
+  padding: 15px; 
+  margin: 20px; 
+  border-radius: 10px;
+  color: black;
+  text-align: center;
+  border: 1px solid white; /* Borde delgado de color blanco */
+}
+/* Opciones de expertos */
+.expert_options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Asegura que las tarjetas se alineen horizontalmente */
+}
+
+/* Tarjetas de expertos */
+.expert_card {
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  background: rgb(220, 227, 235);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1 1 300px; 
+  max-width: 300px; 
+  color: black;
+}
+
+.expert_description{
+  font-family: "Manrope";
+}
+
+/* Efecto hover para las tarjetas de expertos */
+.expert_card:hover {
+  transform: translateY(-5px); /* Levanta la tarjeta */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumenta la sombra */
+}
+
+/* Icono de expertos */
+.expert_icon {
+  font-size: 70px; /* Se puede ajustar tamaño */
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Footer */
+.footer_MainPanel {
+  font-family: 'Manrope', sans-serif;
+  text-align: center;
+  padding: 5px;
+  background: #c9d6e2;
+  color: black;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .schools {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .expert_card {
+    flex: 1 1 45%; /* Ajusta el ancho de las tarjetas */
+    max-width: 45%; /* Ajusta el ancho máximo de las tarjetas */
+  }
+}
+
+@media (max-width: 600px) {
+  .header_MainPanel_bar {
+    flex-direction: column;
+    align-items: center; /* Centra los elementos horizontalmente */
+  }
+  
+  .header_MainPanel_left {
+    display: flex;
+    flex-direction: column; /* Alinea el ícono y el título verticalmente */
+    align-items: center; /* Centra los elementos horizontalmente */
+    width: 100%; /* Asegura que ocupen todo el ancho disponible */
+  }
+  
+  .header_MainPanel_icon {
+    margin-right: 0; /* Elimina el margen derecho */
+    margin-bottom: 10px; /* Añade un margen inferior para separar el ícono del título */
+  }
+  
+  .header_MainPanel_tittle {
+    text-align: center; /* Centra el texto del título */
+  }
+  
+  .login_btn_MainPanel {
+    align-self: center; /* Centra el botón horizontalmente */
+    margin-top: 10px;
+    width: 100%; /* Asegura que el botón ocupe todo el ancho disponible */
+    text-align: center; /* Centra el texto dentro del botón */
+    padding: 15px; /* Aumenta el padding para hacer el botón más grande y fácil de tocar */
+  }
+  
+  .schools {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .expert_card {
+    flex: 1 1 90%; /* Ajusta el ancho de las tarjetas */
+    max-width: 90%; /* Ajusta el ancho máximo de las tarjetas */
+  }
+  
+  .about {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .about_text {
+    padding-right: 0;
+    margin-bottom: 20px;
+  }
+  
+  .about_image {
+    justify-content: center;
+  }
+}

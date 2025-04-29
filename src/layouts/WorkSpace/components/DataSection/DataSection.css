@@ -1,0 +1,16 @@
+.textSections{ /*Propiedad para el contenedor que almacena el componente renderizado.*/
+    font-size: 40px;
+}
+.mainDataSection {
+	height: 100vh;
+	background-color: whitesmoke; /* Fondo gris muy claro */
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+  
+  /* En móviles, deja espacio para navbar si está fijo abajo */
+  @media screen and (max-width: 760px) {
+	.mainDataSection {
+	  height: calc(100vh - 150px);
+	}
+  }

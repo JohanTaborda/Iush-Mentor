@@ -1,0 +1,5 @@
+.container__Workspace{ /*Propiedades para el bloque principal del WorkSpace.*/
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+}
