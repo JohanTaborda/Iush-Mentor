@@ -3,9 +3,9 @@ import "./HeaderSection.css" // Estilos personalizados para el componente Header
 import Dropdown from 'react-bootstrap/Dropdown'; //Hacemos uso de los dropdown que nos ofrece bootstrap
 import Form from 'react-bootstrap/Form'; //Hacemos uso del switch que nos ofrece bootstrap
 
-import CreateTutoring from "../../../../components/CreateTutoring/CreateTutoring"; //Componente que crea las tutorias.
+import CreateTutoring from "../../../../../components/CreateTutoring/CreateTutoring.jsx"; //Componente que crea las tutorias.
 import notifications from "./Notifications.json" //Json para el contenido de las notificaciones
-import userDefault from "../../../../resources/images/User/userDefault.jpeg" //Importamos la foto por defecto del usuario.
+import userDefault from "../../../../../resources/images/User/userDefault.jpeg" //Importamos la foto por defecto del usuario.
 
 //Importamos los iconos.
 import { IoIosSearch, IoMdAdd } from "react-icons/io";

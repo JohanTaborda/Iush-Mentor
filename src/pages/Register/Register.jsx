@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"; //Importamos los hooks
 import "./Register.css";
 import logo from "../../resources/images/logoAplication/Logo-IushMentor.png"; //Importamos el logo del registro. 
-import api from '../../Api/axiosConfig'; // Importamos la configuración de Axios para realizar solicitudes HTTP
+import api from '../../services/Api/axiosConfig.js'; // Importamos la configuración de Axios para realizar solicitudes HTTP
 
 import { IoIosClose } from "react-icons/io"; //Importamos el icono para cerrar el registro.
 import { Link } from "react-router-dom"; //Hacemos uso del link para las rutas.

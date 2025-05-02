@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './App.css' // Estilos personalizados para el componente App.
+import './Dashboard.css' // Estilos personalizados para el componente App.
 
 //Importamos los componentes Hijos
 import Navbar from "../../../Navbar/Navbar.jsx"

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";// Importamos React y hooks para manejar estados
 import { useNavigate } from "react-router-dom";// useNavigate nos permitiría cambiar de ruta 
 // Importamos los componentes hijos
-import App from "./components/App/App.jsx";
+import Dashboard from "./components/Dashboard/Dashboard.jsx"; // Componente principal de la aplicación
 import MainPanel from "./components/MainPanel/MainPanel.jsx";
 import "./Main.css" // Estilos personalizados para el componente Main.
 
@@ -46,7 +46,7 @@ const Main = () => {
   return (
     <>
       {mainComponent ? (
-        <App setMainComponent={setMainComponent} />
+        <Dashboard setMainComponent={setMainComponent} />
       ) : (
         <MainPanel setMainComponent={setMainComponent} />
       )}

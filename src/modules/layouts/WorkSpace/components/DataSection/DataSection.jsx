@@ -4,9 +4,9 @@ import "./DataSection.css";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom"; // Navigate redirecciona automáticamente.
 
 // Importamos los componentes Hijos
-import Tutoring from "../../../../pages/Tutoring/Tutoring.jsx";
-import Forum from "../../../../pages/Forum/Forum.jsx";
-import Home from "../../../../pages/Home/Home.jsx";
+import Tutoring from "../../../../../pages/Tutoring/Tutoring.jsx"; // Componente de tutorías
+import Forum from "../../../../../pages/Forum/Forum.jsx";
+import Home from "../../../../../pages/Home/Home.jsx";
 
 const DataSection = ({ buttonSelected, searchTerm }) => { // Recibimos desde WorkSpace el texto que el usuario escribió en el buscador
   const navigate = useNavigate();

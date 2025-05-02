@@ -4,7 +4,7 @@ import "./MainPanel.css"; // Estilos personalizados para el componente MainPanel
 import { Link, useLocation } from "react-router-dom";
 
 //Importamos los componentes Hijos
-import Auth from "../../../Auth/Auth.jsx";
+import Auth from "../../../../Auth/Auth.jsx"; // Componente de autenticación
 
 //Importar iconos
 import { FcReadingEbook, FcFinePrint, FcMindMap, FcIdea, FcLibrary } from "react-icons/fc";

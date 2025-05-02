@@ -4,7 +4,7 @@ import "./Navbar.css" // Estilos personalizados para el componente Navbar.
 import Tooltip from '@mui/material/Tooltip'; //De la importación "@mui/material/Tooltip" utilizamos la función del Tooltip, el cual nos sirve para los botones.
 import { Link, useLocation } from "react-router-dom"; //Importamos link que nos sirve para Navegar sin recargar y useLocation para saber en que ruta estoy.
 //Importamos los componentes Hijos - Ventana Emergentes
-import Logout from "../../components/Logout/Logout.jsx"; //Componente para cerrar sesión.
+import Logout from "../../../components/Logout/Logout.jsx"; //Ventana emergente para cerrar sesión.
 
 //Iconos para el navbar
 import { IoMenu } from "react-icons/io5";
