@@ -38,13 +38,13 @@ const App = ({setMainComponent}) => {
     <div id='WorkSpaceGeneralStyles'> {/*Bloque que almacena los componentes Hijos*/}
       {isMobile ? ( //Si isMobile es true, me muestra el workspace encima del navbar
         <>
-           <WorkSpace buttonSelected={buttonSelected}/> {/*Enviamos mediante props buttonSelected, para permitir la paginación por cada componente*/}
+           <WorkSpace buttonSelected={buttonSelected} setButtonSelected={setButtonSelected}/> {/*Enviamos mediante props buttonSelected, para permitir la paginación por cada componente*/}
            <Navbar setButtonSelected={setButtonSelected} setMainComponent={setMainComponent} /> {/*Enviamos mediante props setButtonSelected, para actualizar el valor según el botón seleccionado en el navbar.*/}
         </>
       ) : ( //Si isMobile es False, me muestra el workspace al ladod el navbar.
         <>
             <Navbar setButtonSelected={setButtonSelected} setMainComponent={setMainComponent}/> {/*Enviamos mediante props setButtonSelected, para actualizar el valor según el botón seleccionado en el navbar.*/}
-            <WorkSpace buttonSelected={buttonSelected}/> {/*Enviamos mediante props buttonSelected, para permitir la paginación por cada componente*/}
+            <WorkSpace buttonSelected={buttonSelected} setButtonSelected={setButtonSelected}/> {/*Enviamos mediante props buttonSelected, para permitir la paginación por cada componente*/}
         </>
       )}
     </div>

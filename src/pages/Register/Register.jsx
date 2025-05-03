@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"; //Importamos los hooks
 import "./Register.css";
 import logo from "../../resources/images/logoAplication/Logo-IushMentor.png"; //Importamos el logo del registro. 
 import api from '../../services/Api/axiosConfig.js'; // Importamos la configuración de Axios para realizar solicitudes HTTP
-
+import { BeatLoader } from "react-spinners";
 import { IoIosClose } from "react-icons/io"; //Importamos el icono para cerrar el registro.
 import { Link } from "react-router-dom"; //Hacemos uso del link para las rutas.
 import { useForm } from "react-hook-form"; //Utilizamos useForm, para el formulario de registro.
@@ -15,12 +15,15 @@ import { useNavigate } from "react-router-dom"; //Importamos el hook useNavigate
 //Recibimos mediante props el estado de la ventana de registro y el estado de la ventana de autenticación.
 const Register = ({setVisAuth, setVisRegister}) => {
     const navigate = useNavigate(); 
-    const { register, handleSubmit, formState: { errors }, watch} = useForm(); //Utilizamos el hook useForm para manejar el formulario de registro.
-    const [data, setData] = useState(""); //Guardamos los datos del formulario en el estado data.
+    const { register, handleSubmit, formState: { errors }, watch} = useForm({
+        defaultValues: {
+            user_type: 'aprendiz'  // Valor por defecto para user_type
+        }
+    });   
     const [validate, setValidate] = useState(false) //Guardamos el estado de la validación del formulario en el estado validate.
 
     const onSubmit = async (formData) => {
-        const { password, confirmPassword, firstName, lastName, email, user_type, program } = formData;
+        const { password, confirmPassword, firstName, lastName, email, program, user_type } = formData;
       
         if (password !== confirmPassword) {
           toast.error("Las contraseñas no coinciden");
@@ -42,7 +45,7 @@ const Register = ({setVisAuth, setVisRegister}) => {
             setTimeout(() => {
                 setVisRegister(false);
                 navigate("/ingresar");
-            }, 5000);
+            }, 1200);
       
         } catch (error) {
           console.error('Error al registrar usuario:', error);
@@ -56,7 +59,6 @@ const Register = ({setVisAuth, setVisRegister}) => {
         if (errors.email?.type === "required") toast.error("El correo es obligatorio.");
         if (errors.password?.type === "required") toast.error("La contraseña es obligatoria");
         if (errors.confirmPassword?.type === "required") toast.error("La confirmación de contraseña es obligatoria.");
-        if (errors.user_type?.type === "required") toast.error("El rol es obligatorio.");
         if (errors.program?.type === "required") toast.error("El programa es obligatorio.");
     }, [errors]);
       
@@ -93,11 +95,6 @@ const Register = ({setVisAuth, setVisRegister}) => {
                         <input {...register("confirmPassword", { required: true })} placeholder="Confirmar Contraseña" type="password" className={`form--input $selectRol{errors.confirmPassword ? "input-error" : ""}`}/> {/* Validamos la confirmación de la contraseña */}
 
                         <div className="select-group">
-                            <select {...register("user_type", { required: "El rol es obligatorio" })} className={`form--input ${errors.user_type ? "input-error" : ""}`} title="Rol Obligatorio" id="selectRol">
-                                <option value="">Selecciona un rol</option>
-                                <option value="tutor">Tutor</option>
-                                <option value="aprendiz">Aprendiz</option>
-                            </select>
 
                             <select {...register("program", { required: "El programa es obligatorio" })} className={`form--input ${errors.program ? "input-error" : ""}`} title="Programa Obligatorio" id="selectProgram">
                                 {programas.map((value, index) => (
@@ -105,7 +102,10 @@ const Register = ({setVisAuth, setVisRegister}) => {
                                 ))}
                             </select>
                         </div>
-                        <input type="submit" value="Crear Cuenta" className="button--Submit" disabled={validate ? true : false} /> {/* Botón para enviar el formulario */}
+                        <button  type="submit"  className="button--Submit"  disabled={validate}>
+                            {validate ? ( <BeatLoader color="#ffffff" size={5} />
+                            ) : ( "Crear Cuenta"  )}
+                        </button>                   
                     </form>
                 </div>
                 <div className="container__logo">

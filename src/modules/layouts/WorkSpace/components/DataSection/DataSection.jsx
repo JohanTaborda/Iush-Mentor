@@ -7,6 +7,7 @@ import { Routes, Route, Navigate, useNavigate } from "react-router-dom"; // Navi
 import Tutoring from "../../../../../pages/Tutoring/Tutoring.jsx"; // Componente de tutorías
 import Forum from "../../../../../pages/Forum/Forum.jsx";
 import Home from "../../../../../pages/Home/Home.jsx";
+import Configuration from "../../../../../pages/Configuration/Configuration.jsx"
 
 const DataSection = ({ buttonSelected, searchTerm }) => { // Recibimos desde WorkSpace el texto que el usuario escribió en el buscador
   const navigate = useNavigate();
@@ -23,6 +24,9 @@ const DataSection = ({ buttonSelected, searchTerm }) => { // Recibimos desde Wor
       case "Foro":
         navigate("/foro");
         break;
+      case "Configuracion":
+        navigate("/perfil/configuracion");
+        break;
       default:
         break;
     }
@@ -37,6 +41,8 @@ const DataSection = ({ buttonSelected, searchTerm }) => { // Recibimos desde Wor
         <Route path="/tutorias" element={<Tutoring searchTerm={searchTerm} />} />
         {/* Ruta específica del foro */}
         <Route path="/foro" element={<Forum />} />
+        {/* Ruta específica para la sección de configuración*/}
+        <Route path="/perfil/configuracion" element={<Configuration />} />
         {/* Ruta por defecto al iniciar sesión */}
         <Route path="" element={<Navigate to="/inicio" />} />
       </Routes>

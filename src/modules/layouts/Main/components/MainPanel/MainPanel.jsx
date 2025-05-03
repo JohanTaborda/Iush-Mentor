@@ -52,7 +52,7 @@ const ExpertCard = ({ title, subtitle, icon }) => {
   return (
     <div className="expert_card">
       {icon && <span className="expert_icon">{icon}</span>}
-      <h3 className="about_title">{title}</h3>
+      <h3 className="about_title" id="title_expertCard">{title}</h3>
       <p className="expert_description">{subtitle}</p>
     </div>
   );
