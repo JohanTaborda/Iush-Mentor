@@ -1,0 +1,19 @@
+.containerConfiguration{
+    width: 100%;
+    padding: 20px;
+}
+
+.titleTabs{
+    font-family: "Outfit";
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+    .titleTabs{
+        font-size: 10px;
+
+    }
+
+}
