@@ -1,19 +1,77 @@
 .containerConfiguration{
     width: 100%;
     padding: 20px;
+    max-width: 100%; /* Asegura que no desborde en móviles */
 }
 
 .titleTabs{
+    font-family: "Outfit" !important;
+}
+
+.TabPanelProfile{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.buttonEditProfile{
+    margin-top: 15px !important;
+    font-family: "Manrope" !important;
+    width: 100%; /* En dispositivos pequeños, el botón ocupa el ancho completo */
+    max-width: 200px; /* Limita el ancho en dispositivos grandes */
+}
+
+.changeImgProfile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.titleConfiguration{
+    font-size: 33px;
     font-family: "Outfit";
 }
 
-
-
-
+/* Mejoras para dispositivos móviles */
 @media screen and (max-width: 768px) {
-    .titleTabs{
-        font-size: 10px;
-
+    .containerConfiguration {
+        padding: 10px; /* Reducir el padding en móviles */
     }
+    
+    .titleTabs{
+        font-size: 12px; /* Un poco más grande que 10px para mejor legibilidad */
+        padding: 6px 8px !important; /* Tabs más compactas */
+    }
+    
+    .TabPanelProfile{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px; /* Un poco menos de espacio entre elementos */
+    }
+    
+    /* Botón centrado en móviles */
+    .buttonEditProfile {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+    }
+    
+    .titleConfiguration{
+        text-align: center;
+    }
+}
 
+/* Ajustes adicionales para pantallas muy pequeñas */
+@media screen and (max-width: 360px) {
+    .titleTabs {
+        font-size: 11px !important;
+        padding: 4px !important;
+    }
+    
+    .containerConfiguration {
+        padding: 8px;
+    }
 }
