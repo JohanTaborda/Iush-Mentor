@@ -142,6 +142,11 @@ const SubschoolCarousel = ({ title, data }) => {
 // ============================
 // Renderiza los dos carruseles por escuela
 // Recibe el texto del input desde WorkSpace
+// ============================
+// VISTA PRINCIPAL DE TUTORÍAS
+// ============================
+// Renderiza los dos carruseles por escuela
+// Recibe el texto del input desde WorkSpace
 const Tutoring = ({ searchTerm }) => {
   // Función para eliminar tildes y pasar a minúsculas
   const normalizeText = (text) =>
@@ -157,27 +162,42 @@ const Tutoring = ({ searchTerm }) => {
     normalizeText(item.title).includes(normalizeText(searchTerm))
   );
 
+  // Verificamos si hay resultados en alguna de las escuelas
+  const hasCreativeResults = creativeFiltered.length > 0;
+  const hasAdminResults = adminFiltered.length > 0;
+  const hasAnyResults = hasCreativeResults || hasAdminResults;
+  
+  // Si no hay término de búsqueda, mostramos ambas escuelas
+  const isSearching = searchTerm.trim() !== '';
+
   return (
     <main className="tutoring">
-      {creativeFiltered.length > 0 ? (
-        <SubschoolCarousel
-          title="Escuela de Ciencias Creativas"
-          data={creativeFiltered}
-        />
+      {/* Si no hay resultados y estamos buscando, mostramos un mensaje general */}
+      {isSearching && !hasAnyResults ? (
+        <div className="tutoring__no-results-container">
+          <p className="tutoring__no-results">
+            No se encontraron resultados en ninguna de las escuelas.
+          </p>
+        </div>
       ) : (
-        <p className="tutoring__no-results">
-          No se encontraron resultados en escuela de Ciencias Creativas.
-        </p>
-      )}
-      {adminFiltered.length > 0 ? (
-        <SubschoolCarousel
-          title="Escuela de Ciencias Administrativas, Sociales y Humanas"
-          data={adminFiltered}
-        />
-      ) : (
-        <p className="tutoring__no-results">
-          No se encontraron resultados en Escuela Ciencias Administrativas, Sociales y Humanas.
-        </p>
+        // Si hay resultados o no estamos buscando, mostramos las escuelas correspondientes
+        <>
+          {/* Solo mostramos la escuela creativa si hay resultados o no estamos buscando */}
+          {(!isSearching || hasCreativeResults) && (
+            <SubschoolCarousel
+              title="Escuela de Ciencias Creativas"
+              data={creativeFiltered.length > 0 ? creativeFiltered : creativeSubschools}
+            />
+          )}
+
+          {/* Solo mostramos la escuela administrativa si hay resultados o no estamos buscando */}
+          {(!isSearching || hasAdminResults) && (
+            <SubschoolCarousel
+              title="Escuela de Ciencias Administrativas, Sociales y Humanas"
+              data={adminFiltered.length > 0 ? adminFiltered : adminSubschools}
+            />
+          )}
+        </>
       )}
     </main>
   );

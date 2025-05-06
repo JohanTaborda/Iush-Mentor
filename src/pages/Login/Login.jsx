@@ -53,8 +53,11 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
             const data = await response.json();
     
             if (response.ok) {
+
+                const {role} = data;
+
                 toast.success("¡Bienvenido!", {
-                    position: "bottom-right",
+                    position: "top-center",
                     autoClose: 1500,
                     hideProgressBar: false,
                     closeOnClick: true,

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./HeaderSection.css" // Estilos personalizados para el componente HeaderSection.
 import Dropdown from 'react-bootstrap/Dropdown'; //Hacemos uso de los dropdown que nos ofrece bootstrap
 import Form from 'react-bootstrap/Form'; //Hacemos uso del switch que nos ofrece bootstrap
+import { Link, useLocation } from "react-router-dom"; //Importamos link que nos sirve para Navegar sin recargar y useLocation para saber en que ruta estoy.
 
-import CreateTutoring from "../../../../components/CreateTutoring/CreateTutoring"; //Componente que crea las tutorias.
+import CreateTutoring from "../../../../../components/CreateTutoring/CreateTutoring.jsx"; //Componente que crea las tutorias.
 import notifications from "./Notifications.json" //Json para el contenido de las notificaciones
-import userDefault from "../../../../resources/images/User/userDefault.jpeg" //Importamos la foto por defecto del usuario.
+import userDefault from "../../../../../resources/images/User/userDefault.jpeg" //Importamos la foto por defecto del usuario.
 
 //Importamos los iconos.
 import { IoIosSearch, IoMdAdd } from "react-icons/io";
@@ -17,7 +18,7 @@ import { PiBookOpenUserBold } from "react-icons/pi";
 import { IoMoonOutline } from "react-icons/io5";
 
 //Recibimos mediante props el botón seleccionado en el navbar. Se utiliza para ocultar y mostrar componentes según la sección seleccionada.
-const HeaderSection = ({ buttonSelected, onSearchChange }) => {
+const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected }) => {
 
     //Constantes
     const[dataInput, setDataInput] = useState(""); //Constante que almacena y guarda la palabra copiada en el input de búsqueda
@@ -134,7 +135,7 @@ const HeaderSection = ({ buttonSelected, onSearchChange }) => {
                                 {icon_moon()}
                             </Dropdown.Item>
                             <Dropdown.Item as="div" className="switche--color" style={{backgroundColor: "", cursor: "pointer"}}>
-                               <span className="title__settings"> Configuración {icon_settings()}</span> {/*Apartado de configuración.*/}
+                                <Link to="/perfil/configuracion" onClick={() => setButtonSelected("Configuracion")}> <span className="title__settings" > Configuración {icon_settings()}</span> {/*Apartado de configuración.*/} </Link>
                             </Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>

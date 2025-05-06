@@ -6,7 +6,7 @@ import HeaderSection from "./components/HeaderSection/HeaderSection.jsx"; //Comp
 import DataSection from "./components/DataSection/DataSection.jsx"; //Componente que renderiza las páginas de la aplicación.
 
 //Recibimos desde App.jsx el prop de buttonSelected, el cual almacena el valor del botón seleccionado en el navbar
-const WorkSpace = ({buttonSelected}) => {
+const WorkSpace = ({buttonSelected, setButtonSelected}) => {
     // Constantes.
     const [searchTerm, setSearchTerm] = useState(""); // Estado que almacena el texto que el usuario escribe en el buscador
 
@@ -19,6 +19,7 @@ const WorkSpace = ({buttonSelected}) => {
                 para que HeaderSection pueda decirle a WorkSpace cuál es el texto escrito */}
           <HeaderSection 
             buttonSelected={buttonSelected} 
+            setButtonSelected = {setButtonSelected}
             onSearchChange={setSearchTerm} 
           />
       
