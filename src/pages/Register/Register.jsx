@@ -39,7 +39,15 @@ const Register = ({setVisAuth, setVisRegister}) => {
                 program
             });
       
-            toast.success("¡Registro completado!");
+            toast.success("¡Registro completado!", {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             setValidate(true);
       
             setTimeout(() => {
