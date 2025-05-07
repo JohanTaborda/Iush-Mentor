@@ -1,51 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";// Importación de React y hooks necesarios
-import "./Tutoring.css" // Estilos personalizados para el componente Tutoring.
-import Subcategories from "../../components/Subcategories/Subcategories";// Importación del componente de tarjetas (Subcategorías)
-import "./Tutoring.css";// Importación del archivo de estilos específicos para esta vista
-// Importación de iconos representativos desde react-icons/fc
-import {
-  FcPrevious, FcNext, FcStatistics, FcCustomerSupport, FcCurrencyExchange, FcBusiness,
-  FcBriefcase, FcGlobe, FcFlowChart, FcOrganization, FcDebt, FcDiploma2, FcClapperboard,
-  FcCapacitor, FcSupport, FcCommandLine, FcReddit, FcSportsMode, FcSelfServiceKiosk,
-  FcFilmReel, FcBullish
-} from "react-icons/fc";
-
-// ============================
-// SUBESCUELAS ADMINISTRATIVAS
-// ============================
-const adminSubschools = [
-  // Cada objeto representa una subescuela con título, descripción e ícono
-  { id: 0, title: "Administración de Empresas", description: "Desarrolla habilidades en gestión empresarial.", icon: <FcStatistics /> },
-  { id: 1, title: "Comunicación Organizacional", description: "Procesos comunicativos internos y externos.", icon: <FcCustomerSupport /> },
-  { id: 2, title: "Contaduría Pública", description: "Administra recursos y analiza información financiera.", icon: <FcCurrencyExchange /> },
-  { id: 3, title: "Derecho", description: "Normativas jurídicas nacionales e internacionales.", icon: <FcBusiness /> },
-  { id: 4, title: "Mercadeo", description: "Estrategias de marketing efectivas.", icon: <FcBriefcase /> },
-  { id: 5, title: "Negocios Internacionales", description: "Operaciones globales de comercio.", icon: <FcGlobe /> },
-  { id: 6, title: "Talento Humano", description: "Selección y clima organizacional.", icon: <FcFlowChart /> },
-  { id: 7, title: "Gestión Empresarial", description: "Administración moderna en entornos competitivos.", icon: <FcOrganization /> },
-  { id: 8, title: "Mercadeo y Ventas", description: "Procesos comerciales efectivos.", icon: <FcDebt /> },
-  { id: 9, title: "Gestión Internacional", description: "Proyectos de globalización empresarial.", icon: <FcDiploma2 /> }
-];
-
-// ============================
-// SUBESCUELAS CREATIVAS
-// ============================
-const creativeSubschools = [
-  { id: 0, title: "Animación", description: "Contenido animado 2D y 3D.", icon: <FcClapperboard /> },
-  { id: 1, title: "Ing. Electrónica", description: "Soluciones electrónicas innovadoras.", icon: <FcCapacitor /> },
-  { id: 2, title: "Ing. Industrial", description: "Optimización de procesos productivos.", icon: <FcSupport /> },
-  { id: 3, title: "Ing. de Sistemas", description: "Soluciones tecnológicas y software.", icon: <FcCommandLine /> },
-  { id: 4, title: "Diseño Gráfico", description: "Comunicación visual y diseño digital.", icon: <FcReddit /> },
-  { id: 5, title: "Diseño de Modas", description: "Prendas con estética y técnica.", icon: <FcSportsMode /> },
-  { id: 6, title: "Tec. en Sistemas", description: "Sistemas informáticos y mantenimiento.", icon: <FcSelfServiceKiosk /> },
-  { id: 7, title: "Producción Musical", description: "Contenido musical profesional.", icon: <FcFilmReel /> },
-  { id: 8, title: "Inteligencia de Negocios", description: "Decisiones estratégicas basadas en datos.", icon: <FcBullish /> }
-];
+import React, { useState, useEffect } from "react";
+import "./Tutoring.css"; // Estilos personalizados
+import Subcategories from "../../components/Subcategories/Subcategories";
+import useMentorStore from "../../stores/Store"; // Estado global con Zustand
+import { FcPrevious, FcNext } from "react-icons/fc"; // Iconos para las flechas
 
 // ============================
 // COMPONENTE DE FLECHAS
 // ============================
-// Botón reutilizable de flecha izquierda o derecha
 const CarouselArrow = ({ direction, onClick }) => (
   <button className={`carousel-arrow carousel-arrow--${direction}`} onClick={onClick}>
     {direction === "left" ? <FcPrevious size={32} /> : <FcNext size={32} />}
@@ -55,11 +16,11 @@ const CarouselArrow = ({ direction, onClick }) => (
 // ============================
 // CARRUSEL REUTILIZABLE
 // ============================
-const SubschoolCarousel = ({ title, data }) => {
-  const [startIndex, setStartIndex] = useState(0); // Índice inicial del carrusel
-  const [itemsPerPage, setItemsPerPage] = useState(5); // Tarjetas visibles según tamaño
+const SubschoolCarousel = ({ title, data, onCardClick }) => {
+  const [startIndex, setStartIndex] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
-  // Detecta tamaño de pantalla para ajustar items visibles
+  // Determina cuántos ítems mostrar según el tamaño de pantalla
   useEffect(() => {
     const updateItemsPerPage = () => {
       const width = window.innerWidth;
@@ -67,53 +28,42 @@ const SubschoolCarousel = ({ title, data }) => {
       else if (width < 992) setItemsPerPage(2);
       else if (width < 1150) setItemsPerPage(3);
       else if (width < 1300) setItemsPerPage(4);
-      else setItemsPerPage(5); //Máximo 5 en pantallas grandes
+      else setItemsPerPage(5);
     };
     updateItemsPerPage();
     window.addEventListener("resize", updateItemsPerPage);
     return () => window.removeEventListener("resize", updateItemsPerPage);
   }, []);
 
+  // Reinicia la posición del carrusel al cambiar los datos
   useEffect(() => {
-    setStartIndex(0); // Reinicia el índice cuando cambia el contenido
+    setStartIndex(0);
   }, [data]);
 
-  const maxIndex = Math.max(0, data.length - itemsPerPage); // Evita desbordes en el carrusel
+  const maxIndex = Math.max(0, data.length - itemsPerPage);
 
-  // Avanzar carrusel (sin sobrepasar el final)
   const handleNext = () => {
-    if (startIndex < maxIndex) {
-      setStartIndex(prev => prev + 1);
-    }
+    if (startIndex < maxIndex) setStartIndex(prev => prev + 1);
   };
 
-  // Retroceder carrusel (sin ir antes de 0)
   const handlePrev = () => {
-    if (startIndex > 0) {
-      setStartIndex(prev => prev - 1);
-    }
+    if (startIndex > 0) setStartIndex(prev => prev - 1);
   };
 
   return (
     <fieldset className="tutoring__fieldset">
-      {/* Título del fieldset */}
       <legend className="tutoring__legend">{title}</legend>
-
       <div className="tutoring__carousel">
-        {/* Flecha izquierda */}
         <CarouselArrow direction="left" onClick={handlePrev} />
-
-        {/* Carrusel de tarjetas */}
         <div className="tutoring__cards-wrapper">
           <div
             className="tutoring__cards"
             style={{
               transform: `translateX(-${(startIndex * 100) / data.length}%)`,
-              width: `${(data.length / itemsPerPage) * 100}%`, // Ancho dinámico total
+              width: `${(data.length / itemsPerPage) * 100}%`,
               transition: "transform 0.5s ease-in-out",
             }}
           >
-            {/* Render dinámico de cada tarjeta de subcategoría con un map */}
             {data.map((item) => (
               <div
                 key={item.id}
@@ -124,13 +74,12 @@ const SubschoolCarousel = ({ title, data }) => {
                   title={item.title}
                   description={item.description}
                   icon={item.icon}
+                  onClick={() => onCardClick(item.title)} 
                 />
               </div>
             ))}
           </div>
         </div>
-
-        {/* Flecha derecha */}
         <CarouselArrow direction="right" onClick={handleNext} />
       </div>
     </fieldset>
@@ -140,39 +89,75 @@ const SubschoolCarousel = ({ title, data }) => {
 // ============================
 // VISTA PRINCIPAL DE TUTORÍAS
 // ============================
-// Renderiza los dos carruseles por escuela
-// Recibe el texto del input desde WorkSpace
-// ============================
-// VISTA PRINCIPAL DE TUTORÍAS
-// ============================
-// Renderiza los dos carruseles por escuela
-// Recibe el texto del input desde WorkSpace
 const Tutoring = ({ searchTerm }) => {
-  // Función para eliminar tildes y pasar a minúsculas
+  // Obtenemos el estado global desde Zustand
+  const {
+    adminSubschools,
+    creativeSubschools,
+    selectedSubschool,
+    setSelectedSubschool,
+    tutoringSessions,
+    setTutoringSessions
+  } = useMentorStore();
+
+  // Normaliza texto eliminando tildes y convirtiendo a minúscula
   const normalizeText = (text) =>
     text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
-  // Filtramos subescuelas creativas según el texto buscado (insensible a tildes y mayúsculas)
+  // Tutorías filtradas por subescuela seleccionada
+  const filteredTutorings = selectedSubschool
+    ? tutoringSessions.filter(tut =>
+        normalizeText(tut.program) === normalizeText(selectedSubschool)
+      )
+    : [];
+
+  // Agrupar tutorías por programa (por si se quiere usar después)
+  const tutoringsByProgram = tutoringSessions.reduce((acc, tut) => {
+    const key = normalizeText(tut.program);
+    if (!acc[key]) acc[key] = [];
+    acc[key].push(tut);
+    return acc;
+  }, {});
+
+  // Cargar tutorías desde el backend solo una vez al montar el componente
+  useEffect(() => {
+    const fetchTutorings = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/tutoring");
+        const data = await res.json();
+        if (res.ok) {
+          setTutoringSessions(data); // Guardar en Zustand
+        } else {
+          console.error("Error al obtener tutorías");
+        }
+      } catch (error) {
+        console.error("Error de conexión al backend", error);
+      }
+    };
+    fetchTutorings();
+  }, []);
+
+  // Limpiar la subescuela seleccionada cuando el usuario comienza a escribir
+  useEffect(() => {
+    setSelectedSubschool(null);
+  }, [searchTerm]);
+
+  // Filtrado dinámico por término de búsqueda
   const creativeFiltered = creativeSubschools.filter((item) =>
     normalizeText(item.title).includes(normalizeText(searchTerm))
   );
 
-  // Filtramos subescuelas administrativas igual que arriba
   const adminFiltered = adminSubschools.filter((item) =>
     normalizeText(item.title).includes(normalizeText(searchTerm))
   );
 
-  // Verificamos si hay resultados en alguna de las escuelas
   const hasCreativeResults = creativeFiltered.length > 0;
   const hasAdminResults = adminFiltered.length > 0;
   const hasAnyResults = hasCreativeResults || hasAdminResults;
-  
-  // Si no hay término de búsqueda, mostramos ambas escuelas
   const isSearching = searchTerm.trim() !== '';
 
   return (
     <main className="tutoring">
-      {/* Si no hay resultados y estamos buscando, mostramos un mensaje general */}
       {isSearching && !hasAnyResults ? (
         <div className="tutoring__no-results-container">
           <p className="tutoring__no-results">
@@ -180,22 +165,57 @@ const Tutoring = ({ searchTerm }) => {
           </p>
         </div>
       ) : (
-        // Si hay resultados o no estamos buscando, mostramos las escuelas correspondientes
         <>
-          {/* Solo mostramos la escuela creativa si hay resultados o no estamos buscando */}
+          {/* Carrusel de subescuelas creativas */}
           {(!isSearching || hasCreativeResults) && (
             <SubschoolCarousel
               title="Escuela de Ciencias Creativas"
               data={creativeFiltered.length > 0 ? creativeFiltered : creativeSubschools}
+              onCardClick={setSelectedSubschool}
             />
           )}
 
-          {/* Solo mostramos la escuela administrativa si hay resultados o no estamos buscando */}
+          {/* Carrusel de subescuelas administrativas */}
           {(!isSearching || hasAdminResults) && (
             <SubschoolCarousel
               title="Escuela de Ciencias Administrativas, Sociales y Humanas"
               data={adminFiltered.length > 0 ? adminFiltered : adminSubschools}
+              onCardClick={setSelectedSubschool}
             />
+          )}
+
+          {/* Mensaje inicial si no se ha seleccionado subescuela */}
+          {!selectedSubschool && (
+            <p className="tutoring__placeholder">
+              Haz clic en una subescuela para ver las tutorías disponibles.
+            </p>
+          )}
+
+          {/* Tutorías filtradas por subescuela */}
+          {selectedSubschool && (
+            <section className="tutoring__results">
+              <h2>Tutorías disponibles para: {selectedSubschool}</h2>
+              {filteredTutorings.length > 0 ? (
+                filteredTutorings.map((tut) => (
+                  <div key={tut.id} className="tutoring__card-result">
+                    <h3>{tut.title}</h3>
+                    <p>{tut.description}</p>
+                    <p><strong>Tutor:</strong> {tut.tutor?.username}</p>
+                    <p><strong>Correo:</strong> {tut.tutor?.email}</p>
+                    <p><strong>Fecha:</strong> {tut.date}</p>
+                    <p><strong>Hora:</strong> {tut.start_time} - {tut.end_time}</p>
+                    <p><strong>Modalidad:</strong> {tut.modality}</p>
+                    {tut.modality.toLowerCase() === "virtual" ? (
+                      <a href={tut.connection_link} target="_blank" rel="noreferrer">Enlace</a>
+                    ) : (
+                      <p><strong>Sala:</strong> {tut.classroom}</p>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <p>No hay tutorías para esta subescuela.</p>
+              )}
+            </section>
           )}
         </>
       )}

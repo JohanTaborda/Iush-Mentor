@@ -59,6 +59,71 @@
   padding: 0.5rem; /*Reduce si es mayor*/
 }
 
+.tutoring__results {
+  margin: 2rem 0;
+  padding: 1rem;
+  border-top: 2px solid #ddd;
+  background-color: white;
+  font-family: 'Manrope', sans-serif;
+}
+
+.tutoring__results h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.6rem;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+}
+
+.tutoring__card-result {
+  background-color: #f0f8ff; /* color solicitado */
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+  border: 1px solid #ccc;
+}
+
+.tutoring__card-result:hover {
+  transform: translateY(-2px);
+}
+
+.tutoring__card-result h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.tutoring__card-result p {
+  margin: 0.3rem 0;
+  color: #444;
+  font-family: 'Manrope', sans-serif;
+  line-height: 1.5;
+}
+
+.tutoring__card-result strong {
+  color: #333;
+  font-weight: 600;
+}
+
+.tutoring__card-result a {
+  background-color: #184ea5; /* Azul brillante (estilo Tailwind) */
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.4rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  align-self:center; /* Alinea el botón a la izquierda */
+  transition: background-color 0.3s ease; /* Suaviza cambio de color al hover */
+  
+}
+
+.tutoring__card-result a:hover {
+  background-color: #357ab8;
+}
+
 .tutoring__no-results {
   background-color: #ffffff;
   border: 2px dashed #94a3b8;
