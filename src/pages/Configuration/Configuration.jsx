@@ -113,7 +113,7 @@ const Configuration = () => {
     return (
         <div className='containerConfiguration'>
             <h1 className='titleConfiguration'>Configuración</h1>
-            <Paper >
+            <Paper className='documentation-section'>
                 <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth" scrollButtons="auto">
                     <Tab className='titleTabs' label="Perfil" />
                     <Tab className='titleTabs' label="Contraseña" />
@@ -140,7 +140,7 @@ const Configuration = () => {
                             <TextField name='email' onChange={handleProfileChange} defaultValue={profileData.email} type='email' label="Correo Electronico" variant="outlined" disabled={!visProfile} required/>
                         </div>
                         {!visProfile ? (
-                            <Button  className='buttonEditProfile' type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation();  setVisProfile(true);  }}>Editar Perfil</Button>
+                            <Button  className='buttonEditProfile' variant="contained" type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation();  setVisProfile(true);  }}>Editar Perfil</Button>
                         ) : (
                             <Button className='buttonEditProfile' type='submit' variant="contained">Guardar</Button>
                         )}
@@ -156,7 +156,7 @@ const Configuration = () => {
                             <TextField name='confirmPassword' onChange={handlePasswordChange} type='password' label="Confirmar Nueva Contraseña" variant="outlined" disabled={!visPassword} required  inputProps={{ minLength: 6 }}/>
                         </div>
                         {!visPassword ? (
-                            <Button className='buttonEditProfile' type="button" onClick={(e) => {e.preventDefault(); e.stopPropagation(); setVisPassword(true);}} >Cambiar Contraseña </Button>
+                            <Button className='buttonEditProfile' type="button" variant="contained" onClick={(e) => {e.preventDefault(); e.stopPropagation(); setVisPassword(true);}} >Cambiar Contraseña </Button>
                         ) : (
                             <Button className='buttonEditProfile' type='submit' variant="contained">Actualizar</Button>
                         )}
@@ -199,35 +199,36 @@ const Configuration = () => {
                     draggable pauseOnHover theme="light" />
             </Paper>
             <Paper className="documentation-section" sx={{ mt: 3, p: 2 }}>
-                <Typography variant="h6" gutterBottom>Información sobre los datos</Typography>
+                <Typography className='textInfoData' id="titleInfoData" gutterBottom>Información sobre los datos</Typography>
                 
-                <Typography variant="subtitle1" sx={{ mt: 2 }}>Perfil</Typography>
-                <Typography variant="body2">
+                <Typography className='textInfoData' sx={{ mt: 2 }}>Perfil</Typography>
+                <Typography className='descriptionInfoData'>
                     • Todos los campos son obligatorios.<br />
-                    • El input de nombre y apellido, no recibe caracteres especiales ni números, unicamente recibe letras.<br />
+                    • El campo de nombre y apellido no admite caracteres especiales ni números; únicamente recibe letras.<br />
                     • El correo electrónico debe tener un formato válido (ejemplo@dominio.com).<br />
                 </Typography>
 
-                <Typography variant="subtitle1" sx={{ mt: 2 }}>Contraseña</Typography>
-                <Typography variant="body2">
+                <Typography className='textInfoData' sx={{ mt: 2 }}>Contraseña</Typography>
+                <Typography className='descriptionInfoData'>
                     • La contraseña actual es necesaria para verificar su identidad.<br />
                     • La nueva contraseña debe tener al menos 6 caracteres.<br />
-                    • Las contraseñas nuevas deben coincidir.
+                    • Las contraseñas nuevas deben coincidir.<br />
                 </Typography>
 
-                <Typography variant="subtitle1" sx={{ mt: 2 }}>Solicitud de tutor</Typography>
-                <Typography variant="body2">
+                <Typography className='textInfoData' sx={{ mt: 2 }}>Solicitud de tutor</Typography>
+                <Typography className='descriptionInfoData'>
                     • Sea específico sobre sus motivaciones y experiencia.<br />
-                    • Liste las materias en las que desea ser tutor separadas por comas.<br />
-                    • Indique claramente su semestre actual (debe ser 3ro o superior).
+                    • Liste las materias en las que desea ser tutor, separadas por comas.<br />
+                    • Indique claramente su semestre actual (debe ser tercero o superior).<br />
                 </Typography>
 
-                <Typography variant="subtitle1" sx={{ mt: 2 }}>Imagen de perfil</Typography>
-                <Typography variant="body2">
-                    • Formato permitido: JPG o PNG<br />
-                    • Tamaño máximo: 5MB.<br />
+                <Typography className='textInfoData' sx={{ mt: 2 }}>Imagen de perfil</Typography>
+                <Typography className='descriptionInfoData'>
+                    • Formato permitido: JPG o PNG.<br />
+                    • Tamaño máximo: 5 MB.<br />
                 </Typography>
             </Paper>
+
         </div>
     );
 };

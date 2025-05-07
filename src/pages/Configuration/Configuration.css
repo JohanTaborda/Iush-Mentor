@@ -2,6 +2,7 @@
     width: 100%;
     padding: 20px;
     max-width: 100%; /* Asegura que no desborde en móviles */
+    background-color: #f4f4f4;
 }
 
 .titleTabs{
@@ -34,6 +35,25 @@
     font-family: "Outfit";
 }
 
+.textInfoData{
+    font-weight: bold !important;
+    font-family: "Outfit" !important;
+    font-size: 19px !important;
+}
+
+#titleInfoData{
+    font-size: 25px !important;
+}
+
+.descriptionInfoData{
+    font-family: "Manrope" !important;
+    font-weight: 500 !important;
+}
+
+.documentation-section{
+    border: 1px solid rgb(218, 215, 215) !important;
+}
+
 /* Mejoras para dispositivos móviles */
 @media screen and (max-width: 768px) {
     .containerConfiguration {
@@ -62,6 +82,10 @@
     .titleConfiguration{
         text-align: center;
     }
+
+    #titleInfoData{
+        text-align: center;
+    }
 }
 
 /* Ajustes adicionales para pantallas muy pequeñas */
@@ -74,4 +98,6 @@
     .containerConfiguration {
         padding: 8px;
     }
+
+
 }
