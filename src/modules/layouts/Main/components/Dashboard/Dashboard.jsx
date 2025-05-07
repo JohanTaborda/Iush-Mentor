@@ -18,7 +18,7 @@ import WorkSpace from "../../../WorkSpace/WorkSpace.jsx"
 */
 
 const App = ({setMainComponent}) => {
-  
+  const [rol, setRol] = useState('administrador');
   // Constantes.
   //Constante que actualiza su estado con el botón seleccionado en el navbar. Este intenta recuperar el valor guardado en el sessionStorage, si no hay valores, muestra 'Tutorias'
   //usamos sessionStorage para que me guarde el valor de forma temporal, mientras la pestaña este abierta.
@@ -39,11 +39,11 @@ const App = ({setMainComponent}) => {
       {isMobile ? ( //Si isMobile es true, me muestra el workspace encima del navbar
         <>
            <WorkSpace buttonSelected={buttonSelected} setButtonSelected={setButtonSelected}/> {/*Enviamos mediante props buttonSelected, para permitir la paginación por cada componente*/}
-           <Navbar setButtonSelected={setButtonSelected} setMainComponent={setMainComponent} /> {/*Enviamos mediante props setButtonSelected, para actualizar el valor según el botón seleccionado en el navbar.*/}
+           <Navbar setButtonSelected={setButtonSelected} setMainComponent={setMainComponent} rol={rol} /> {/*Enviamos mediante props setButtonSelected, para actualizar el valor según el botón seleccionado en el navbar.*/}
         </>
       ) : ( //Si isMobile es False, me muestra el workspace al ladod el navbar.
         <>
-            <Navbar setButtonSelected={setButtonSelected} setMainComponent={setMainComponent}/> {/*Enviamos mediante props setButtonSelected, para actualizar el valor según el botón seleccionado en el navbar.*/}
+            <Navbar setButtonSelected={setButtonSelected} setMainComponent={setMainComponent} rol={rol}/> {/*Enviamos mediante props setButtonSelected, para actualizar el valor según el botón seleccionado en el navbar.*/}
             <WorkSpace buttonSelected={buttonSelected} setButtonSelected={setButtonSelected}/> {/*Enviamos mediante props buttonSelected, para permitir la paginación por cada componente*/}
         </>
       )}
