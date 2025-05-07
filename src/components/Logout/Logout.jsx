@@ -21,6 +21,9 @@ const Logout = ({setVisWindowsLogout, setMainComponent}) => {
     }, [])
 
     const handleCloseSesion = () => { //Función que permite cerrar sesión.
+        // Limpiamos la información de la ruta al cerrar sesión
+        sessionStorage.setItem('optionSelected', 'Inicio');
+        sessionStorage.setItem('setButtonSelected', 'Inicio');
         setMainComponent(false);
         setVisWindowsLogout(false);
     }
