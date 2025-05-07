@@ -134,9 +134,11 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected }) =>
                                 <Form> <Form.Check type="switch" id="custom-switch"/> </Form> {/*Switche que permite el cambio de color en la aplicación */}
                                 {icon_moon()}
                             </Dropdown.Item>
-                            <Dropdown.Item as="div" className="switche--color" style={{backgroundColor: "", cursor: "pointer"}}>
-                                <Link to="/perfil/configuracion" onClick={() => setButtonSelected("Configuracion")}> <span className="title__settings" > Configuración {icon_settings()}</span> {/*Apartado de configuración.*/} </Link>
-                            </Dropdown.Item>
+                            <Link to="#" onClick={() => setButtonSelected("Configuracion")}>
+                                <Dropdown.Item as="div" className="switche--color" style={{backgroundColor: "", cursor: "pointer"}}>
+                                    <span className="title__settings" > Configuración {icon_settings()}</span> {/*Apartado de configuración.*/}
+                                </Dropdown.Item>
+                            </Link>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
