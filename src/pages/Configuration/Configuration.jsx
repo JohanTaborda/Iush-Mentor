@@ -3,12 +3,15 @@ import "./Configuration.css"
 import { Paper, Tabs, Tab, Box, Typography, TextField, Button, Avatar, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 
+import {useUserStore} from "../../stores/Store"
+
 const Configuration = () => {
     const [visProfile, setVisProfile] = useState(false);
     const [visPassword, setVisPassword] = useState(false);
     const [tabValue, setTabValue] = useState(0);
     const [imagen, setImagen] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
+    const[dataUser, setDataUser] = useState(useUserStore(state => state.user)) //Se guarda el objeto con los datos del usuario.
 
     const [profileData, setProfileData] = useState({
         name: 'Usuario',
@@ -116,7 +119,7 @@ const Configuration = () => {
                 <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth" scrollButtons="auto">
                     <Tab className='titleTabs' label="Perfil" />
                     <Tab className='titleTabs' label="Contraseña" />
-                    <Tab className='titleTabs' label="Solicitar ser tutor" />
+                    <Tab className='titleTabs' label="Solicitar ser tutor" style={{display: `${dataUser.userRol !== "tutor" ? "block" : "none"}`}}/>
                     <Tab className='titleTabs' label="Imagen de perfil" />
                 </Tabs>
 
@@ -124,7 +127,7 @@ const Configuration = () => {
                 <TabPanel value={tabValue} index={0} >
                     <form onSubmit={handleProfileSubmit}>
                         <div  className="TabPanelProfile">
-                            <TextField name='name' onChange={handleProfileChange} defaultValue={profileData.name} label="Nombre Completo" variant="outlined" disabled={!visProfile} required inputProps={{pattern:"^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"}} />
+                            <TextField name='name' onChange={handleProfileChange} defaultValue={dataUser.username} label="Nombre Completo" variant="outlined" disabled={!visProfile} required inputProps={{pattern:"^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"}} />
                             <FormControl variant="outlined" fullWidth required disabled={!visProfile}>
                                 <InputLabel id="program-label">Programa</InputLabel>
                                 <Select labelId="program-label" id="program-select" name="program" value={profileData.program} onChange={handleProfileChange}  label="Programa">
@@ -135,7 +138,7 @@ const Configuration = () => {
                                     ))}
                                 </Select>
                             </FormControl>                          
-                            <TextField name='email' onChange={handleProfileChange} defaultValue={profileData.email} type='email' label="Correo Electronico" variant="outlined" disabled={!visProfile} required/>
+                            <TextField name='email' onChange={handleProfileChange} defaultValue={dataUser.email} type='email' label="Correo Electronico" variant="outlined" disabled={!visProfile} required/>
                         </div>
                         {!visProfile ? (
                             <Button  className='buttonEditProfile' variant="contained" type="button" onClick={(e) => { e.preventDefault(); e.stopPropagation();  setVisProfile(true);  }}>Editar Perfil</Button>
@@ -206,12 +209,14 @@ const Configuration = () => {
                     • Las contraseñas nuevas deben coincidir.<br />
                 </Typography>
 
-                <Typography className='textInfoData' sx={{ mt: 2 }}>Solicitud de tutor</Typography>
-                <Typography className='descriptionInfoData'>
-                    • Sea específico sobre sus motivaciones y experiencia.<br />
-                    • Liste las materias en las que desea ser tutor, separadas por comas.<br />
-                    • Indique claramente su semestre actual (debe ser tercero o superior).<br />
-                </Typography>
+                <div style={{display: `${dataUser.userRol !== "tutor" ? "block" : "none"}`}}>
+                    <Typography className='textInfoData' sx={{ mt: 2 }}>Solicitud de tutor</Typography>
+                    <Typography className='descriptionInfoData'>
+                        • Sea específico sobre sus motivaciones y experiencia.<br />
+                        • Liste las materias en las que desea ser tutor, separadas por comas.<br />
+                        • Indique claramente su semestre actual (debe ser tercero o superior).<br />
+                    </Typography>
+                </div>
 
                 <Typography className='textInfoData' sx={{ mt: 2 }}>Imagen de perfil</Typography>
                 <Typography className='descriptionInfoData'>

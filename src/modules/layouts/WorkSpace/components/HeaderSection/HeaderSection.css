@@ -194,7 +194,7 @@
     } 
 
     .span_Delete {
-        right: 10px; /* o el valor que se vea bien en tu caso */
+        right: 5px !important; /* o el valor que se vea bien en tu caso */
       }
 
 }

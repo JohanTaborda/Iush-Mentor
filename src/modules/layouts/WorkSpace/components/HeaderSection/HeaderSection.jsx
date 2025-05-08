@@ -86,17 +86,17 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected }) =>
             <div className="container__Search">
                 <div className="input_icons" style={{display: `${optionSelected != "Tutorias"  ? "none" : "flex"}`}}>
                     <span className="span__Search" >{icon_search()}</span>
-                    <span className="span_Delete" style={{display: `${dataInput == ""  ? "none" : ""}`}} 
+                    <span className="span_Delete" style={{display: `${dataInput == ""  ? "none" : ""}`, right: `${dataUser.userRol === "tutor" ? "145px" : "5px"}` }} 
                         onClick={() => setDataInput("")} // Al hacer clic, se limpia el input
                         >{icon_clear()} </span>
-                     <input
+                    <input
                         type="text" // Tipo de campo: texto
                         className="input__Search" // Clase para aplicar estilos desde CSS
                         placeholder="Buscar una Subescuela..." // Texto que aparece cuando el campo está vacío
                         value={dataInput} // El valor del input lo controla el estado dataInput
                         onChange={(e) => setDataInput(e.target.value)} // Cada vez que el usuario escribe, actualizamos el estado
                         />
-                    <button className="button--create" style={{display: `${optionSelected == "Tutorias" ? "flex" : "none"}`}} onClick={() => setVisCreateTutoring(true)}>{icon_pencil()} Crear Tutoria </button>
+                    <button className="button--create" style={{display: `${optionSelected == "Tutorias" && dataUser.userRol == "tutor" ? "flex" : "none"}`}} onClick={() => setVisCreateTutoring(true)}>{icon_pencil()} Crear Tutoria </button>
                 </div>
                 <button className="button--create" id="button--add" style={{display: `${optionSelected == "Foro" ? "flex" : "none"}`}}>{icon_add()} Publicar Nuevo Hilo </button>
                 <span className="title__bienvenida" style={{display: `${optionSelected != "Inicio" ? "none" : "flex"}`}}> {phrases[phrasesIndex]}</span> {/*Mostramos la frase según el indice guardado.*/}

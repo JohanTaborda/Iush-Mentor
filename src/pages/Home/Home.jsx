@@ -4,16 +4,21 @@ import { useNavigate } from 'react-router-dom';// Importa el hook useNavigate de
 import { useState } from 'react';// Importa el hook useState para manejar el estado del calendario
 import Calendar from 'react-calendar';// Importa el componente de calendario
 import 'react-calendar/dist/Calendar.css';// Importa los estilos por defecto del calendario
+import {useUserStore} from "../../stores/Store"
+
 
 const Home = () => {
   // Estado para guardar la fecha seleccionada en el calendario
   const [date, setDate] = useState(new Date());
+  const[dataUser, setDataUser] = useState(useUserStore(state => state.user))
+  const [rol, setRol] = useState(dataUser.userRol !== "tutor")
+  
   const navigate = useNavigate();
   return (
     <main>
-      <section className="general-container">
+      <section className="general-container" >
         {/* Contenedor de tutorías a dirigir como tutor */}
-        <fieldset className="preset-container">
+        <fieldset className="preset-container" style={{display: `${!rol ? "block" : "none"}`}}>
           <legend className="tittle-container">Tutorías a dirigir como tutor</legend>
           <p>Aún no has creado ninguna tutoría.</p>
 
@@ -26,7 +31,7 @@ const Home = () => {
         </fieldset>
 
         {/* Contenedor de tutorías inscritas como estudiante */}
-        <fieldset className="mytutorials-container">
+        <fieldset className="mytutorials-container" style={{display: `${rol ? "block" : "none"}`, marginTop: `${rol ? "25px" : "none"}`}} >
           <legend className="tittle-container">Tutorías inscritas como estudiante</legend>
           <p>Aquí aparecerán las tutorías que tú crees.</p>
 
