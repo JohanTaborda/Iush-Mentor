@@ -13,13 +13,19 @@ const DataSection = ({ buttonSelected, searchTerm }) => { // Recibimos desde Wor
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Obtenemos la ruta actual
+    const currentPath = window.location.pathname;
+    
     // Efecto que permite navegar entre las rutas según el botón seleccionado
     switch (buttonSelected) {
       case "Inicio":
         navigate("/inicio");
         break;
       case "Tutorias":
-        navigate("/tutorias");
+        // Solo navega si no estamos ya en una subruta de tutorias
+        if (!currentPath.startsWith("/tutorias/")) {
+          navigate("/tutorias");
+        }
         break;
       case "Foro":
         navigate("/foro");
@@ -30,19 +36,24 @@ const DataSection = ({ buttonSelected, searchTerm }) => { // Recibimos desde Wor
       default:
         break;
     }
-  }, [buttonSelected, navigate]); // Dependencias
+  }, [buttonSelected, navigate]); // Agregamos navigate como dependencia
 
   return (
     <div className="mainDataSection">
       <Routes>
         {/* Rutas generales */}
         <Route path="/inicio" element={<Home />} />
-        {/* Ruta específica de tutorías, le pasamos el texto del input como prop */}
+        
+        {/* Rutas de tutorías */}
         <Route path="/tutorias" element={<Tutoring searchTerm={searchTerm} />} />
+        <Route path="/tutorias/:subschool" element={<Tutoring searchTerm={searchTerm} />} />
+        
         {/* Ruta específica del foro */}
         <Route path="/foro" element={<Forum />} />
+        
         {/* Ruta específica para la sección de configuración*/}
         <Route path="/perfil/configuracion" element={<Configuration />} />
+        
         {/* Ruta por defecto al iniciar sesión */}
         <Route path="" element={<Navigate to="/inicio" />} />
       </Routes>

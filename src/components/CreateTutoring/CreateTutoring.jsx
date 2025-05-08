@@ -3,10 +3,11 @@ import "./CreateTutoring.css"; // Estilos personalizados
 import { ToastContainer, toast } from "react-toastify"; // Para notificaciones
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form"; // Manejo de formularios
-import {useMentorStore} from "../../stores/Store"; // Estado global con Zustand
+import {useMentorStore, useUserStore} from "../../stores/Store"; // Estado global con Zustand
 
 const CreateTutoring = ({ closeWindow }) => {
     const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
+    const [userData, setUserData] = useState(useUserStore(value => value.user))
 
     // Observadores para campos del formulario
     const startTime = watch("startTime");
@@ -36,7 +37,7 @@ const CreateTutoring = ({ closeWindow }) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    id_tutor: 3, // Cambiar por el ID real del usuario autenticado
+                    id_tutor: userData.userId, 
                     title: formData.title,
                     description: formData.description,
                     capacity: formData.capacity,
