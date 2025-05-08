@@ -29,7 +29,6 @@ const StudentRequest = () => {
         nombreCompleto: 'Laura Sánchez', 
         correo: 'laura.sanchez@iush.edu.co', 
         semestre: '7', 
-        experiencia: '2 años como monitora de matemáticas en la universidad.',
         motivo: 'Quiero compartir mis conocimientos y ayudar a otros estudiantes que tienen dificultades con las materias que yo ya he cursado.',
         materias: 'Cálculo I, Álgebra Lineal, Ecuaciones Diferenciales',
         estado: 'pendiente',
@@ -40,7 +39,6 @@ const StudentRequest = () => {
         nombreCompleto: 'Diego Torres', 
         correo: 'diego.torres@iush.edu.co', 
         semestre: '9', 
-        experiencia: 'Participé en semillero de investigación en desarrollo de software durante 3 semestres.',
         motivo: 'Me gustaría reforzar mis conocimientos enseñando a otros y contribuir a la comunidad universitaria.',
         materias: 'Programación I, Estructuras de Datos, Bases de Datos',
         estado: 'pendiente',
@@ -51,7 +49,6 @@ const StudentRequest = () => {
         nombreCompleto: 'Sofía Ramírez', 
         correo: 'sofia.ramirez@iush.edu.co', 
         semestre: '8', 
-        experiencia: 'He dado clases particulares durante 3 semestres a estudiantes de primer año. ',
         motivo: 'Quiero adquirir experiencia docente para mi carrera.',
         materias: 'Física I, Física II, Electromagnetismo',
         estado: 'aprobado',
@@ -62,7 +59,6 @@ const StudentRequest = () => {
         nombreCompleto: 'Carlos Mendoza', 
         correo: 'carlos.mendoza@iush.edu.co', 
         semestre: '6', 
-        experiencia: 'Fui monitor del laboratorio de química orgánica durante 2 semestres.',
         motivo: 'Considero que tengo aptitudes para la enseñanza y quiero ponerlas en práctica ayudando a mis compañeros.',
         materias: 'Química General, Química Orgánica, Bioquímica',
         estado: 'rechazado',
@@ -198,7 +194,6 @@ const StudentRequest = () => {
               <th>Nombre Completo</th>
               <th>Correo</th>
               <th>Semestre</th>
-              <th>Experiencia</th>
               <th>Motivo</th>
               <th>Materias</th>
               <th>Estado</th>
@@ -212,9 +207,6 @@ const StudentRequest = () => {
                   <td>{solicitud.nombreCompleto}</td>
                   <td>{solicitud.correo}</td>
                   <td>{solicitud.semestre}</td>
-                  <td className="text-cell">
-                    {renderExpandableText(solicitud.experiencia, solicitud.id, 'experiencia')}
-                  </td>
                   <td className="text-cell">
                     {renderExpandableText(solicitud.motivo, solicitud.id, 'motivo')}
                   </td>

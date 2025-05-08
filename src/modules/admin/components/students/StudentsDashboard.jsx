@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import './studentsDashboard.css'; // Importamos los estilos
+import CreateUser from '../createUser/CreateUser'; // Importar el componente CreateUser
 
 // Iconos para las acciones
-import { FaEdit, FaTrash, FaSave, FaTimes } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaSave, FaTimes, FaPlus } from 'react-icons/fa';
 
 const StudentsDashboard = () => {
   // Estado para almacenar la lista de estudiantes
@@ -21,16 +21,19 @@ const StudentsDashboard = () => {
 
   // Estado para el filtro de búsqueda
   const [busqueda, setBusqueda] = useState('');
+  
+  // Estado para controlar la visibilidad del modal de crear usuario
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   // Cargamos datos de ejemplo al iniciar
   useEffect(() => {
     // Simulamos la carga de datos desde una API
     const datosEjemplo = [
       { id: 1, nombreCompleto: 'Juan Pérez', correo: 'juan.perez@iush.edu.co', rol: 'estudiante' },
-      { id: 2, nombreCompleto: 'María López', correo: 'maria.lopez@iush.edu.co', rol: 'estudiante' },
-      { id: 3, nombreCompleto: 'Carlos Rodríguez', correo: 'carlos.rodriguez@iush.edu.co', rol: 'tutor' },
-      { id: 4, nombreCompleto: 'Ana Gómez', correo: 'ana.gomez@iush.edu.co', rol: 'estudiante' },
-      { id: 5, nombreCompleto: 'Pedro Martínez', correo: 'pedro.martinez@iush.edu.co', rol: 'estudiante' },
+      { id: 2, nombreCompleto: 'María Gómez', correo: 'maria.gomez@iush.edu.co', rol: 'estudiante' },
+      { id: 3, nombreCompleto: 'Carlos López', correo: 'carlos.lopez@iush.edu.co', rol: 'tutor' },
+      { id: 4, nombreCompleto: 'Ana Martínez', correo: 'ana.martinez@iush.edu.co', rol: 'administrador' },
+      { id: 5, nombreCompleto: 'Pedro Sánchez', correo: 'pedro.sanchez@iush.edu.co', rol: 'estudiante' },
       { id: 6, nombreCompleto: 'Sofía Ramírez', correo: 'sofia.ramirez@iush.edu.co', rol: 'tutor' },
     ];
     
@@ -98,6 +101,26 @@ const StudentsDashboard = () => {
     
     setEstudiantes(nuevosEstudiantes);
     setEditingId(null);
+  };
+  
+  // Manejador para crear un nuevo usuario
+  const handleCreateUser = (userData) => {
+    // Generar un ID único para el nuevo usuario
+    const newId = Math.max(...estudiantes.map(e => e.id), 0) + 1;
+    
+    // Crear el nuevo objeto de estudiante
+    const nuevoEstudiante = {
+      id: newId,
+      nombreCompleto: userData.nombreCompleto,
+      correo: userData.correo,
+      rol: userData.rol
+    };
+    
+    // Actualizar la lista de estudiantes
+    setEstudiantes([...estudiantes, nuevoEstudiante]);
+    
+    // Cerrar el modal
+    setIsCreateModalOpen(false);
   };
 
   // Filtrar estudiantes según la búsqueda
@@ -178,12 +201,21 @@ const StudentsDashboard = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="4" className="no-results"> No se encontraron estudiantes con esa búsqueda </td>
+                <td colSpan="4" className="no-results">No se encontraron estudiantes con esa búsqueda</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
+      
+      {/* Botón flotante para agregar nuevo usuario */}
+      <button className="floating-button" onClick={() => setIsCreateModalOpen(true)} title="Crear nuevo usuario"> <FaPlus /> </button>
+      {/* Modal de creación de usuario */}
+      <CreateUser 
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSave={handleCreateUser}
+      />
     </div>
   );
 };
