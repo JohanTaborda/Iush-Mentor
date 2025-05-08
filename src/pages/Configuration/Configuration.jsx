@@ -23,7 +23,6 @@ const Configuration = () => {
     });
     const [tutorData, setTutorData] = useState({
         reason: '',
-        experience: '',
         programs: '',
         semester: ''
     });
@@ -125,8 +124,7 @@ const Configuration = () => {
                 <TabPanel value={tabValue} index={0} >
                     <form onSubmit={handleProfileSubmit}>
                         <div  className="TabPanelProfile">
-                            <TextField name='name' onChange={handleProfileChange} defaultValue={profileData.name} label="Nombre" variant="outlined" disabled={!visProfile} required inputProps={{pattern:"^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"}} />
-                            <TextField name='lastName' onChange={handleProfileChange} defaultValue={profileData.lastName} label="Apellido" variant="outlined" disabled={!visProfile} required/>
+                            <TextField name='name' onChange={handleProfileChange} defaultValue={profileData.name} label="Nombre Completo" variant="outlined" disabled={!visProfile} required inputProps={{pattern:"^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"}} />
                             <FormControl variant="outlined" fullWidth required disabled={!visProfile}>
                                 <InputLabel id="program-label">Programa</InputLabel>
                                 <Select labelId="program-label" id="program-select" name="program" value={profileData.program} onChange={handleProfileChange}  label="Programa">
@@ -168,14 +166,7 @@ const Configuration = () => {
                 <form onSubmit={handleTutorSubmit}>
                         <div  className="TabPanelProfile">
                             <TextField name="reason" onChange={handleTutorDataChange} label="¿Por qué quieres ser tutor?" variant="outlined" required />
-                            <TextField name="programs" onChange={handleTutorDataChange} label="Materias que enseñarias (Separadas por comas)" variant="outlined"  required/>
-                            <FormControl variant="outlined" required fullWidth>
-                                <InputLabel id="experience-label">¿Tienes Experiencia?</InputLabel>
-                                <Select labelId="experience-label" name="experience" value={tutorData.experience} onChange={handleTutorDataChange} label="¿Tienes Experiencia?" >
-                                    <MenuItem value="Si">Sí</MenuItem>
-                                    <MenuItem value="No">No</MenuItem>
-                                </Select>
-                            </FormControl>                            
+                            <TextField name="programs" onChange={handleTutorDataChange} label="Materias que enseñarias (Separadas por comas)" variant="outlined"  required/>                         
                             <TextField name='semester' onChange={handleTutorDataChange} type='number' label="Semestre actual" variant="outlined" required inputProps={{min: 1, max: 10}} />
                         </div>
                             <Button className='buttonEditProfile' type='submit' variant="contained">Enviar Solicitud</Button>
