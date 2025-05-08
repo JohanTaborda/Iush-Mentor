@@ -219,18 +219,21 @@ const StudentRequest = () => {
                   <td className="options-cell">
                     {solicitud.estado === 'pendiente' && (
                       <>
-                        <button 
-                          className="action-button approve"
-                          onClick={() => handleOpenModal(solicitud.id, 'aprobar')}
-                        >
-                            <FaCheck />
-                        </button>
-                        <button 
-                          className="action-button reject"
-                          onClick={() => handleOpenModal(solicitud.id, 'rechazar')}
-                        >
-                          <FaTimes />
-                        </button>
+                    <button 
+                      className="action-button approve"
+                      onClick={() => handleOpenModal(solicitud.id, 'aprobar')}
+                      title="Aprobar solicitud"
+                    >
+                      <FaCheck />
+                    </button>
+
+                    <button 
+                      className="action-button reject"
+                      onClick={() => handleOpenModal(solicitud.id, 'rechazar')}
+                      title="Rechazar solicitud"
+                    >
+                      <FaTimes />
+                    </button>
                       </>
                     )}
                     {(solicitud.estado === 'aprobado' || solicitud.estado === 'rechazado') && (
