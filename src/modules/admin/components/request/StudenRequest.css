@@ -1,0 +1,277 @@
+/* Estilos para el dashboard de solicitudes */
+.request-dashboard {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.request-header h1 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.search-container {
+  margin-top: 10px;
+}
+
+.search-input {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  min-width: 300px;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
+}
+
+/* Estilos para la tabla */
+.table-container {
+  overflow-x: auto;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.requests-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.requests-table th, 
+.requests-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.requests-table th {
+  background-color: #275092;
+  color: white;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.requests-table tr:hover {
+  background-color: #f5f8fa;
+}
+
+/* Estilos para las celdas con texto largo */
+.text-cell {
+  max-width: 250px;
+  position: relative;
+}
+
+.expanded-text {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.expand-button {
+  background: none;
+  border: none;
+  color: #3498db;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}
+
+/* Estilos para las insignias de estado */
+.estado-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.estado-badge.pendiente {
+  background-color: #fff8e1;
+  color: #ffa000;
+}
+
+.estado-badge.aprobado {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.estado-badge.rechazado {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+/* Color de fila según estado */
+tr.estado-aprobado {
+  background-color: rgba(232, 245, 233, 0.2);
+}
+
+tr.estado-rechazado {
+  background-color: rgba(255, 235, 238, 0.2);
+}
+
+/* Estilos para los botones de acción */
+.options-cell {
+  white-space: nowrap;
+}
+
+.action-button {
+  margin-right: 8px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.action-button:last-child {
+  margin-right: 0;
+}
+
+.action-button.approve {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.action-button.reject {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.action-button:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+.status-text {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #7f8c8d;
+}
+
+/* Mensaje cuando no hay resultados */
+.no-results {
+  text-align: center;
+  padding: 20px;
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+/* Modal de confirmación */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-title {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+}
+
+.modal-message {
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: #34495e;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.modal-button.cancel {
+  background-color: #95a5a6;
+  color: white;
+  margin-right: 10px;
+}
+
+.modal-button.confirm {
+  background-color: #3498db;
+  color: white;
+}
+
+.modal-button:hover {
+  opacity: 0.85;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .request-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .search-container {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .table-container{
+    height: 80%;
+  }
+  
+  .search-input {
+    width: 100%;
+    min-width: unset;
+  }
+  
+  .requests-table {
+    font-size: 0.85rem;
+    height: 10% !important;
+  }
+  
+  .text-cell {
+    max-width: 150px;
+  }
+  
+  .action-button {
+    padding: 5px 8px;
+    font-size: 0.75rem;
+  }
+}

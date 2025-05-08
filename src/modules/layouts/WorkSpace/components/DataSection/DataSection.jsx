@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
 import "./DataSection";
 import "./DataSection.css";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom"; // Navigate redirecciona automáticamente.
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
 // Importamos los componentes Hijos
-import Tutoring from "../../../../../pages/Tutoring/Tutoring.jsx"; // Componente de tutorías
+import Tutoring from "../../../../../pages/Tutoring/Tutoring.jsx";
 import Forum from "../../../../../pages/Forum/Forum.jsx";
 import Home from "../../../../../pages/Home/Home.jsx";
-import Configuration from "../../../../../pages/Configuration/Configuration.jsx"
+import Configuration from "../../../../../pages/Configuration/Configuration.jsx";
+// Importar componentes administrativos
+import StudentsDashboard from "../../../../admin/components/students/studentsDashboard.jsx";
+import StudentRequest from "../../../../admin/components/request/StudentRequest.jsx";
 
-const DataSection = ({ buttonSelected, searchTerm }) => { // Recibimos desde WorkSpace el texto que el usuario escribió en el buscador
+const DataSection = ({ buttonSelected, searchTerm }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,22 +30,31 @@ const DataSection = ({ buttonSelected, searchTerm }) => { // Recibimos desde Wor
       case "Configuracion":
         navigate("/perfil/configuracion");
         break;
+      // Añadir casos para rutas administrativas
+      case "Estudiantes":
+        navigate("/admin/estudiantes");
+        break;
+      case "Solicitudes":
+        navigate("/admin/solicitudes");
+        break;
       default:
         break;
     }
-  }, [buttonSelected, navigate]); // Dependencias
+  }, [buttonSelected, navigate]);
 
   return (
     <div className="mainDataSection">
       <Routes>
         {/* Rutas generales */}
         <Route path="/inicio" element={<Home />} />
-        {/* Ruta específica de tutorías, le pasamos el texto del input como prop */}
         <Route path="/tutorias" element={<Tutoring searchTerm={searchTerm} />} />
-        {/* Ruta específica del foro */}
         <Route path="/foro" element={<Forum />} />
-        {/* Ruta específica para la sección de configuración*/}
         <Route path="/perfil/configuracion" element={<Configuration />} />
+        
+        {/* Rutas administrativas */}
+¿       <Route path="/admin/estudiantes" element={<StudentsDashboard />} />
+        <Route path="/admin/solicitudes" element={<StudentRequest/>} />
+        
         {/* Ruta por defecto al iniciar sesión */}
         <Route path="" element={<Navigate to="/inicio" />} />
       </Routes>
