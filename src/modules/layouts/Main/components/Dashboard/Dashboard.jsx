@@ -5,18 +5,6 @@ import './Dashboard.css' // Estilos personalizados para el componente App.
 import Navbar from "../../../Navbar/Navbar.jsx"
 import WorkSpace from "../../../WorkSpace/WorkSpace.jsx"
 
-/*
-    Descripción.
-
-    Lista de parámetros.
-
-        * Parámetro1 (tipo): Descripción.
-
-    Retornos:
-
-        * retorno1 (tipo): Descripción.
-*/
-
 const App = ({setMainComponent}) => {
   
   // Constantes.

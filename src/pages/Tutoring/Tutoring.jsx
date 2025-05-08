@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Tutoring.css"; // Estilos personalizados
 import Subcategories from "../../components/Subcategories/Subcategories";
-import useMentorStore from "../../stores/Store"; // Estado global con Zustand
+import {useMentorStore} from "../../stores/Store"; // Estado global con Zustand
 import { FcPrevious, FcNext } from "react-icons/fc"; // Iconos para las flechas
 
 // ============================

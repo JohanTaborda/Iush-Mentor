@@ -1,51 +1,63 @@
+// Importa React y hooks necesarios
+import React, { useState, useEffect } from "react";
 
-import React, { useState, useEffect } from "react";// Importamos React y hooks para manejar estados
-import { useNavigate } from "react-router-dom";// useNavigate nos permitiría cambiar de ruta 
-// Importamos los componentes hijos
-import Dashboard from "./components/Dashboard/Dashboard.jsx"; // Componente principal de la aplicación
+// Importa el store de Zustand para manejar el estado del usuario
+import { useUserStore } from "../../../stores/Store.js";
+
+// Importa los componentes principales de la aplicación
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import MainPanel from "./components/MainPanel/MainPanel.jsx";
-import "./Main.css" // Estilos personalizados para el componente Main.
 
+// Importa estilos globales
+import "./Main.css";
+
+// Componente principal de la aplicación
 const Main = () => {
-  
-  // useState con valor inicial derivado de window.name para tener persistencia en la página
+  // Extrae el usuario y la función para establecerlo desde el store
+  const { user, setUser } = useUserStore();
+
+  // Estado local que determina si se muestra el Dashboard o el MainPanel
   const [mainComponent, setMainComponent] = useState(() => {
     try {
-      //Lee el contenido de window.name (lo que guarda entre recargas)
+      // Intenta recuperar la sesión desde window.name (persistencia simple)
       const session = JSON.parse(window.name);
 
-      // Si existe session y está logueado, devolvemos true
-      return session?.loggedIn || false;
+      // Si hay datos de usuario, los guarda en el store global
+      if (session?.user) {
+        setUser(session.user);
+      }
 
+      // Devuelve el estado de login guardado, o false si no existe
+      return session?.loggedIn || false;
     } catch {
-      // Si window.name no tiene datos válidos (o da error), asumimos que no está logueado
+      // Si ocurre un error al parsear, se asume que no hay sesión activa
       return false;
     }
   });
-  // Esto asegura que al recargar la página, se recuerde si el usuario estaba logueado
 
-  // Este useEffect se ejecuta cada vez que mainComponent cambie (o al cargar el componente)
+  // Efecto que sincroniza el estado de sesión con window.name
   useEffect(() => {
     try {
+      // Intenta mantener los datos anteriores y actualiza login y usuario
       const session = JSON.parse(window.name);
-
-      // Guardamos en window.name el estado actualizado del login
       window.name = JSON.stringify({
-        ...session,             // Toma todo lo que ya tenía el objeto session, y luego reemplaza la propiedad loggedIn con el valor de mainComponent.
-        loggedIn: mainComponent, // Actualiza el estado de login
+        ...session,
+        loggedIn: mainComponent,
+        user: user,
       });
-
     } catch {
-      // Si window.name estaba vacío o con datos inválidos, lo creamos desde cero
+      // Si no hay datos previos, crea un nuevo objeto de sesión
       window.name = JSON.stringify({
         loggedIn: mainComponent,
+        user: user,
       });
     }
-  }, [mainComponent]); // El efecto se ejecuta solo cuando mainComponent cambia
+  }, [mainComponent, user]); // Se ejecuta cada vez que cambia el login o el usuario
 
+  // Renderiza el Dashboard si el usuario está logueado, de lo contrario muestra el panel principal
   return (
     <>
-      {mainComponent ? (
+      {mainComponent && user ? (
         <Dashboard setMainComponent={setMainComponent} />
       ) : (
         <MainPanel setMainComponent={setMainComponent} />
@@ -53,4 +65,5 @@ const Main = () => {
     </>
   );
 };
+
 export default Main;

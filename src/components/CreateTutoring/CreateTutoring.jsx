@@ -3,7 +3,7 @@ import "./CreateTutoring.css"; // Estilos personalizados
 import { ToastContainer, toast } from "react-toastify"; // Para notificaciones
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form"; // Manejo de formularios
-import useMentorStore from "../../stores/Store"; // Estado global con Zustand
+import {useMentorStore} from "../../stores/Store"; // Estado global con Zustand
 
 const CreateTutoring = ({ closeWindow }) => {
     const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
