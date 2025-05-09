@@ -45,6 +45,7 @@ const DataSection = ({ buttonSelected, searchTerm }) => { // Recibimos desde Wor
         <Route path="/perfil/configuracion" element={<Configuration />} />
         {/* Ruta por defecto al iniciar sesión */}
         <Route path="" element={<Navigate to="/inicio" />} />
+        
       </Routes>
     </div>
   );
