@@ -92,7 +92,12 @@ const SubschoolCarousel = ({ title, data, onCardClick }) => {
 // ============================
 // VISTA PRINCIPAL DE TUTORÍAS
 // ============================
+// VISTA PRINCIPAL DE TUTORÍAS
+// ============================
 const TutoringModal = ({ isOpen, onClose, subschool, tutorings }) => {
+  const navigate = useNavigate(); // Importamos useNavigate en este componente
+  const [enrolledTutorings, setEnrolledTutorings] = useState({}); // Estado para controlar inscripciones
+
   if (!isOpen) return null;
 
   // Detectar clic fuera del modal para cerrarlo
@@ -102,11 +107,24 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings }) => {
     }
   };
 
+  // Función para manejar la inscripción
+  const handleEnroll = (tutoringId) => {
+    // Aquí se implementaría la llamada al backend para registrar la inscripción
+    // Por ahora, solo simulamos la inscripción exitosa
+    setEnrolledTutorings(prev => ({...prev,[tutoringId]: true}));
+    
+    
+    // Redirigir a Home después de un breve retraso
+    setTimeout(() => {
+      navigate("/inicio");
+    }, 1500);
+  };
+
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content">
         <div className="modal-header">
-          <h2>Tutorías disponibles para: {subschool}</h2>
+          <h2>Tutorías disponibles en {subschool}</h2>
           <button className="modal-close" onClick={onClose}>
             <IoMdClose size={24} />
           </button>
@@ -118,14 +136,23 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings }) => {
                 <h3>{tut.title}</h3>
                 <p>{tut.description}</p>
                 <p><strong>Tutor:</strong> {tut.tutor?.username}</p>
-                <p><strong>Correo:</strong> {tut.tutor?.email}</p>
+                {/* <p><strong>Correo:</strong> {tut.tutor?.email}</p>*/} 
                 <p><strong>Fecha:</strong> {tut.date}</p>
                 <p><strong>Hora:</strong> {tut.start_time} - {tut.end_time}</p>
                 <p><strong>Modalidad:</strong> {tut.modality}</p>
+                {/*
                 {tut.modality.toLowerCase() === "virtual" ? (
                   <a href={tut.connection_link} target="_blank" rel="noreferrer">Enlace</a>
                 ) : (
                   <p><strong>Sala:</strong> {tut.classroom}</p>
+                )}
+                */}
+                
+                {/* Botón de inscripción */}
+                {!enrolledTutorings[tut.id] ? (
+                  <button className="tutoring__enroll-btn"  onClick={() => handleEnroll(tut.id)}>Inscribirse </button>
+                ) : (
+                  <p className="tutoring__enrolled-message">¡Inscrito correctamente!</p>
                 )}
               </div>
             ))

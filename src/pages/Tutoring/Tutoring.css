@@ -210,11 +210,11 @@
 
 .modal-content {
   background-color: white;
-  border-radius: 8px;
   width: 90%;
+  padding: 0 !important;
   max-width: 800px;
   max-height: 90vh;
-  overflow-y: auto;
+  border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   animation: modalFadeIn 0.3s ease;
 }
@@ -232,20 +232,25 @@
   align-items: center;
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: #275092;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  
+  color: #fff;
   z-index: 1;
 }
 
 .modal-body {
   padding: 20px;
   overflow-y: auto;
+
 }
 
 .modal-close {
   background: none;
   border: none;
   cursor: pointer;
-  color: #666;
+  color: #fff;
   padding: 4px;
   border-radius: 50%;
   display: flex;
@@ -257,4 +262,42 @@
 .modal-close:hover {
   background-color: #f0f0f0;
   color: #333;
+}
+
+
+/* Estilos para el botón de inscripción */
+.tutoring__enroll-btn {
+  background-color: #2c75fa;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 12px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.tutoring__enroll-btn:hover {
+  background-color: #1a5fd7;
+}
+
+/* Mensaje de inscripción exitosa */
+.tutoring__enrolled-message {
+  color: #2e7d32;
+  font-weight: bold;
+  margin-top: 12px;
+  padding: 8px;
+  background-color: #e8f5e9;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Ajustar el espacio para la tarjeta de resultado */
+.tutoring__card-result {
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #fff;
 }
