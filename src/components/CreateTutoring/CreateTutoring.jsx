@@ -4,10 +4,12 @@ import { ToastContainer, toast } from "react-toastify"; // Para notificaciones
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form"; // Manejo de formularios
 import {useMentorStore, useUserStore} from "../../stores/Store"; // Estado global con Zustand
+import {useNavigate } from "react-router-dom"; // Navigate redirecciona automáticamente.
 
 const CreateTutoring = ({ closeWindow }) => {
     const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
     const [userData, setUserData] = useState(useUserStore(value => value.user))
+    const navigate = useNavigate();
 
     // Observadores para campos del formulario
     const startTime = watch("startTime");
@@ -57,6 +59,7 @@ const CreateTutoring = ({ closeWindow }) => {
                 toast.success("Tutoría creada exitosamente");
                 setTimeout(() => {
                     closeWindow(false);
+                    navigate("/inicio");
                 }, 3000);
             } else {
                 toast.error(data.error || "Error al crear tutoría");

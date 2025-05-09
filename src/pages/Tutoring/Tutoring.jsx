@@ -87,10 +87,9 @@ const SubschoolCarousel = ({ title, data, onCardClick }) => {
 };
 
 // VISTA PRINCIPAL DEL MODAL DE LAS TUTORIAS CREADAS.
-const TutoringModal = ({ isOpen, onClose, subschool, tutorings }) => {
+const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
   const navigate = useNavigate(); // Importamos useNavigate en este componente
   const [enrolledTutorings, setEnrolledTutorings] = useState({}); // Estado para controlar inscripciones
-  const [userData, setUserData] = useState(useUserStore(value => value.user))
 
   if (!isOpen) return null;
 
@@ -171,7 +170,8 @@ const Tutoring = ({ searchTerm }) => {
   const { subschool: urlSubschool } = useParams();
   const [modalOpen, setModalOpen] = useState(false);
   const [visCreateTutoring, setVisCreateTutoring] = useState(false);
-  
+  const [userData, setUserData] = useState(useUserStore(value => value.user))
+
   // Obtenemos el estado global desde Zustand
   const {
     adminSubschools,
@@ -306,13 +306,14 @@ const Tutoring = ({ searchTerm }) => {
             onClose={handleCloseModal}
             subschool={selectedSubschool}
             tutorings={filteredTutorings}
+            userData={userData}
           />
-          {!visCreateTutoring && (
-            <button className="floating-button" onClick={() => setVisCreateTutoring(true)}> <IoAddCircle size={24} /> <span>Nueva tutoría</span> </button>
-          )}
-          {visCreateTutoring && (<CreateTutoring closeWindow = {setVisCreateTutoring} />)} {/*Renderizamos el componente que nos permite crear las tutorias. */}
         </>
       )}
+      {(!visCreateTutoring && !modalOpen && userData.userRol === "tutor") && (
+        <button className="floating-button" onClick={() => setVisCreateTutoring(true)}> <IoAddCircle size={24} /> <span>Nueva tutoría</span> </button>
+      )}
+      {visCreateTutoring && (<CreateTutoring closeWindow = {setVisCreateTutoring} />)} {/*Renderizamos el componente que nos permite crear las tutorias. */}
     </main>
   );
 };

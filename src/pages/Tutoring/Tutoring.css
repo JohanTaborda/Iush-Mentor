@@ -316,7 +316,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 1000;
+  z-index: 10;
   font-weight: 500;
 }
 
@@ -328,4 +328,10 @@
 
 .floating-button svg {
   margin-right: 5px;
+}
+
+@media (max-width: 767px) {
+  .floating-button{
+    bottom: 70px;
+  }
 }
