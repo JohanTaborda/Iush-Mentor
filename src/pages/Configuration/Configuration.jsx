@@ -16,7 +16,7 @@ const Configuration = () => {
     const [profileImage, setProfileImage] = useState(null);
 
     // Obtener datos del usuario desde el store global
-    const [dataUser, setDataUser] = useState(useUserStore(state => state.user));
+    const dataUser = useUserStore(state => state.user);
 
     // Estado para los datos del perfil que cargan antes de editar
     const [profileData, setProfileData] = useState({
@@ -35,11 +35,9 @@ const Configuration = () => {
     // Estado para los datos de solicitud de tutor
     const [tutorData, setTutorData] = useState({
         reason: '',
-        programs: '',
+        subjects: '',
         semester: ''
     });
-
-    
 
     // Función para actualizar el perfil del usuario conexión con el backend
     const updateProfile = async () => {
@@ -96,6 +94,7 @@ const Configuration = () => {
         const { name, value } = e.target;
         setTutorData({ ...tutorData, [name]: value });
     };
+    
 
     // Enviar formulario de perfil
     const handleProfileSubmit = (e) => {
@@ -160,11 +159,46 @@ const Configuration = () => {
 
 
     // Enviar solicitud de tutor
-    const handleTutorSubmit = (e) => {
-        e.preventDefault();
-        console.log('Solicitud de tutor:', tutorData);
-        // Aquí iría la lógica para enviar solicitud de tutor
-    };
+    const handleTutorSubmit = async (e) => {
+            e.preventDefault();
+                console.log("Datos que se envían al backend:", {
+                reason: tutorData.reason,
+                subjects: tutorData.subjects,
+                semester: tutorData.semester,
+                userId: dataUser.userId
+                });
+            try {
+                const response = await fetch('http://localhost:3000/tutor-requests', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    reason: tutorData.reason,
+                    subjects: tutorData.subjects,
+                    semester: tutorData.semester,
+                    userId: dataUser.userId
+                })
+                });
+
+                const result = await response.json();
+                console.log("Respuesta del backend:", result); 
+
+                if (!response.ok) {
+                toast.error(result.error || "Error al enviar la solicitud");
+                return;
+                }
+
+                toast.success("Solicitud enviada correctamente");
+                setTutorData({
+                reason: '',
+                subjects: '',
+                semester: ''
+                });
+            } catch (error) {
+                toast.error("Error inesperado: " + error.message);
+            }
+            };
 
     // Enviar imagen de perfil
     const handleImageSubmit = (e) => {
@@ -374,7 +408,7 @@ const Configuration = () => {
                                 required
                             />
                             <TextField
-                                name="programs"
+                                name="subjects"
                                 onChange={handleTutorDataChange}
                                 label="Materias que enseñarias (Separadas por comas)"
                                 variant="outlined"
