@@ -97,8 +97,15 @@ const CreateTutoring = ({ closeWindow }) => {
         if (errors.link) toast.error(errors.link.message);
     }, [errors]);
 
+    const handleOverlayClick = (e) => {
+        // Solo cerrar si el clic fue directamente en el overlay, no en sus hijos
+        if (e.target.className === "overlayGeneral") {
+            closeWindow(false);
+        }
+    };
+
     return (
-        <div className="overlayGeneral">
+        <div className="overlayGeneral" onClick={handleOverlayClick}>
             <div className="containerGeneralOverlay" id="container__createTutoring">
                 <header className="header_Tutoring">
                     <h1 className="title_Tutoring">Crear Tutoría</h1>

@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./Tutoring.css"; // Estilos personalizados
 import Subcategories from "../../components/Subcategories/Subcategories";
-import {useMentorStore} from "../../stores/Store"; // Estado global con Zustand
+import {useMentorStore, useUserStore} from "../../stores/Store"; // Estado global con Zustand
 import { FcPrevious, FcNext } from "react-icons/fc"; // Iconos para las flechas
 import { useNavigate, useParams, useLocation } from "react-router-dom"; // Importar hooks de react-router
 import { IoMdClose } from "react-icons/io"; // Ícono para cerrar el modal
+import { IoAddCircle } from "react-icons/io5"; // Ícono para el botón flotante
+import CreateTutoring from "../../components/CreateTutoring/CreateTutoring";
 
-
-// ============================
 // COMPONENTE DE FLECHAS
-// ============================
 const CarouselArrow = ({ direction, onClick }) => (
   <button className={`carousel-arrow carousel-arrow--${direction}`} onClick={onClick}>
     {direction === "left" ? <FcPrevious size={32} /> : <FcNext size={32} />}
   </button>
 );
 
-// ============================
 // CARRUSEL REUTILIZABLE
-// ============================
 const SubschoolCarousel = ({ title, data, onCardClick }) => {
   const [startIndex, setStartIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -89,14 +86,11 @@ const SubschoolCarousel = ({ title, data, onCardClick }) => {
   );
 };
 
-// ============================
-// VISTA PRINCIPAL DE TUTORÍAS
-// ============================
-// VISTA PRINCIPAL DE TUTORÍAS
-// ============================
+// VISTA PRINCIPAL DEL MODAL DE LAS TUTORIAS CREADAS.
 const TutoringModal = ({ isOpen, onClose, subschool, tutorings }) => {
   const navigate = useNavigate(); // Importamos useNavigate en este componente
   const [enrolledTutorings, setEnrolledTutorings] = useState({}); // Estado para controlar inscripciones
+  const [userData, setUserData] = useState(useUserStore(value => value.user))
 
   if (!isOpen) return null;
 
@@ -149,11 +143,16 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings }) => {
                 */}
                 
                 {/* Botón de inscripción */}
-                {!enrolledTutorings[tut.id] ? (
-                  <button className="tutoring__enroll-btn"  onClick={() => handleEnroll(tut.id)}>Inscribirse </button>
-                ) : (
-                  <p className="tutoring__enrolled-message">¡Inscrito correctamente!</p>
+                {userData.userRol === "aprendiz" &&(
+                  <div>
+                    {!enrolledTutorings[tut.id] ? (
+                      <button className="tutoring__enroll-btn"  onClick={() => handleEnroll(tut.id)}>Inscribirse </button>
+                    ) : (
+                      <p className="tutoring__enrolled-message">¡Inscrito correctamente!</p>
+                    )}
+                  </div>
                 )}
+
               </div>
             ))
           ) : (
@@ -165,14 +164,13 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings }) => {
   );
 };
 
-// ============================
 // VISTA PRINCIPAL DE TUTORÍAS
-// ============================
 const Tutoring = ({ searchTerm }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { subschool: urlSubschool } = useParams();
   const [modalOpen, setModalOpen] = useState(false);
+  const [visCreateTutoring, setVisCreateTutoring] = useState(false);
   
   // Obtenemos el estado global desde Zustand
   const {
@@ -235,8 +233,6 @@ const Tutoring = ({ searchTerm }) => {
     };
     fetchTutorings();
   }, []);
-
-  
 
   // Abrir el modal si la URL contiene un parámetro de subescuela
   useEffect(() => {
@@ -311,6 +307,10 @@ const Tutoring = ({ searchTerm }) => {
             subschool={selectedSubschool}
             tutorings={filteredTutorings}
           />
+          {!visCreateTutoring && (
+            <button className="floating-button" onClick={() => setVisCreateTutoring(true)}> <IoAddCircle size={24} /> <span>Nueva tutoría</span> </button>
+          )}
+          {visCreateTutoring && (<CreateTutoring closeWindow = {setVisCreateTutoring} />)} {/*Renderizamos el componente que nos permite crear las tutorias. */}
         </>
       )}
     </main>

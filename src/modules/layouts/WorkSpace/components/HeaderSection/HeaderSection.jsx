@@ -31,7 +31,6 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected }) =>
     const[optionSelected, setOptionSelected] = useState(buttonSelected); //Constante que almacena el botón cliqueado en el navbar.
     const[phrasesIndex, setPhrasesIndex] = useState(0); //Estado que guarda el indice de la frase a mostrar
     const[isMobile, setIsMobile] = useState(window.innerWidth <= 447); //Usamos esta constante para validar el tamaño de la pantalla, para tomar diferentes propiedades según sea el caso.  
-    const[visCreateTutoring, setVisCreateTutoring] = useState(false); //Constante que permite la visualización de la ventana emergente para crear tutorias.
     const[dataUser, setDataUser] = useState(useUserStore(state => state.user))
 
 
@@ -86,7 +85,7 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected }) =>
             <div className="container__Search">
                 <div className="input_icons" style={{display: `${optionSelected != "Tutorias"  ? "none" : "flex"}`}}>
                     <span className="span__Search" >{icon_search()}</span>
-                    <span className="span_Delete" style={{display: `${dataInput == ""  ? "none" : ""}`, right: `${dataUser.userRol === "tutor" ? "145px" : "5px"}` }} 
+                    <span className="span_Delete" style={{display: `${dataInput == ""  ? "none" : ""}`, right: `${dataUser.userRol === "tutor" ? "5px" : "5px"}` }} 
                         onClick={() => setDataInput("")} // Al hacer clic, se limpia el input
                         >{icon_clear()} </span>
                     <input
@@ -96,7 +95,6 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected }) =>
                         value={dataInput} // El valor del input lo controla el estado dataInput
                         onChange={(e) => setDataInput(e.target.value)} // Cada vez que el usuario escribe, actualizamos el estado
                         />
-                    <button className="button--create" style={{display: `${optionSelected == "Tutorias" && dataUser.userRol == "tutor" ? "flex" : "none"}`}} onClick={() => setVisCreateTutoring(true)}>{icon_pencil()} Crear Tutoria </button>
                 </div>
                 <button className="button--create" id="button--add" style={{display: `${optionSelected == "Foro" ? "flex" : "none"}`}}>{icon_add()} Publicar Nuevo Hilo </button>
                 <span className="title__bienvenida" style={{display: `${optionSelected != "Inicio" ? "none" : "flex"}`}}> {phrases[phrasesIndex]}</span> {/*Mostramos la frase según el indice guardado.*/}
@@ -150,7 +148,6 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected }) =>
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
-            {visCreateTutoring && (<CreateTutoring closeWindow = {setVisCreateTutoring} />)} {/*Renderizamos el componente que nos permite crear las tutorias. */}
         </div>
     )
 }

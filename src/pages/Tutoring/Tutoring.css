@@ -189,9 +189,6 @@
   margin-right: 0.25rem;
 }
 
-
-/* Añade estos estilos a tu archivo Tutoring.css */
-
 /* Estilos para el modal */
 .modal-overlay {
   position: fixed;
@@ -300,4 +297,35 @@
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   background-color: #fff;
+}
+
+
+/* Estilos del botón flotante */
+.floating-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #0056b3;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  font-weight: 500;
+}
+
+.floating-button:hover {
+  background-color: #003d82;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.floating-button svg {
+  margin-right: 5px;
 }
