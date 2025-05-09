@@ -39,6 +39,8 @@ const Configuration = () => {
         semester: ''
     });
 
+    
+
     // Función para actualizar el perfil del usuario conexión con el backend
     const updateProfile = async () => {
         try {
@@ -109,15 +111,38 @@ const Configuration = () => {
     };
 
     // Enviar formulario de cambio de contraseña
-    const handlePasswordSubmit = (e) => {
-        e.preventDefault();
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
 
-        if (passwordData.newPassword !== passwordData.confirmPassword) {
-            toast.error("Las contraseñas no coinciden. Por favor, verifica que sean iguales.");
-            return;
+    // Verificar si las contraseñas coinciden
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+        toast.error("Las contraseñas no coinciden. Por favor, verifica que sean iguales.");
+        return;
+    }
+
+    try {
+        // Realizar la solicitud para cambiar la contraseña
+        const response = await fetch(`http://localhost:3000/users/${dataUser.userId}}/change-password`, {
+
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                currentPassword: passwordData.currentPassword,
+                newPassword: passwordData.newPassword
+            })
+        });
+
+        // Obtener el resultado de la solicitud
+        const result = await response.json();
+
+        // Verificar si la respuesta es exitosa
+        if (!response.ok) {
+            throw new Error(result.error || "Error al cambiar la contraseña");
         }
 
-        console.log('Cambiar contraseña:', passwordData);
+        // Mostrar mensaje de éxito
         toast.success("Contraseña actualizada correctamente");
 
         // Limpiar campos
@@ -127,7 +152,12 @@ const Configuration = () => {
             confirmPassword: ''
         });
         setVisPassword(false);
-    };
+    } catch (error) {
+        // Manejo de errores
+        toast.error(`Error: ${error.message}`);
+    }
+};
+
 
     // Enviar solicitud de tutor
     const handleTutorSubmit = (e) => {

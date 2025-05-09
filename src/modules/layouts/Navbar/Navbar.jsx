@@ -48,18 +48,19 @@ const Navbar = ({setButtonSelected, setMainComponent, rol}) => {
     }
     
     useEffect(() => {
-        // Buscamos la ruta que coincida con el pathname actual
-        const currentRoute = buttonSections.find(item => item.path && location.pathname.startsWith(item.path)) || 
-                            (rol === 'administrador' ? { title: "Estudiantes" } : { title: "Inicio" });
-        
-        // Actualizamos todos los estados en una sola operación
-        const selectedTitle = currentRoute.title;
-        setOptionSelected(selectedTitle);
-        setButtonSelected(selectedTitle);
-        
-        // Actualizamos el sessionStorage una sola vez
-        sessionStorage.setItem('optionSelected', selectedTitle);
-        sessionStorage.setItem('setButtonSelected', selectedTitle);
+        // Busca la ruta solo si existe en los botones
+        const currentRoute = buttonSections.find(item => item.path && location.pathname.startsWith(item.path));
+        if (currentRoute) {
+            const selectedTitle = currentRoute.title;
+            setOptionSelected(selectedTitle);
+            setButtonSelected(selectedTitle);
+            sessionStorage.setItem('optionSelected', selectedTitle);
+            sessionStorage.setItem('setButtonSelected', selectedTitle);
+        }else{
+                    setOptionSelected(null);
+            setButtonSelected(null);
+            sessionStorage.removeItem('optionSelected');
+        }
     }, [location.pathname, rol]);
 
     const changeSelectedButton = (type) => { 
