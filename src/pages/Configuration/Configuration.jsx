@@ -14,6 +14,7 @@ const Configuration = () => {
     // Estados para manejar imagen de perfil
     const [imagen, setImagen] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
+    
 
     // Obtener datos del usuario desde el store global
     const dataUser = useUserStore(state => state.user);
@@ -157,7 +158,6 @@ const Configuration = () => {
     }
 };
 
-
     // Enviar solicitud de tutor
     const handleTutorSubmit = async (e) => {
             e.preventDefault();
@@ -201,11 +201,43 @@ const Configuration = () => {
             };
 
     // Enviar imagen de perfil
-    const handleImageSubmit = (e) => {
-        e.preventDefault();
-        console.log('Nueva imagen de perfil:', profileImage);
-        // Aquí iría la lógica para subir la imagen
-    };
+    const handleImageSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!profileImage) {
+    toast.error("Primero selecciona una imagen");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("profileImage", profileImage);
+
+  try {
+    const response = await fetch(`http://localhost:3000/users/${dataUser.userId}/profile-image`, {
+      method: "PUT",
+      body: formData
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || "Error al subir la imagen");
+    }
+
+    toast.success("Imagen de perfil actualizada");
+
+    //Actualiza la imagen en pantalla
+    setImagen(`http://localhost:3000/uploads/${result.profileImage}`);
+
+    // Actualiza el store global para que persista tras recargar
+    useUserStore.setState({
+      user: { ...dataUser, profileImage: result.profileImage }
+    });
+
+  } catch (error) {
+    toast.error("Error: " + error.message);
+  }
+};
 
     // Manejar cambio de imagen de perfil
     const handleImagenChange = (e) => {
@@ -242,7 +274,6 @@ const Configuration = () => {
         "Producción Musical",
         "Inteligencia de Negocios"
       ];
-      
 
     return (
     <div className='containerConfiguration'>
