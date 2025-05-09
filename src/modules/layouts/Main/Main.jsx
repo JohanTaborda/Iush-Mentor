@@ -57,6 +57,7 @@ const Main = () => {
   // Renderiza el Dashboard si el usuario está logueado, de lo contrario muestra el panel principal
   return (
     <>
+    
       {mainComponent && user ? (
         <Dashboard setMainComponent={setMainComponent} />
       ) : (
