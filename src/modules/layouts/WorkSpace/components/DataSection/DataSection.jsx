@@ -57,6 +57,7 @@ const DataSection = ({ buttonSelected, searchTerm }) => {
         
         {/* Ruta por defecto al iniciar sesión */}
         <Route path="" element={<Navigate to="/inicio" />} />
+        
       </Routes>
     </div>
   );

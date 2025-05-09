@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./HeaderSection.css" // Estilos personalizados para el componente HeaderSection.
 import Dropdown from 'react-bootstrap/Dropdown'; //Hacemos uso de los dropdown que nos ofrece bootstrap
 import Form from 'react-bootstrap/Form'; //Hacemos uso del switch que nos ofrece bootstrap
-import { Link, useLocation } from "react-router-dom"; //Importamos link que nos sirve para Navegar sin recargar y useLocation para saber en que ruta estoy.
+import { data, Link, useLocation } from "react-router-dom"; //Importamos link que nos sirve para Navegar sin recargar y useLocation para saber en que ruta estoy.
 
 import CreateTutoring from "../../../../../components/CreateTutoring/CreateTutoring.jsx"; //Componente que crea las tutorias.
 import notifications from "./Notifications.json" //Json para el contenido de las notificaciones
 import userDefault from "../../../../../resources/images/User/userDefault.jpeg" //Importamos la foto por defecto del usuario.
-
+// Añade esta importación al principio del archivo
+import Avatar from '@mui/material/Avatar';
 //Importamos los iconos.
 import { IoIosSearch, IoMdAdd } from "react-icons/io";
 import { GoPencil } from "react-icons/go";
@@ -17,9 +18,10 @@ import { LuSettings } from "react-icons/lu";
 import { PiBookOpenUserBold } from "react-icons/pi";
 import { IoMoonOutline } from "react-icons/io5";
 
+import {useUserStore} from "../../../../../stores/Store.js"
+
 //Recibimos mediante props el botón seleccionado en el navbar. Se utiliza para ocultar y mostrar componentes según la sección seleccionada.
 const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected }) => {
-
     //Constantes
     const[dataInput, setDataInput] = useState(""); //Constante que almacena y guarda la palabra copiada en el input de búsqueda
     useEffect(() => {// useEffect que se ejecuta cada vez que cambia el texto del input
@@ -30,6 +32,8 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected }) =>
     const[phrasesIndex, setPhrasesIndex] = useState(0); //Estado que guarda el indice de la frase a mostrar
     const[isMobile, setIsMobile] = useState(window.innerWidth <= 447); //Usamos esta constante para validar el tamaño de la pantalla, para tomar diferentes propiedades según sea el caso.  
     const[visCreateTutoring, setVisCreateTutoring] = useState(false); //Constante que permite la visualización de la ventana emergente para crear tutorias.
+    const[dataUser, setDataUser] = useState(useUserStore(state => state.user))
+
 
     //Iconos
     const icon_search = () => <IoIosSearch id="icon__Search" style={{fontSize:"20px", color:"#000"}}/>
@@ -72,23 +76,27 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected }) =>
         setOptionSelected(buttonSelected)
     },[buttonSelected]) //Dependencia.
 
-
+    const stringAvatar = (name) => {
+        return {
+          children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+        };
+      }
     return(
         <div className="header__Section">
             <div className="container__Search">
                 <div className="input_icons" style={{display: `${optionSelected != "Tutorias"  ? "none" : "flex"}`}}>
                     <span className="span__Search" >{icon_search()}</span>
-                    <span className="span_Delete" style={{display: `${dataInput == ""  ? "none" : ""}`}} 
+                    <span className="span_Delete" style={{display: `${dataInput == ""  ? "none" : ""}`, right: `${dataUser.userRol === "tutor" ? "145px" : "5px"}` }} 
                         onClick={() => setDataInput("")} // Al hacer clic, se limpia el input
                         >{icon_clear()} </span>
-                     <input
+                    <input
                         type="text" // Tipo de campo: texto
                         className="input__Search" // Clase para aplicar estilos desde CSS
                         placeholder="Buscar una Subescuela..." // Texto que aparece cuando el campo está vacío
                         value={dataInput} // El valor del input lo controla el estado dataInput
                         onChange={(e) => setDataInput(e.target.value)} // Cada vez que el usuario escribe, actualizamos el estado
                         />
-                    <button className="button--create" style={{display: `${optionSelected == "Tutorias" ? "flex" : "none"}`}} onClick={() => setVisCreateTutoring(true)}>{icon_pencil()} Crear Tutoria </button>
+                    <button className="button--create" style={{display: `${optionSelected == "Tutorias" && dataUser.userRol == "tutor" ? "flex" : "none"}`}} onClick={() => setVisCreateTutoring(true)}>{icon_pencil()} Crear Tutoria </button>
                 </div>
                 <button className="button--create" id="button--add" style={{display: `${optionSelected == "Foro" ? "flex" : "none"}`}}>{icon_add()} Publicar Nuevo Hilo </button>
                 <span className="title__bienvenida" style={{display: `${optionSelected != "Inicio" ? "none" : "flex"}`}}> {phrases[phrasesIndex]}</span> {/*Mostramos la frase según el indice guardado.*/}
@@ -126,7 +134,7 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected }) =>
                 
                 <Dropdown> {/*Bloque para el dropdown de Perfil. */}
                     <Dropdown.Toggle variant="secondary" className="button--profile" >{
-                        <img src={userDefault} alt="Foto del Usuario." className="img__user"/>    
+                        <Avatar {...stringAvatar(dataUser.username)} />    
                     }</Dropdown.Toggle>
                     <Dropdown.Menu className="container__list" style={{backgroundColor:"#285194"}}>
                              <Dropdown.Item as="div"className="switche--color" onClick={(e) => e.stopPropagation()} style={{borderBottom:"1px solid #fff"}}  >
