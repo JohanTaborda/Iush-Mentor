@@ -4,10 +4,13 @@ import { ToastContainer, toast } from "react-toastify"; // Para notificaciones
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form"; // Manejo de formularios
 import {useMentorStore} from "../../stores/Store"; // Estado global con Zustand
+import {useUserStore} from "../../stores/Store"
 
 const CreateTutoring = ({ closeWindow }) => {
+    const dataUser = useUserStore(state => state.user); 
     const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
 
+    
     // Observadores para campos del formulario
     const startTime = watch("startTime");
     const endTime = watch("endTime");
@@ -36,7 +39,7 @@ const CreateTutoring = ({ closeWindow }) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    id_tutor: 3, // Cambiar por el ID real del usuario autenticado
+                    id_tutor: dataUser.userId,
                     title: formData.title,
                     description: formData.description,
                     capacity: formData.capacity,
