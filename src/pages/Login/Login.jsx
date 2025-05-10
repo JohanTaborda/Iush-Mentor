@@ -70,7 +70,7 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
                 // Si la respuesta es exitosa, guarda los datos del usuario en el store global
                 setGlobalUser(data);
 
-                // Notificación de éxito
+                // Notificación de éxito personalizada con username
                     toast.success(`¡Bienvenido! ${data.username} `, {
                     position: "top-center",
                     autoClose: 1500,

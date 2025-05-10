@@ -14,9 +14,10 @@ const Configuration = () => {
     // Estados para manejar imagen de perfil
     const [imagen, setImagen] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
+    
 
     // Obtener datos del usuario desde el store global
-    const [dataUser, setDataUser] = useState(useUserStore(state => state.user));
+    const dataUser = useUserStore(state => state.user);
 
     // Estado para los datos del perfil que cargan antes de editar
     const [profileData, setProfileData] = useState({
@@ -35,10 +36,11 @@ const Configuration = () => {
     // Estado para los datos de solicitud de tutor
     const [tutorData, setTutorData] = useState({
         reason: '',
-        programs: '',
+        subjects: '',
         semester: ''
     });
 
+    // Función para actualizar el perfil del usuario conexión con el backend
     // Función para actualizar el perfil del usuario conexión con el backend
     const updateProfile = async () => {
         try {
@@ -61,8 +63,15 @@ const Configuration = () => {
 
             const updatedUser = await response.json();
 
-            // Actualizar el estado global con los nuevos datos
-            useUserStore.setState({ user: updatedUser });
+            // Actualizar el estado global combinando los datos existentes con los actualizados
+            useUserStore.setState(state => ({ 
+                user: { 
+                    ...state.user, 
+                    username: updatedUser.username,
+                    email: updatedUser.email,
+                    program: updatedUser.program 
+                } 
+            }));
 
             toast.success("Perfil actualizado correctamente");
             setVisProfile(false);
@@ -94,6 +103,7 @@ const Configuration = () => {
         const { name, value } = e.target;
         setTutorData({ ...tutorData, [name]: value });
     };
+    
 
     // Enviar formulario de perfil
     const handleProfileSubmit = (e) => {
@@ -105,19 +115,42 @@ const Configuration = () => {
         }
 
         updateProfile();
-        console.log('Guardar perfil:', profileData);
     };
 
     // Enviar formulario de cambio de contraseña
-    const handlePasswordSubmit = (e) => {
-        e.preventDefault();
+  const handlePasswordSubmit = async (e) => {
+    e.preventDefault();
 
-        if (passwordData.newPassword !== passwordData.confirmPassword) {
-            toast.error("Las contraseñas no coinciden. Por favor, verifica que sean iguales.");
-            return;
+
+    // Verificar si las contraseñas coinciden
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+        toast.error("Las contraseñas no coinciden. Por favor, verifica que sean iguales.");
+        return;
+    }
+
+    try {
+        // Realizar la solicitud para cambiar la contraseña
+        const response = await fetch(`http://localhost:3000/users/${dataUser.userId}}/change-password`, {
+
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                currentPassword: passwordData.currentPassword,
+                newPassword: passwordData.newPassword
+            })
+        });
+
+        // Obtener el resultado de la solicitud
+        const result = await response.json();
+
+        // Verificar si la respuesta es exitosa
+        if (!response.ok) {
+            throw new Error(result.error || "Error al cambiar la contraseña");
         }
 
-        console.log('Cambiar contraseña:', passwordData);
+        // Mostrar mensaje de éxito
         toast.success("Contraseña actualizada correctamente");
 
         // Limpiar campos
@@ -127,21 +160,92 @@ const Configuration = () => {
             confirmPassword: ''
         });
         setVisPassword(false);
-    };
+    } catch (error) {
+        // Manejo de errores
+        toast.error(`Error: ${error.message}`);
+    }
+};
 
     // Enviar solicitud de tutor
-    const handleTutorSubmit = (e) => {
-        e.preventDefault();
-        console.log('Solicitud de tutor:', tutorData);
-        // Aquí iría la lógica para enviar solicitud de tutor
-    };
+    const handleTutorSubmit = async (e) => {
+            e.preventDefault();
+                console.log("Datos que se envían al backend:", {
+                reason: tutorData.reason,
+                subjects: tutorData.subjects,
+                semester: tutorData.semester,
+                userId: dataUser.userId
+                });
+            try {
+                const response = await fetch('http://localhost:3000/tutor-requests', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    reason: tutorData.reason,
+                    subjects: tutorData.subjects,
+                    semester: tutorData.semester,
+                    userId: dataUser.userId
+                })
+                });
+
+                const result = await response.json();
+                console.log("Respuesta del backend:", result); 
+
+                if (!response.ok) {
+                toast.error(result.error || "Error al enviar la solicitud");
+                return;
+                }
+
+                toast.success("Solicitud enviada correctamente");
+                setTutorData({
+                reason: '',
+                subjects: '',
+                semester: ''
+                });
+            } catch (error) {
+                toast.error("Error inesperado: " + error.message);
+            }
+            };
 
     // Enviar imagen de perfil
-    const handleImageSubmit = (e) => {
-        e.preventDefault();
-        console.log('Nueva imagen de perfil:', profileImage);
-        // Aquí iría la lógica para subir la imagen
-    };
+    const handleImageSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!profileImage) {
+    toast.error("Primero selecciona una imagen");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("profileImage", profileImage);
+
+  try {
+    const response = await fetch(`http://localhost:3000/users/${dataUser.userId}/profile-image`, {
+      method: "PUT",
+      body: formData
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || "Error al subir la imagen");
+    }
+
+    toast.success("Imagen de perfil actualizada");
+
+    //Actualiza la imagen en pantalla
+    setImagen(`http://localhost:3000/uploads/${result.profileImage}`);
+
+    // Actualiza el store global para que persista tras recargar
+    useUserStore.setState({
+      user: { ...dataUser, profileImage: result.profileImage }
+    });
+
+  } catch (error) {
+    toast.error("Error: " + error.message);
+  }
+};
 
     // Manejar cambio de imagen de perfil
     const handleImagenChange = (e) => {
@@ -178,7 +282,6 @@ const Configuration = () => {
         "Producción Musical",
         "Inteligencia de Negocios"
       ];
-      
 
     return (
     <div className='containerConfiguration'>
@@ -344,7 +447,7 @@ const Configuration = () => {
                                 required
                             />
                             <TextField
-                                name="programs"
+                                name="subjects"
                                 onChange={handleTutorDataChange}
                                 label="Materias que enseñarias (Separadas por comas)"
                                 variant="outlined"

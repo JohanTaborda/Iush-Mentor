@@ -7,10 +7,12 @@ import {useMentorStore, useUserStore} from "../../stores/Store"; // Estado globa
 import {useNavigate } from "react-router-dom"; // Navigate redirecciona automáticamente.
 
 const CreateTutoring = ({ closeWindow }) => {
+    const dataUser = useUserStore(state => state.user); 
     const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
     const [userData, setUserData] = useState(useUserStore(value => value.user))
     const navigate = useNavigate();
 
+    
     // Observadores para campos del formulario
     const startTime = watch("startTime");
     const endTime = watch("endTime");
@@ -40,6 +42,7 @@ const CreateTutoring = ({ closeWindow }) => {
                 },
                 body: JSON.stringify({
                     id_tutor: userData.userId, 
+                    id_tutor: dataUser.userId,
                     title: formData.title,
                     description: formData.description,
                     capacity: formData.capacity,
