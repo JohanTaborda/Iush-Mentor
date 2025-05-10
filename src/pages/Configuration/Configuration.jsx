@@ -14,7 +14,11 @@ const Configuration = () => {
     // Estados para manejar imagen de perfil
     const [imagen, setImagen] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
-    
+
+    const programas = [ "Selecciona un programa", "Administración de Empresas", "Comunicación Organizacional",  "Contaduría Pública",  "Derecho", "Mercadeo",  "Negocios Internacionales",
+        "Talento Humano",  "Gestión Empresarial", "Mercadeo y Ventas", "Gestión Internacional", "Animación", "Ing. Electrónica", "Ing. Industrial", "Ing.Sistemas", "Diseño Gráfico", "Diseño de Modas",
+        "Tec. en Sistemas", "Producción Musical",  "Inteligencia de Negocios"
+    ];
 
     // Obtener datos del usuario desde el store global
     const dataUser = useUserStore(state => state.user);
@@ -260,28 +264,7 @@ const Configuration = () => {
         }
     };
 
-    const programas = [
-        "Selecciona un programa",
-        "Administración de Empresas",
-        "Comunicación Organizacional",
-        "Contaduría Pública",
-        "Derecho",
-        "Mercadeo",
-        "Negocios Internacionales",
-        "Talento Humano",
-        "Gestión Empresarial",
-        "Mercadeo y Ventas",
-        "Gestión Internacional",
-        "Animación",
-        "Ing. Electrónica",
-        "Ing. Industrial",
-        "Ing.Sistemas",
-        "Diseño Gráfico",
-        "Diseño de Modas",
-        "Tec. en Sistemas",
-        "Producción Musical",
-        "Inteligencia de Negocios"
-      ];
+
 
     return (
     <div className='containerConfiguration'>
