@@ -209,7 +209,7 @@ const StudentsDashboard = () => {
       </div>
       
       {/* Botón flotante para agregar nuevo usuario */}
-      <button className="floating-button" onClick={() => setIsCreateModalOpen(true)} title="Crear nuevo usuario"> <FaPlus /> </button>
+      <button className="floating-buttonAdmin" onClick={() => setIsCreateModalOpen(true)} title="Crear nuevo usuario"> <FaPlus /> </button>
       {/* Modal de creación de usuario */}
       <CreateUser 
         isOpen={isCreateModalOpen}

@@ -200,7 +200,7 @@ font-style: italic;
 }
 
 /* Botón flotante */
-.floating-button {
+.floating-buttonAdmin {
     position: fixed;
     bottom: 30px;
     right: 30px;
@@ -220,19 +220,19 @@ font-style: italic;
     z-index: 100;
   }
   
-  .floating-button:hover {
+  .floating-buttonAdmin:hover {
     background-color: #1c3d78;
     transform: translateY(-3px);
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
   }
   
-  .floating-button:active {
+  .floating-buttonAdmin:active {
     transform: translateY(0);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   @media (max-width: 768px) {
-    .floating-button {
+    .floating-buttonAdmin {
       width: 48px;
       height: 48px;
       bottom: 70px;

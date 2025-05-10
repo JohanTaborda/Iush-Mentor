@@ -20,9 +20,9 @@ const Configuration = () => {
 
     // Estado para los datos del perfil que cargan antes de editar
     const [profileData, setProfileData] = useState({
-        name: dataUser.username,
-        email: dataUser.email,
-        program: dataUser.program
+        name: dataUser.username || "",
+        email: dataUser.email || "",
+        program: dataUser.program && programas.includes(dataUser.program) ? dataUser.program : "Selecciona un programa"
     });
 
     // Estado para los datos de cambio de contraseña
@@ -223,7 +223,7 @@ const Configuration = () => {
                                 labelId="program-label"
                                 id="program-select"
                                 name="program"
-                                defaultValue={dataUser.program}
+                                value={profileData.program}
                                 onChange={handleProfileChange}
                                 label="Programa"
                             >

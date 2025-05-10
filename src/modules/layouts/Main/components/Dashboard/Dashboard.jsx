@@ -6,7 +6,7 @@ import Navbar from "../../../Navbar/Navbar.jsx"
 import WorkSpace from "../../../WorkSpace/WorkSpace.jsx"
 
 const App = ({setMainComponent}) => {
-  const [rol, setRol] = useState('administrador');
+  const [rol, setRol] = useState('aprendiz');
   // Constantes.
   //Constante que actualiza su estado con el botón seleccionado en el navbar. Este intenta recuperar el valor guardado en el sessionStorage, si no hay valores, muestra 'Tutorias'
   //usamos sessionStorage para que me guarde el valor de forma temporal, mientras la pestaña este abierta.

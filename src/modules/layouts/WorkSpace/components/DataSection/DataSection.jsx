@@ -11,6 +11,7 @@ import Configuration from "../../../../../pages/Configuration/Configuration.jsx"
 // Importar componentes administrativos
 import StudentsDashboard from "../../../../admin/components/students/studentsDashboard.jsx";
 import StudentRequest from "../../../../admin/components/request/StudentRequest.jsx";
+import Auth from "../../../../Auth/Auth.jsx"; // Asegúrate de importar el componente correcto
 
 const DataSection = ({ buttonSelected, searchTerm }) => {
   const navigate = useNavigate();
@@ -52,6 +53,8 @@ const DataSection = ({ buttonSelected, searchTerm }) => {
   return (
     <div className="mainDataSection">
       <Routes>
+         <Route path="/ingresar" element={<Auth />} />
+
         {/* Rutas generales */}
         <Route path="/inicio" element={<Home />} />
         
