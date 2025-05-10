@@ -23,7 +23,7 @@ const Configuration = () => {
     const [profileData, setProfileData] = useState({
         name: dataUser.username,
         email: dataUser.email,
-        program: dataUser.program
+        program: dataUser.program || 'Selecciona un programa'
     });
 
     // Estado para los datos de cambio de contraseña
@@ -40,6 +40,7 @@ const Configuration = () => {
         semester: ''
     });
 
+    // Función para actualizar el perfil del usuario conexión con el backend
     // Función para actualizar el perfil del usuario conexión con el backend
     const updateProfile = async () => {
         try {
@@ -62,8 +63,15 @@ const Configuration = () => {
 
             const updatedUser = await response.json();
 
-            // Actualizar el estado global con los nuevos datos
-            useUserStore.setState({ user: updatedUser });
+            // Actualizar el estado global combinando los datos existentes con los actualizados
+            useUserStore.setState(state => ({ 
+                user: { 
+                    ...state.user, 
+                    username: updatedUser.username,
+                    email: updatedUser.email,
+                    program: updatedUser.program 
+                } 
+            }));
 
             toast.success("Perfil actualizado correctamente");
             setVisProfile(false);
@@ -107,12 +115,12 @@ const Configuration = () => {
         }
 
         updateProfile();
-        console.log('Guardar perfil:', profileData);
     };
 
     // Enviar formulario de cambio de contraseña
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
+
 
     // Verificar si las contraseñas coinciden
     if (passwordData.newPassword !== passwordData.confirmPassword) {
@@ -318,7 +326,7 @@ const Configuration = () => {
                                 labelId="program-label"
                                 id="program-select"
                                 name="program"
-                                defaultValue={dataUser.program}
+                                value={profileData.program}
                                 onChange={handleProfileChange}
                                 label="Programa"
                             >
