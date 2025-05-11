@@ -3,12 +3,14 @@ import "./CreateTutoring.css"; // Estilos personalizados
 import { ToastContainer, toast } from "react-toastify"; // Para notificaciones
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form"; // Manejo de formularios
-import {useMentorStore} from "../../stores/Store"; // Estado global con Zustand
-import {useUserStore} from "../../stores/Store"
+import {useMentorStore, useUserStore} from "../../stores/Store"; // Estado global con Zustand
+import {useNavigate } from "react-router-dom"; // Navigate redirecciona automáticamente.
 
 const CreateTutoring = ({ closeWindow }) => {
     const dataUser = useUserStore(state => state.user); 
     const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
+    const [userData, setUserData] = useState(useUserStore(value => value.user))
+    const navigate = useNavigate();
 
     
     // Observadores para campos del formulario
@@ -39,6 +41,7 @@ const CreateTutoring = ({ closeWindow }) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
+                    id_tutor: userData.userId, 
                     id_tutor: dataUser.userId,
                     title: formData.title,
                     description: formData.description,
@@ -59,6 +62,7 @@ const CreateTutoring = ({ closeWindow }) => {
                 toast.success("Tutoría creada exitosamente");
                 setTimeout(() => {
                     closeWindow(false);
+                    navigate("/inicio");
                 }, 3000);
             } else {
                 toast.error(data.error || "Error al crear tutoría");
@@ -99,8 +103,15 @@ const CreateTutoring = ({ closeWindow }) => {
         if (errors.link) toast.error(errors.link.message);
     }, [errors]);
 
+    const handleOverlayClick = (e) => {
+        // Solo cerrar si el clic fue directamente en el overlay, no en sus hijos
+        if (e.target.className === "overlayGeneral") {
+            closeWindow(false);
+        }
+    };
+
     return (
-        <div className="overlayGeneral">
+        <div className="overlayGeneral" onClick={handleOverlayClick}>
             <div className="containerGeneralOverlay" id="container__createTutoring">
                 <header className="header_Tutoring">
                     <h1 className="title_Tutoring">Crear Tutoría</h1>

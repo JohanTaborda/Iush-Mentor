@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./Tutoring.css"; // Estilos personalizados
 import Subcategories from "../../components/Subcategories/Subcategories";
-import {useMentorStore} from "../../stores/Store"; // Estado global con Zustand
+import {useMentorStore, useUserStore} from "../../stores/Store"; // Estado global con Zustand
 import { FcPrevious, FcNext } from "react-icons/fc"; // Iconos para las flechas
+import { useNavigate, useParams, useLocation } from "react-router-dom"; // Importar hooks de react-router
+import { IoMdClose } from "react-icons/io"; // Ícono para cerrar el modal
+import { IoAddCircle } from "react-icons/io5"; // Ícono para el botón flotante
+import CreateTutoring from "../../components/CreateTutoring/CreateTutoring";
 
-// ============================
 // COMPONENTE DE FLECHAS
-// ============================
 const CarouselArrow = ({ direction, onClick }) => (
   <button className={`carousel-arrow carousel-arrow--${direction}`} onClick={onClick}>
     {direction === "left" ? <FcPrevious size={32} /> : <FcNext size={32} />}
   </button>
 );
 
-// ============================
 // CARRUSEL REUTILIZABLE
-// ============================
 const SubschoolCarousel = ({ title, data, onCardClick }) => {
   const [startIndex, setStartIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -86,10 +86,92 @@ const SubschoolCarousel = ({ title, data, onCardClick }) => {
   );
 };
 
-// ============================
+// VISTA PRINCIPAL DEL MODAL DE LAS TUTORIAS CREADAS.
+const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
+  const navigate = useNavigate(); // Importamos useNavigate en este componente
+  const [enrolledTutorings, setEnrolledTutorings] = useState({}); // Estado para controlar inscripciones
+
+  if (!isOpen) return null;
+
+  // Detectar clic fuera del modal para cerrarlo
+  const handleOverlayClick = (e) => {
+    if (e.target.className === 'modal-overlay') {
+      onClose();
+    }
+  };
+
+  // Función para manejar la inscripción
+  const handleEnroll = (tutoringId) => {
+    // Aquí se implementaría la llamada al backend para registrar la inscripción
+    // Por ahora, solo simulamos la inscripción exitosa
+    setEnrolledTutorings(prev => ({...prev,[tutoringId]: true}));
+    
+    
+    // Redirigir a Home después de un breve retraso
+    setTimeout(() => {
+      navigate("/inicio");
+    }, 1500);
+  };
+
+  return (
+    <div className="modal-overlay" onClick={handleOverlayClick}>
+      <div className="modal-content">
+        <div className="modal-header">
+          <h2>Tutorías disponibles en {subschool}</h2>
+          <button className="modal-close" onClick={onClose}>
+            <IoMdClose size={24} />
+          </button>
+        </div>
+        <div className="modal-body">
+          {tutorings.length > 0 ? (
+            tutorings.map((tut) => (
+              <div key={tut.id} className="tutoring__card-result">
+                <h3>{tut.title}</h3>
+                <p>{tut.description}</p>
+                <p><strong>Tutor:</strong> {tut.tutor?.username}</p>
+                {/* <p><strong>Correo:</strong> {tut.tutor?.email}</p>*/} 
+                <p><strong>Fecha:</strong> {tut.date}</p>
+                <p><strong>Hora:</strong> {tut.start_time} - {tut.end_time}</p>
+                <p><strong>Modalidad:</strong> {tut.modality}</p>
+                {/*
+                {tut.modality.toLowerCase() === "virtual" ? (
+                  <a href={tut.connection_link} target="_blank" rel="noreferrer">Enlace</a>
+                ) : (
+                  <p><strong>Sala:</strong> {tut.classroom}</p>
+                )}
+                */}
+                
+                {/* Botón de inscripción */}
+                {userData.userRol === "aprendiz" &&(
+                  <div>
+                    {!enrolledTutorings[tut.id] ? (
+                      <button className="tutoring__enroll-btn"  onClick={() => handleEnroll(tut.id)}>Inscribirse </button>
+                    ) : (
+                      <p className="tutoring__enrolled-message">¡Inscrito correctamente!</p>
+                    )}
+                  </div>
+                )}
+
+              </div>
+            ))
+          ) : (
+            <p>No hay tutorías para esta subescuela.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // VISTA PRINCIPAL DE TUTORÍAS
-// ============================
 const Tutoring = ({ searchTerm }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { subschool: urlSubschool } = useParams();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [visCreateTutoring, setVisCreateTutoring] = useState(false);
+  const [userData, setUserData] = useState(useUserStore(value => value.user))
+
   // Obtenemos el estado global desde Zustand
   const {
     adminSubschools,
@@ -119,6 +201,21 @@ const Tutoring = ({ searchTerm }) => {
     return acc;
   }, {});
 
+  // Maneja la selección de una subescuela
+  const handleSubschoolSelect = (subschool) => {
+    setSelectedSubschool(subschool);
+    setModalOpen(true);
+    // Actualiza la URL sin recargar la página
+    navigate(`/tutorias/${encodeURIComponent(subschool)}`, { replace: true });
+  };
+
+  // Cerrar modal y actualizar URL
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedSubschool(null);
+    navigate('/tutorias', { replace: true });
+  };
+
   // Cargar tutorías desde el backend solo una vez al montar el componente
   useEffect(() => {
     const fetchTutorings = async () => {
@@ -137,9 +234,21 @@ const Tutoring = ({ searchTerm }) => {
     fetchTutorings();
   }, []);
 
+  // Abrir el modal si la URL contiene un parámetro de subescuela
+  useEffect(() => {
+    if (urlSubschool && tutoringSessions.length > 0) {
+      const decodedSubschool = decodeURIComponent(urlSubschool);
+      setSelectedSubschool(decodedSubschool);
+      setModalOpen(true);
+    }
+  }, [urlSubschool, tutoringSessions]);
+
   // Limpiar la subescuela seleccionada cuando el usuario comienza a escribir
   useEffect(() => {
-    setSelectedSubschool(null);
+    if (searchTerm.trim() !== '') {
+      setSelectedSubschool(null);
+      setModalOpen(false);
+    }
   }, [searchTerm]);
 
   // Filtrado dinámico por término de búsqueda
@@ -171,7 +280,7 @@ const Tutoring = ({ searchTerm }) => {
             <SubschoolCarousel
               title="Escuela de Ciencias Creativas"
               data={creativeFiltered.length > 0 ? creativeFiltered : creativeSubschools}
-              onCardClick={setSelectedSubschool}
+              onCardClick={handleSubschoolSelect}
             />
           )}
 
@@ -180,7 +289,7 @@ const Tutoring = ({ searchTerm }) => {
             <SubschoolCarousel
               title="Escuela de Ciencias Administrativas, Sociales y Humanas"
               data={adminFiltered.length > 0 ? adminFiltered : adminSubschools}
-              onCardClick={setSelectedSubschool}
+              onCardClick={handleSubschoolSelect}
             />
           )}
 
@@ -191,34 +300,20 @@ const Tutoring = ({ searchTerm }) => {
             </p>
           )}
 
-          {/* Tutorías filtradas por subescuela */}
-          {selectedSubschool && (
-            <section className="tutoring__results">
-              <h2>Tutorías disponibles para: {selectedSubschool}</h2>
-              {filteredTutorings.length > 0 ? (
-                filteredTutorings.map((tut) => (
-                  <div key={tut.id} className="tutoring__card-result">
-                    <h3>{tut.title}</h3>
-                    <p>{tut.description}</p>
-                    <p><strong>Tutor:</strong> {tut.tutor?.username}</p>
-                    <p><strong>Correo:</strong> {tut.tutor?.email}</p>
-                    <p><strong>Fecha:</strong> {tut.date}</p>
-                    <p><strong>Hora:</strong> {tut.start_time} - {tut.end_time}</p>
-                    <p><strong>Modalidad:</strong> {tut.modality}</p>
-                    {tut.modality.toLowerCase() === "virtual" ? (
-                      <a href={tut.connection_link} target="_blank" rel="noreferrer">Enlace</a>
-                    ) : (
-                      <p><strong>Sala:</strong> {tut.classroom}</p>
-                    )}
-                  </div>
-                ))
-              ) : (
-                <p>No hay tutorías para esta subescuela.</p>
-              )}
-            </section>
-          )}
+          {/* Modal de tutorías */}
+          <TutoringModal 
+            isOpen={modalOpen}
+            onClose={handleCloseModal}
+            subschool={selectedSubschool}
+            tutorings={filteredTutorings}
+            userData={userData}
+          />
         </>
       )}
+      {(!visCreateTutoring && !modalOpen && userData.userRol === "tutor") && (
+        <button className="floating-button" onClick={() => setVisCreateTutoring(true)}> <IoAddCircle size={24} /> <span>Nueva tutoría</span> </button>
+      )}
+      {visCreateTutoring && (<CreateTutoring closeWindow = {setVisCreateTutoring} />)} {/*Renderizamos el componente que nos permite crear las tutorias. */}
     </main>
   );
 };

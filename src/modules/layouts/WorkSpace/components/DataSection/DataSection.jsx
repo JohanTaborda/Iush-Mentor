@@ -11,18 +11,25 @@ import Configuration from "../../../../../pages/Configuration/Configuration.jsx"
 // Importar componentes administrativos
 import StudentsDashboard from "../../../../admin/components/students/studentsDashboard.jsx";
 import StudentRequest from "../../../../admin/components/request/StudentRequest.jsx";
+import Auth from "../../../../Auth/Auth.jsx"; // Asegúrate de importar el componente correcto
 
 const DataSection = ({ buttonSelected, searchTerm }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Obtenemos la ruta actual
+    const currentPath = window.location.pathname;
+    
     // Efecto que permite navegar entre las rutas según el botón seleccionado
     switch (buttonSelected) {
       case "Inicio":
         navigate("/inicio");
         break;
       case "Tutorias":
-        navigate("/tutorias");
+        // Solo navega si no estamos ya en una subruta de tutorias
+        if (!currentPath.startsWith("/tutorias/")) {
+          navigate("/tutorias");
+        }
         break;
       case "Foro":
         navigate("/foro");
@@ -40,17 +47,27 @@ const DataSection = ({ buttonSelected, searchTerm }) => {
       default:
         break;
     }
-  }, [buttonSelected, navigate]);
+  }, [buttonSelected, navigate]); // Agregamos navigate como dependencia
+
 
   return (
     <div className="mainDataSection">
       <Routes>
+         <Route path="/ingresar" element={<Auth />} />
+
         {/* Rutas generales */}
         <Route path="/inicio" element={<Home />} />
-        <Route path="/tutorias" element={<Tutoring searchTerm={searchTerm} />} />
-        <Route path="/foro" element={<Forum />} />
-        <Route path="/perfil/configuracion" element={<Configuration />} />
         
+        {/* Rutas de tutorías */}
+        <Route path="/tutorias" element={<Tutoring searchTerm={searchTerm} />} />
+        <Route path="/tutorias/:subschool" element={<Tutoring searchTerm={searchTerm} />} />
+        
+        {/* Ruta específica del foro */}
+        <Route path="/foro" element={<Forum />} />
+        
+        {/* Ruta específica para la sección de configuración*/}
+        <Route path="/perfil/configuracion" element={<Configuration />} />
+     
         {/* Rutas administrativas */}
 ¿       <Route path="/admin/estudiantes" element={<StudentsDashboard />} />
         <Route path="/admin/solicitudes" element={<StudentRequest/>} />
