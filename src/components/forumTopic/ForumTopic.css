@@ -1,0 +1,84 @@
+.file-upload-section {
+    margin: 15px 0;
+}
+
+.file-upload-label {
+    cursor: pointer;
+    display: block;
+}
+
+.upload-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #4285f4;
+    color: white;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+.upload-btn:hover {
+    background-color: #3367d6;
+}
+
+.file-input {
+    display: none;
+}
+
+.selected-files-list {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.selected-files-list h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 14px;
+}
+
+.selected-files-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.selected-files-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.remove-file-btn {
+    background: none;
+    border: none;
+    color: #ff4040;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.remove-file-btn:hover {
+    color: #cc0000;
+}
+
+.info__formForum{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    justify-content: space-between;
+    height: 100%;
+    overflow-y: auto;
+}
+
+
+    

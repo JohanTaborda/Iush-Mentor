@@ -1,0 +1,266 @@
+/* Contenedor principal */
+.forum-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* Encabezado del foro */
+.forum-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eaeaea;
+    font-family: "Outfit";
+}
+
+.forum-header h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.forum-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.create-post-btn {
+    background-color: #275092;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+}
+
+.create-post-btn:hover {
+    transform: scale(1.01);
+}
+
+/* Layout principal */
+.forum-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+/* Sección de publicaciones */
+.posts-container h2 {
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #275092;
+    padding-bottom: 0.5rem;
+    font-family: "Outfit";
+}
+
+.post-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.post-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: "Manrope";
+}
+
+.author-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-date {
+    color: #95a5a6;
+    font-size: 0.9rem;
+    font-family: "Manrope";
+}
+
+.post-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.7rem;
+    color: #2c3e50;
+    font-family: "Outfit";
+}
+
+.post-excerpt {
+    color: #555;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+    font-family: "Manrope";
+}
+
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.8rem;
+    border-top: 1px solid #f1f1f1;
+}
+
+.post-stats {
+    display: flex;
+    gap: 1rem;
+}
+
+.no-posts {
+    text-align: center;
+    padding: 2rem;
+    color: #7f8c8d;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+/* Botones de interacción en los posts */
+.like-btn, .comment-toggle-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    font-family: "Outfit";
+}
+
+.like-btn:hover, .comment-toggle-btn:hover {
+    color: #275092;
+}
+
+.like-btn.liked {
+    color: #275092;
+}
+
+/* Sección de comentarios */
+.comments-section {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #eaeaea;
+}
+
+.comments-section h4 {
+    font-size: 1.1rem;
+    font-family: "Outfit";
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.comment {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.comment-author {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "Manrope";
+}
+
+.comment-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.comment-text {
+    color: #555;
+    font-family: "Manrope";
+    line-height: 1.4;
+    font-size: 0.95rem;
+}
+
+.new-comment {
+    margin-top: 1.5rem;
+}
+
+.comment-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: vertical;
+    min-height: 80px;
+    margin-bottom: 0.5rem;
+    font-family: "Manrope";
+    font-size: 0.95rem;
+}
+
+.comment-btn {
+    background-color: #275092;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    font-family: "Outfit";
+}
+
+.comment-btn:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .forum-container {
+        padding: 1rem;
+    }
+    
+    .create-post-btn {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+    .post-footer {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .post-stats {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

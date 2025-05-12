@@ -124,13 +124,6 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected}) => 
             onChange={(e) => setDataInput(e.target.value)}
           />
         </div>
-        <button 
-          className="button--create" 
-          id="button--add" 
-          style={{display: `${optionSelected === "Foro" ? "flex" : "none"}`}}
-        >
-          {icon_add()} Publicar Nuevo Hilo
-        </button>
         <span 
           className="title__bienvenida" 
           style={{display: `${optionSelected !== "Inicio" ? "none" : "flex"}`}}
