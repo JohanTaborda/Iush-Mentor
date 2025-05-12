@@ -1,4 +1,3 @@
-/* Estilo para los títulos de los fieldset */
 .tittle-container {
   font-family: 'Outfit', sans-serif;  /* Fuente decorativa para el título */
   font-size: 1.25rem;                  /* Tamaño de letra */
@@ -54,6 +53,7 @@
   transform: scale(1.02);
   box-shadow: 0 0 10px 0 #000;
 }
+
 .general-container {
   padding-inline: 0.8rem;
   max-width: 100%;
@@ -106,78 +106,137 @@
   margin-bottom: 0.5rem;
   text-align: center;
 }
-/* Tarjetas de tutorías */
-.tutoring-cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin: 24px 0;
-}
 
-.tutoring-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 12px 16px;
-  width: 220px;
-  max-height: 340px; /* Ajusta el alto máximo según prefieras */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  position: relative;
-  transition: all 0.3s cubic-bezier(.4,0,.2,1);
-  overflow-y: auto;
-  overflow-x: hidden;
-  cursor: pointer;
-}
-
-.tutoring-card::-webkit-scrollbar {
-  width: 2px;
-  background: #f0f0f0; /* Color de fondo del scrollbar */
-}
-
-.tutoring-card::-webkit-scrollbar-thumb {
-  background: #c5c2c2; /* Color del "pulgar" del scrollbar */
-}
-
-.tutoring-card .card-extra-info {
-  max-height: 0;
-  opacity: 0;
-  transition: max-height 0.3s, opacity 0.3s;
-  overflow: hidden;
-}
-
-.card-buttons {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-  justify-content: center;
-}
-
-.edit-btn, .delete-btn {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.edit-btn {
-  background: #1976d2;
-  color: #fff;
-}
-
-.delete-btn {
-  background: #d32f2f;
-  color: #fff;
-}
 
 @media (max-width: 767px) {
-  .tutoring-cards-container {
-    justify-content: center;
-  }
-
   .tittle-container {
     text-align: center  ;
   }
+}
+
+/* Estilos simplificados para tutorías de estudiantes y Tutores */
+.student-tutorials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.student-tutorial-card {
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);  
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.student-tutorial-header {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  background-color: #f8f9fa;
+  justify-content: center;
+  text-align: center;
+  
+}
+
+.student-tutorial-header h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.student-tutorial-content {
+  padding: 10px 15px;
+  flex-grow: 1;
+}
+
+.tutorial-info p {
+  margin: 5px 0;
+  font-size: 1rem;
+  font-family: "Outfit";
+}
+
+.student-tutorial-footer {
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+  text-align: right;
+  margin-top: auto;
+  text-align: center;
+}
+
+.cancel-enrollment-btn {
+  background: white;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.cancel-enrollment-btn:hover {
+  background-color: #fff5f5;
+}
+
+@media (max-width: 480px) {
+  .student-tutorials-grid { grid-template-columns: 1fr; }
+}
+
+/* Estilos para los botones de las tutorías del tutor */
+.tutor-tutorial-footer {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  border-top: 1px solid #eee;
+  text-align: right;
+  margin-top: auto;
+  text-align: center;
+}
+
+.tutor-btn {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tutor-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.tutor-btn--edit {
+  background-color: #4285F4;
+  color: white;
+}
+
+.tutor-btn--edit:hover {
+  background-color: #2b6ad9;
+}
+
+.tutor-btn--delete {
+  background-color: #EA4335;
+  color: white;
+}
+
+.tutor-btn--delete:hover {
+  background-color: #d33426;
+}
+
+.tutor-btn--view {
+  background-color: #34A853;
+  color: white;
+}
+
+.tutor-btn--view:hover {
+  background-color: #2d9249;
 }

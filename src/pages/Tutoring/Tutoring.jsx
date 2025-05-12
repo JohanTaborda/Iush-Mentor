@@ -7,6 +7,7 @@ import { useNavigate, useParams, useLocation } from "react-router-dom"; // Impor
 import { IoMdClose } from "react-icons/io"; // Ícono para cerrar el modal
 import { IoAddCircle } from "react-icons/io5"; // Ícono para el botón flotante
 import CreateTutoring from "../../components/CreateTutoring/CreateTutoring";
+import { ToastContainer, toast } from 'react-toastify';
 
 // COMPONENTE DE FLECHAS
 const CarouselArrow = ({ direction, onClick }) => (
@@ -90,6 +91,35 @@ const SubschoolCarousel = ({ title, data, onCardClick }) => {
 const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
   const navigate = useNavigate(); // Importamos useNavigate en este componente
   const [enrolledTutorings, setEnrolledTutorings] = useState({}); // Estado para controlar inscripciones
+  const [isLoading, setIsLoading] = useState(true); // Estado para controlar la carga de datos
+
+  // Verificar inscripciones existentes cuando se abre el modal
+  useEffect(() => {
+    if (isOpen && userData?.userId) {
+      const checkEnrollments = async () => {
+        setIsLoading(true);
+        try {
+          const response = await fetch(`http://localhost:3000/enrollments/student/${userData.userId}`);
+          const data = await response.json();
+          
+          if (response.ok) {
+            // Crear un objeto con las tutorías en las que ya está inscrito
+            const enrolled = {};
+            data.forEach(enrollment => {
+              enrolled[enrollment.tutoria?.id] = true;
+            });
+            setEnrolledTutorings(enrolled);
+          }
+        } catch (error) {
+          console.error("Error al verificar inscripciones:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      
+      checkEnrollments();
+    }
+  }, [isOpen, userData, tutorings]);
 
   if (!isOpen) return null;
 
@@ -101,16 +131,32 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
   };
 
   // Función para manejar la inscripción
-  const handleEnroll = (tutoringId) => {
-    // Aquí se implementaría la llamada al backend para registrar la inscripción
-    // Por ahora, solo simulamos la inscripción exitosa
-    setEnrolledTutorings(prev => ({...prev,[tutoringId]: true}));
-    
-    
-    // Redirigir a Home después de un breve retraso
-    setTimeout(() => {
-      navigate("/inicio");
-    }, 1500);
+  const handleEnroll = async (tutoringId) => {
+    try {
+      const response = await fetch("http://localhost:3000/enrollments/enroll", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id_tutoring: tutoringId,
+          id_aprendiz: userData?.userId
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setEnrolledTutorings(prev => ({ ...prev, [tutoringId]: true }));
+        toast.success("¡Inscripción exitosa!");
+        setTimeout(() => {
+          navigate("/inicio");
+        }, 1000); 
+      } else {
+        toast.warn(data.error || "No se pudo inscribir.");
+      }
+    } catch (error) {
+      console.error("Error al inscribirse:", error);
+      toast.error("Error al conectar con el servidor.");
+    }
   };
 
   return (
@@ -123,35 +169,28 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
           </button>
         </div>
         <div className="modal-body">
-          {tutorings.length > 0 ? (
+          {isLoading ? (
+            <p>Cargando tutorías...</p>
+          ) : tutorings.length > 0 ? (
             tutorings.map((tut) => (
               <div key={tut.id} className="tutoring__card-result">
                 <h3>{tut.title}</h3>
                 <p>{tut.description}</p>
                 <p><strong>Tutor:</strong> {tut.tutor?.username}</p>
-                {/* <p><strong>Correo:</strong> {tut.tutor?.email}</p>*/} 
                 <p><strong>Fecha:</strong> {tut.date}</p>
                 <p><strong>Hora:</strong> {tut.start_time} - {tut.end_time}</p>
                 <p><strong>Modalidad:</strong> {tut.modality}</p>
-                {/*
-                {tut.modality.toLowerCase() === "virtual" ? (
-                  <a href={tut.connection_link} target="_blank" rel="noreferrer">Enlace</a>
-                ) : (
-                  <p><strong>Sala:</strong> {tut.classroom}</p>
-                )}
-                */}
                 
                 {/* Botón de inscripción */}
-                {userData.userRol === "aprendiz" &&(
+                {userData.userRol === "aprendiz" && (
                   <div>
                     {!enrolledTutorings[tut.id] ? (
-                      <button className="tutoring__enroll-btn"  onClick={() => handleEnroll(tut.id)}>Inscribirse </button>
+                      <button className="tutoring__enroll-btn" onClick={() => handleEnroll(tut.id)}> Inscribirse </button>
                     ) : (
                       <p className="tutoring__enrolled-message">¡Inscrito correctamente!</p>
                     )}
                   </div>
                 )}
-
               </div>
             ))
           ) : (
@@ -159,6 +198,7 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
           )}
         </div>
       </div>
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </div>
   );
 };
