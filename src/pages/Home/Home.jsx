@@ -77,76 +77,99 @@ const handleCancelEnrollment = async (enrollmentId) => {
 };
 
 
-  return (
+return (
     <main>
       <section className="general-container" >
         {/* Contenedor de tutorías a dirigir como tutor */}
+                {/* Contenedor de tutorías a dirigir como tutor */}
         <fieldset className="preset-container" style={{display: `${!rol ? "block" : "none"}`}}>
           <legend className="tittle-container">Tutorías a dirigir como tutor</legend>
-          <div className="tutoring-cards-container">
+          <div className="student-tutorials-wrapper">
             {tutorTutorings && tutorTutorings.length > 0 ? (
-              tutorTutorings.map((tutoring) => (
-                <div key={tutoring.id} className="tutoring-card">
-                  <h4 style={{margin: 0}}>{tutoring.title}</h4>
-                  <p style={{margin: 0, fontSize: "0.95em"}}><strong>Fecha:</strong> {tutoring.date}</p>
-                  <p style={{margin: 0, fontSize: "0.95em"}}><strong>Tutor:</strong> {tutoring.tutor?.username}</p>
-                  <p><strong>Descripción:</strong> {tutoring.description}</p>
-                  <p><strong>Programa:</strong> {tutoring.program}</p>
-                  <p><strong>Modalidad:</strong> {tutoring.modality}</p>
-                  <p><strong>Salón:</strong> {tutoring.classroom}</p>
-                  <p><strong>Capacidad:</strong> {tutoring.capacity}</p>
-                  <p><strong>Hora inicio:</strong> {tutoring.start_time}</p>
-                  <p><strong>Hora fin:</strong> {tutoring.end_time}</p>
-                  <p><strong>Email tutor:</strong> {tutoring.tutor?.email}</p>
-                  {tutoring.connection_link && (
-                    <p><strong>Enlace:</strong> <a href={tutoring.connection_link}>{tutoring.connection_link}</a></p>
-                  )}
-                  <div className="card-buttons">
-                    <button className="edit-btn" onClick={() => {/* lógica para editar */}}>Editar</button>
-                    <button className="delete-btn" onClick={() => {/* lógica para eliminar */}}>Eliminar</button>
+              <div className="student-tutorials-grid">
+                {tutorTutorings.map((tutoring) => (
+                  <div key={tutoring.id} className="student-tutorial-card">
+                    <div className="student-tutorial-header">
+                      <h4 style={{fontFamily:"Outfit", fontSize: "20px"}}>{tutoring.title}</h4>
+                    </div>
+                    <div className="student-tutorial-content">
+                      <p style={{fontFamily:"Outfit", fontSize:"16px", fontStyle: "italic", color:"#848788"}} className="tutorial-description">{tutoring.description}</p>
+                      <div className="tutorial-info">
+                        <p><strong>Fecha:</strong> {tutoring.date}</p>
+                        <p><strong>Programa:</strong> {tutoring.program}</p>
+                        <p><strong>Modalidad:</strong> {tutoring.modality}</p>
+                        <p><strong>Salón:</strong> {tutoring.classroom}</p>
+                        <p><strong>Capacidad:</strong> {tutoring.capacity}</p>
+                        <p><strong>Hora:</strong> {tutoring.start_time} - {tutoring.end_time}</p>
+                        <p><strong>Email tutor:</strong> {tutoring.tutor?.email}</p>
+                        {tutoring.connection_link && (
+                          <p><strong>Enlace:</strong> <a target="_blank" href={tutoring.connection_link}>Ir al enlace</a></p>
+                        )}
+                      </div>
+                    </div>
+                  <div className="tutor-tutorial-footer">
+                    <button className="tutor-btn tutor-btn--edit" onClick={() => {/* lógica para editar */}}>Editar</button>
+                    <button className="tutor-btn tutor-btn--delete" onClick={() => {/* lógica para eliminar */}}>Eliminar</button>
+                    <button className="tutor-btn tutor-btn--view" onClick={() => {/* lógica para ver estudiantes */}}>Ver Estudiantes</button>
                   </div>
-                </div>
-              ))
+                  </div>
+                ))
+              }</div>
             ) : (
-              <p>Aquí aparecerán las tutorías que tú crees.</p>
+              <div>
+                <p>Aquí aparecerán las tutorías que tú crees.</p>
+              </div>
             )}
           </div>
-          {/* Botón Agendar */}
           <button className="preset-btn" onClick={() => navigate("/tutorias")}> Ir a crear </button>
         </fieldset>
 
         {/* Contenedor de tutorías inscritas como estudiante */}
         <fieldset className="mytutorials-container" style={{display: `${rol ? "block" : "none"}`, marginTop: `${rol ? "25px" : "none"}`}} >
           <legend className="tittle-container">Tutorías inscritas como estudiante</legend>
-          <div>{enrolledTutorings.length > 0 ? (
-            <div className="tutoring-cards-container">
-              {enrolledTutorings.map((enrollment) => (
-                <div key={enrollment.id} className="tutoring-card">
-                  <h4 style={{ margin: 0 }}>{enrollment.tutoria?.title}</h4>
-                  <p><strong>Fecha:</strong> {enrollment.tutoria?.date}</p>
-                  <p><strong>Descripción:</strong> {enrollment.tutoria?.description}</p>
-                  <p><strong>Programa:</strong> {enrollment.tutoria?.program}</p>
-                  <p><strong>Modalidad:</strong> {enrollment.tutoria?.modality}</p>
-                  <p><strong>Salón:</strong> {enrollment.tutoria?.classroom}</p>
-                  <p><strong>Hora:</strong> {enrollment.tutoria?.start_time} - {enrollment.tutoria?.end_time}</p>
-                  <p><strong>Tutor:</strong> {enrollment.tutoria?.tutor?.username}</p>
-                  <p><strong>Inscrito el:</strong> {new Date(enrollment.enrollment_date).toLocaleDateString()}</p>
-                  <button className="delete-btn" onClick={() => handleCancelEnrollment(enrollment.id)}
-                  >Cancelar inscripción </button>
-                </div>
+          
+          <div className="student-tutorials-wrapper">
+            {enrolledTutorings.length > 0 ? (
+              <div className="student-tutorials-grid">
+                {enrolledTutorings.map((enrollment) => (
+                  <div key={enrollment.id} className="student-tutorial-card">
+                    <div className="student-tutorial-header">
+                      <h4 style={{fontFamily:"Outfit", fontSize: "20px"}}>{enrollment.tutoria?.title}</h4>
+                    </div>
+                    <div className="student-tutorial-content">
+                      <p style={{fontFamily:"Outfit", fontSize:"16px", fontStyle: "italic", color:"#848788"}} className="tutorial-description">{enrollment.tutoria?.description}</p>
+                      <div className="tutorial-info">
+                        <p><strong>Fecha:</strong> {enrollment.tutoria?.date}</p>
+                        <p><strong>Programa:</strong> {enrollment.tutoria?.program}</p>
+                        <p><strong>Hora:</strong> {enrollment.tutoria?.start_time} - {enrollment.tutoria?.end_time}</p>
+                        <p><strong>Tutor:</strong> {enrollment.tutoria?.tutor?.username}</p>
+                        <p><strong>Email Tutor:</strong> {enrollment.tutoria?.tutor?.email}</p>
+                        <p><strong>Modalidad:</strong> {enrollment.tutoria?.modality}</p>
+                        {enrollment.tutoria?.modality === "Virtual" ? (
+                          <p><strong>Enlace:</strong> <a target="_blank" href={enrollment.tutoria?.connection_link}>Unirse</a></p>
+                        ) : (
+                          <p><strong>Salón:</strong> {enrollment.tutoria?.classroom}</p>
+                        )}
+                        <p><strong>Inscrito el:</strong> {new Date(enrollment.enrollment_date).toLocaleDateString()}</p>
+                      </div>
+                    </div>
+                    <div className="student-tutorial-footer">
+                      <button className="cancel-enrollment-btn" onClick={() => handleCancelEnrollment(enrollment.id)}>Cancelar inscripción</button>
+                    </div>
+                  </div>
                 ))}
-                <ToastContainer position="bottom-left" autoClose={3000} />
               </div>
-) : (
-  <p>No estás inscrito en ninguna tutoría aún.</p>
-)}</div>
-
-          {/* Botón Agendar*/}
-          <button
-            className="preset-btn"
-            onClick={() => navigate("/tutorias")}>
-            Agendar
-          </button>
+            ) : (
+              <div>
+                <p>No estás inscrito en ninguna tutoría aún.</p>
+              </div>
+            )}
+          </div>
+          
+          <ToastContainer position="bottom-left" autoClose={3000} />
+          
+          {/* Botón Agendar */}
+          <button className="preset-btn" onClick={() => navigate("/tutorias")}> Agendar </button>
         </fieldset>
 
         {/* Contenedor del calendario de tutorías */}
@@ -163,3 +186,6 @@ const handleCancelEnrollment = async (enrollmentId) => {
 
 // Exporta el componente Home para usarlo en otras partes del proyecto
 export default Home;
+
+
+
