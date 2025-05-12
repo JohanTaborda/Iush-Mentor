@@ -118,6 +118,9 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
     if (response.ok) {
       setEnrolledTutorings(prev => ({ ...prev, [tutoringId]: true }));
       toast.success("¡Inscripción exitosa!");
+      setTimeout(() => {
+        navigate("/inicio");
+      }, 1500); // espera 2 segundos antes de redirigir
     } else {
       toast.warn(data.error || "No se pudo inscribir.");
     }

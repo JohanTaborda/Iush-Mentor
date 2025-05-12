@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';// Importa el hook useNavigate de
 import Calendar from 'react-calendar';// Importa el componente de calendario
 import 'react-calendar/dist/Calendar.css';// Importa los estilos por defecto del calendario
 import {useUserStore, useMentorStore} from "../../stores/Store"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
   // Estado para guardar la fecha seleccionada en el calendario
@@ -12,6 +13,7 @@ const Home = () => {
   const[dataUser, setDataUser] = useState(useUserStore(state => state.user))
   const [dataTutoring, setDataTutoring] = useState(useMentorStore(value => value.tutoringSessions))
   const [rol, setRol] = useState(dataUser.userRol !== "tutor")
+  const [enrolledTutorings, setEnrolledTutorings] = useState([]);
 
 
   const tutorTutorings = dataTutoring.filter( tut => tut.tutor?.username === dataUser?.username);
@@ -33,6 +35,48 @@ const Home = () => {
   }, []);  
   
   const navigate = useNavigate();
+
+  //Tutorias inscritas como estudiante
+  useEffect(() => {
+  const fetchEnrolledTutorings = async () => {
+    try {
+      const res = await fetch(`http://localhost:3000/enrollments/student/${dataUser.userId}`);
+      const data = await res.json();
+      if (res.ok) {
+        setEnrolledTutorings(data);
+      }
+    } catch (error) {
+      console.error("Error al cargar tutorías inscritas:", error);
+    }
+  };
+
+  if (dataUser.userRol === "aprendiz") {
+    fetchEnrolledTutorings();
+  }
+}, [dataUser]);
+
+//Función para cancelar tutoría inscrito como estudiante
+
+const handleCancelEnrollment = async (enrollmentId) => {
+  try {
+    const res = await fetch(`http://localhost:3000/enrollments/${enrollmentId}`, {
+      method: "DELETE"
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      toast.success("Inscripción cancelada");
+      setEnrolledTutorings(prev => prev.filter(en => en.id !== enrollmentId));
+    } else {
+      toast.error(data.error || "No se pudo cancelar la inscripción");
+    }
+  } catch (error) {
+    console.error("Error al cancelar inscripción:", error);
+    toast.error("Error al conectar con el servidor.");
+  }
+};
+
+
   return (
     <main>
       <section className="general-container" >
@@ -74,7 +118,28 @@ const Home = () => {
         {/* Contenedor de tutorías inscritas como estudiante */}
         <fieldset className="mytutorials-container" style={{display: `${rol ? "block" : "none"}`, marginTop: `${rol ? "25px" : "none"}`}} >
           <legend className="tittle-container">Tutorías inscritas como estudiante</legend>
-          <p>Aquí aparecerán las tutorías a las que te inscribas.</p>
+          <div>{enrolledTutorings.length > 0 ? (
+            <div className="tutoring-cards-container">
+              {enrolledTutorings.map((enrollment) => (
+                <div key={enrollment.id} className="tutoring-card">
+                  <h4 style={{ margin: 0 }}>{enrollment.tutoria?.title}</h4>
+                  <p><strong>Fecha:</strong> {enrollment.tutoria?.date}</p>
+                  <p><strong>Descripción:</strong> {enrollment.tutoria?.description}</p>
+                  <p><strong>Programa:</strong> {enrollment.tutoria?.program}</p>
+                  <p><strong>Modalidad:</strong> {enrollment.tutoria?.modality}</p>
+                  <p><strong>Salón:</strong> {enrollment.tutoria?.classroom}</p>
+                  <p><strong>Hora:</strong> {enrollment.tutoria?.start_time} - {enrollment.tutoria?.end_time}</p>
+                  <p><strong>Tutor:</strong> {enrollment.tutoria?.tutor?.username}</p>
+                  <p><strong>Inscrito el:</strong> {new Date(enrollment.enrollment_date).toLocaleDateString()}</p>
+                  <button className="delete-btn" onClick={() => handleCancelEnrollment(enrollment.id)}
+                  >Cancelar inscripción </button>
+                </div>
+                ))}
+                <ToastContainer position="bottom-left" autoClose={3000} />
+              </div>
+) : (
+  <p>No estás inscrito en ninguna tutoría aún.</p>
+)}</div>
 
           {/* Botón Agendar*/}
           <button
