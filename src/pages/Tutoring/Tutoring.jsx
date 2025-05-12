@@ -7,6 +7,7 @@ import { useNavigate, useParams, useLocation } from "react-router-dom"; // Impor
 import { IoMdClose } from "react-icons/io"; // Ícono para cerrar el modal
 import { IoAddCircle } from "react-icons/io5"; // Ícono para el botón flotante
 import CreateTutoring from "../../components/CreateTutoring/CreateTutoring";
+import { ToastContainer, toast } from 'react-toastify';
 
 // COMPONENTE DE FLECHAS
 const CarouselArrow = ({ direction, onClick }) => (
@@ -101,17 +102,30 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
   };
 
   // Función para manejar la inscripción
-  const handleEnroll = (tutoringId) => {
-    // Aquí se implementaría la llamada al backend para registrar la inscripción
-    // Por ahora, solo simulamos la inscripción exitosa
-    setEnrolledTutorings(prev => ({...prev,[tutoringId]: true}));
-    
-    
-    // Redirigir a Home después de un breve retraso
-    setTimeout(() => {
-      navigate("/inicio");
-    }, 1500);
-  };
+  const handleEnroll = async (tutoringId) => {
+  try {
+    const response = await fetch("http://localhost:3000/enrollments/enroll", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id_tutoring: tutoringId,
+        id_aprendiz: userData?.userId
+      })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      setEnrolledTutorings(prev => ({ ...prev, [tutoringId]: true }));
+      toast.success("¡Inscripción exitosa!");
+    } else {
+      toast.warn(data.error || "No se pudo inscribir.");
+    }
+  } catch (error) {
+    console.error("Error al inscribirse:", error);
+    toast.error("Error al conectar con el servidor.");
+  }
+};
 
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
@@ -159,6 +173,7 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
           )}
         </div>
       </div>
+       <ToastContainer position="bottom-right" autoClose={3000} />
     </div>
   );
 };
