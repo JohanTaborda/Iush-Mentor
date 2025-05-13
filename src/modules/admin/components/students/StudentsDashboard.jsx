@@ -1,55 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import './studentsDashboard.css'; // Importamos los estilos
-import CreateUser from '../createUser/CreateUser'; // Importar el componente CreateUser
+import { useState, useEffect } from 'react';
+import './studentsDashboard.css'; 
+import CreateUser from '../createUser/CreateUser'; 
+import api from '../../../../services/Api/axiosConfig.js';
 
-// Iconos para las acciones
 import { FaEdit, FaTrash, FaSave, FaTimes, FaPlus } from 'react-icons/fa';
 
 const StudentsDashboard = () => {
-  // Estado para almacenar la lista de estudiantes
-  const [estudiantes, setEstudiantes] = useState([]);
-  
-  // Estado para el estudiante que se está editando
+  // Estado para almacenar la lista de todos los usuarios
+  const [usersData, setUsersData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [busqueda, setBusqueda] = useState('');
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   
   // Estado para el formulario de edición
   const [editFormData, setEditFormData] = useState({
-    nombreCompleto: '',
-    correo: '',
-    rol: ''
+    username: '',
+    email: '',
+    userRol: ''
   });
 
-  // Estado para el filtro de búsqueda
-  const [busqueda, setBusqueda] = useState('');
-  
-  // Estado para controlar la visibilidad del modal de crear usuario
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-
-  // Cargamos datos de ejemplo al iniciar
-  useEffect(() => {
-    // Simulamos la carga de datos desde una API
-    const datosEjemplo = [
-      { id: 1, nombreCompleto: 'Juan Pérez', correo: 'juan.perez@iush.edu.co', rol: 'estudiante' },
-      { id: 2, nombreCompleto: 'María Gómez', correo: 'maria.gomez@iush.edu.co', rol: 'estudiante' },
-      { id: 3, nombreCompleto: 'Carlos López', correo: 'carlos.lopez@iush.edu.co', rol: 'tutor' },
-      { id: 4, nombreCompleto: 'Ana Martínez', correo: 'ana.martinez@iush.edu.co', rol: 'administrador' },
-      { id: 5, nombreCompleto: 'Pedro Sánchez', correo: 'pedro.sanchez@iush.edu.co', rol: 'estudiante' },
-      { id: 6, nombreCompleto: 'Sofía Ramírez', correo: 'sofia.ramirez@iush.edu.co', rol: 'tutor' },
-    ];
+  useEffect(() => {   // Efecto para cargar todos los usuarios al montar el componente
+    const fetchAllUsers = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get('/users');
+        setUsersData(response.data);
+      } catch (error) {
+        console.error("Error al cargar los usuarios:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     
-    setEstudiantes(datosEjemplo);
+    fetchAllUsers();
   }, []);
 
   // Manejador para iniciar la edición de un estudiante
   const handleEditClick = (estudiante) => {
-    setEditingId(estudiante.id);
-    
-    // Configuramos los valores del formulario con los datos del estudiante
-    setEditFormData({
-      nombreCompleto: estudiante.nombreCompleto,
-      correo: estudiante.correo,
-      rol: estudiante.rol
-    });
+    /*setEditingId(estudiante.userId);
+      
+      // Configuramos los valores del formulario con los datos del usuario
+      setEditFormData({
+        username: estudiante.username,
+        email: estudiante.email,
+        userRol: estudiante.userRol
+      });
+    */
   };
 
   // Manejador para cancelar la edición
@@ -58,12 +55,8 @@ const StudentsDashboard = () => {
   };
 
   // Manejador para eliminar un estudiante
-  const handleDeleteClick = (estudianteId) => {
-    // Confirmamos antes de eliminar
-    if (window.confirm('¿Estás seguro de que quieres eliminar este estudiante?')) {
-      const nuevosEstudiantes = estudiantes.filter(estudiante => estudiante.id !== estudianteId);
-      setEstudiantes(nuevosEstudiantes);
-    }
+  const handleDeleteClick = async (estudianteId) => {
+
   };
 
   // Manejador para cambios en el formulario de edición
@@ -77,57 +70,42 @@ const StudentsDashboard = () => {
   };
 
   // Manejador para guardar los cambios
-  const handleSaveClick = (estudianteId) => {
-    // Validamos que los campos no estén vacíos
-    if (!editFormData.nombreCompleto || !editFormData.correo || !editFormData.rol) {
-      alert("Todos los campos son obligatorios");
-      return;
-    }
-    
-    // Validamos formato del correo
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(editFormData.correo)) {
-      alert("Por favor ingresa un correo electrónico válido");
-      return;
-    }
-    
-    // Actualizamos el estado con los nuevos datos
-    const nuevosEstudiantes = estudiantes.map(estudiante => {
-      if (estudiante.id === estudianteId) {
-        return { ...estudiante, ...editFormData };
-      }
-      return estudiante;
-    });
-    
-    setEstudiantes(nuevosEstudiantes);
-    setEditingId(null);
+  const handleSaveClick = async (estudianteId) => {
+
   };
   
   // Manejador para crear un nuevo usuario
-  const handleCreateUser = (userData) => {
-    // Generar un ID único para el nuevo usuario
-    const newId = Math.max(...estudiantes.map(e => e.id), 0) + 1;
-    
-    // Crear el nuevo objeto de estudiante
-    const nuevoEstudiante = {
-      id: newId,
-      nombreCompleto: userData.nombreCompleto,
-      correo: userData.correo,
-      rol: userData.rol
-    };
-    
-    // Actualizar la lista de estudiantes
-    setEstudiantes([...estudiantes, nuevoEstudiante]);
-    
-    // Cerrar el modal
-    setIsCreateModalOpen(false);
-  };
+  const handleCreateUser = async (userData) => {
+  try {
+    const response = await fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userData)
+    });
 
-  // Filtrar estudiantes según la búsqueda
-  const estudiantesFiltrados = estudiantes.filter(estudiante => 
-    estudiante.nombreCompleto.toLowerCase().includes(busqueda.toLowerCase()) ||
-    estudiante.correo.toLowerCase().includes(busqueda.toLowerCase()) ||
-    estudiante.rol.toLowerCase().includes(busqueda.toLowerCase())
+    if (!response.ok) {
+      const error = await response.json();
+      alert(`Error: ${error.error}`);
+      return;
+    }
+
+    const newUser = await response.json();
+
+    // Aquí deberías agregarlo al estado si lo necesitas
+    alert(newUser.message || "Usuario creado correctamente");
+
+    setIsCreateModalOpen(false);
+  } catch (error) {
+    console.error("Error en la petición:", error);
+    alert("Error al crear el usuario");
+  }
+};
+
+  // Filtrar usuarios según la búsqueda
+  const usuariosFiltrados = usersData.filter(usuario => 
+    usuario.username?.toLowerCase().includes(busqueda.toLowerCase()) ||
+    usuario.email?.toLowerCase().includes(busqueda.toLowerCase()) ||
+    usuario.user_type?.toLowerCase().includes(busqueda.toLowerCase())
   );
 
   return (
@@ -140,76 +118,80 @@ const StudentsDashboard = () => {
       </div>
 
       <div className="table-container">
-        <table className="students-table">
-          <thead>
-            <tr>
-              <th>Nombre Completo</th>
-              <th>Correo</th>
-              <th>Rol</th>
-              <th>Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {estudiantesFiltrados.length > 0 ? (
-              estudiantesFiltrados.map(estudiante => (
-                <tr key={estudiante.id}>
-                  <td>
-                    {editingId === estudiante.id ? (
-                      <input type="text" name="nombreCompleto" value={editFormData.nombreCompleto} onChange={handleEditFormChange} className="edit-input" />
-                    ) : (
-                      estudiante.nombreCompleto
-                    )}
-                  </td>
-                  <td>
-                    {editingId === estudiante.id ? (
-                      <input type="email"  name="correo" value={editFormData.correo} onChange={handleEditFormChange} className="edit-input"/>
-                    ) : (
-                      estudiante.correo
-                    )}
-                  </td>
-                  <td>
-                    {editingId === estudiante.id ? (
-                      <select  name="rol" value={editFormData.rol} onChange={handleEditFormChange} className="edit-input"  >
-                        <option value="estudiante">Estudiante</option>
-                        <option value="tutor">Tutor</option>
-                        <option value="administrador">Administrador</option>
-                      </select>
-                    ) : (
-                      <span className={`role-badge ${estudiante.rol}`}>  {estudiante.rol} </span>
-                    )}
-                  </td>
-                  <td className="options-cell">
-                    {editingId === estudiante.id ? (
-                      <>
-                        <button 
-                          className="action-buttonDashboard save"
-                          onClick={() => handleSaveClick(estudiante.id)}
-                          title="Guardar cambios"
-                        >
-                          <FaSave />
-                        </button>
-                        <button  className="action-buttonDashboard cancel" onClick={handleCancelClick} title="Cancelar edición"> <FaTimes /> </button>
-                      </>
-                    ) : (
-                      <>
-                        <button className="action-buttonDashboard edit" onClick={() => handleEditClick(estudiante)} title="Editar estudiante"> <FaEdit /> </button>
-                        <button className="action-buttonDashboard delete"onClick={() => handleDeleteClick(estudiante.id)}title="Eliminar estudiante" > <FaTrash /> </button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))
-            ) : (
+        {loading ? (
+          <p>Cargando usuarios...</p>
+        ) : (
+          <table className="students-table">
+            <thead>
               <tr>
-                <td colSpan="4" className="no-results">No se encontraron estudiantes con esa búsqueda</td>
+                <th>Nombre Completo</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Opciones</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {usuariosFiltrados.length > 0 ? (
+                usuariosFiltrados.map(estudiante => (
+                  <tr key={estudiante.userId}>
+                    <td>
+                      {editingId === estudiante.userId ? (
+                        <input type="text" name="username" value={editFormData.username} onChange={handleEditFormChange} className="edit-input"  />
+                      ) : (
+                        estudiante.username
+                      )}
+                    </td>
+                    <td>
+                      {editingId === estudiante.userId ? (
+                        <input type="email"  name="email" value={editFormData.email} onChange={handleEditFormChange} className="edit-input"/>
+                      ) : (
+                        estudiante.email
+                      )}
+                    </td>
+                    <td>
+                      {editingId === estudiante.userId ? (
+                        <select  name="userRol" value={editFormData.user_type} onChange={handleEditFormChange} className="edit-input"
+                        >
+                          <option value="estudiante">Aprendiz</option>
+                          <option value="tutor">Tutor</option>
+                          <option value="administrador">Administrador</option>
+                        </select>
+                      ) : (
+                        <span className={`role-badge ${estudiante.user_type}`}>{estudiante.user_type}</span>
+                      )}
+                    </td>
+                    <td className="options-cell">
+                      {editingId === estudiante.userId ? (
+                        <>
+                          <button className="action-buttonDashboard save"onClick={() => handleSaveClick(estudiante.userId)} title="Guardar cambios">
+                            <FaSave />
+                          </button>
+                          <button  className="action-buttonDashboard cancel" onClick={handleCancelClick} title="Cancelar edición"> 
+                            <FaTimes /> 
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button  className="action-buttonDashboard edit" onClick={() => handleEditClick(estudiante)}  title="Editar estudiante">  <FaEdit />  </button>
+                          <button  className="action-buttonDashboard delete" onClick={() => handleDeleteClick(estudiante.userId)} title="Eliminar estudiante"  > <FaTrash />  </button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="no-results"> No se encontraron usuarios con esa búsqueda</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
       
       {/* Botón flotante para agregar nuevo usuario */}
       <button className="floating-buttonAdmin" onClick={() => setIsCreateModalOpen(true)} title="Crear nuevo usuario"> <FaPlus /> </button>
+      
       {/* Modal de creación de usuario */}
       <CreateUser 
         isOpen={isCreateModalOpen}

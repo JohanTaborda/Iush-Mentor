@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './StudenRequest.css';
-import { FaCheck, FaTimes } from 'react-icons/fa'; 
+import { FaCheck, FaTimes } from 'react-icons/fa';
+
 const StudentRequest = () => {
-  // Estado para almacenar las solicitudes de tutorías
   const [solicitudes, setSolicitudes] = useState([]);
-  
-  // Estado para el modal de confirmación
   const [modalVisible, setModalVisible] = useState(false);
   const [modalConfig, setModalConfig] = useState({
     title: '',
@@ -13,67 +11,26 @@ const StudentRequest = () => {
     action: null,
     requestId: null
   });
-
-  // Estado para los textos expandidos
   const [expandedTexts, setExpandedTexts] = useState({});
-
-  // Estado para el filtro de búsqueda
   const [busqueda, setBusqueda] = useState('');
 
-  // Cargamos datos de ejemplo al iniciar
+  // Cargar solicitudes desde el backend
   useEffect(() => {
-    // Simulamos la carga de datos desde una API
-    const datosSolicitudes = [
-      { 
-        id: 1, 
-        nombreCompleto: 'Laura Sánchez', 
-        correo: 'laura.sanchez@iush.edu.co', 
-        semestre: '7', 
-        motivo: 'Quiero compartir mis conocimientos y ayudar a otros estudiantes que tienen dificultades con las materias que yo ya he cursado.',
-        materias: 'Cálculo I, Álgebra Lineal, Ecuaciones Diferenciales',
-        estado: 'pendiente',
-        fechaSolicitud: '2025-04-28'
-      },
-      { 
-        id: 2, 
-        nombreCompleto: 'Diego Torres', 
-        correo: 'diego.torres@iush.edu.co', 
-        semestre: '9', 
-        motivo: 'Me gustaría reforzar mis conocimientos enseñando a otros y contribuir a la comunidad universitaria.',
-        materias: 'Programación I, Estructuras de Datos, Bases de Datos',
-        estado: 'pendiente',
-        fechaSolicitud: '2025-05-01'
-      },
-      { 
-        id: 3, 
-        nombreCompleto: 'Sofía Ramírez', 
-        correo: 'sofia.ramirez@iush.edu.co', 
-        semestre: '8', 
-        motivo: 'Quiero adquirir experiencia docente para mi carrera.',
-        materias: 'Física I, Física II, Electromagnetismo',
-        estado: 'aprobado',
-        fechaSolicitud: '2025-04-15'
-      },
-      { 
-        id: 4, 
-        nombreCompleto: 'Carlos Mendoza', 
-        correo: 'carlos.mendoza@iush.edu.co', 
-        semestre: '6', 
-        motivo: 'Considero que tengo aptitudes para la enseñanza y quiero ponerlas en práctica ayudando a mis compañeros.',
-        materias: 'Química General, Química Orgánica, Bioquímica',
-        estado: 'rechazado',
-        fechaSolicitud: '2025-04-10'
+    const fetchSolicitudes = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/tutor-requests');
+        const data = await response.json();
+        setSolicitudes(data);
+      } catch (error) {
+        console.error('Error al cargar solicitudes:', error);
       }
-    ];
-    
-    setSolicitudes(datosSolicitudes);
+    };
+
+    fetchSolicitudes();
   }, []);
 
-  // Manejador para abrir el modal de confirmación
   const handleOpenModal = (id, tipo) => {
-    const config = {
-      requestId: id
-    };
+    const config = { requestId: id };
 
     if (tipo === 'aprobar') {
       config.title = 'Aprobar Solicitud';
@@ -89,12 +46,10 @@ const StudentRequest = () => {
     setModalVisible(true);
   };
 
-  // Manejador para cerrar el modal
   const handleCloseModal = () => {
     setModalVisible(false);
   };
 
-  // Manejador para confirmar la acción del modal
   const handleConfirmAction = () => {
     if (modalConfig.action) {
       modalConfig.action(modalConfig.requestId);
@@ -102,23 +57,45 @@ const StudentRequest = () => {
     setModalVisible(false);
   };
 
-  // Manejador para aprobar una solicitud
-  const handleApproveRequest = (requestId) => {
-    setSolicitudes(solicitudes.map(solicitud => 
-      solicitud.id === requestId ? {...solicitud, estado: 'aprobado'} : solicitud
-    ));
-    // Aquí se podría hacer una llamada a la API para actualizar el estado en el servidor
+  const handleApproveRequest = async (requestId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/tutor-requests/${requestId}/approve`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (response.ok) {
+        setSolicitudes(solicitudes.map(s =>
+          s.id === requestId ? { ...s, status: 'aprobado' } : s
+        ));
+      }
+    } catch (error) {
+      console.error('Error al aprobar solicitud:', error);
+    }
   };
 
-  // Manejador para rechazar una solicitud
-  const handleRejectRequest = (requestId) => {
-    setSolicitudes(solicitudes.map(solicitud => 
-      solicitud.id === requestId ? {...solicitud, estado: 'rechazado'} : solicitud
-    ));
-    // Aquí se podría hacer una llamada a la API para actualizar el estado en el servidor
-  };
+  const handleRejectRequest = async (requestId) => {
+  try {
+    const response = await fetch(`http://localhost:3000/tutor-requests/${requestId}/rechazar`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' }
+    });
 
-  // Manejador para expandir/colapsar texto
+    if (response.ok) {
+      setSolicitudes(prev =>
+        prev.map(s =>
+          s.id === requestId ? { ...s, status: 'rechazado' } : s
+        )
+      );
+    } else {
+      console.error('Error en la respuesta del servidor al rechazar');
+    }
+  } catch (error) {
+    console.error('Error al rechazar solicitud:', error);
+  }
+};
+
+
   const handleExpandText = (id, field) => {
     const key = `${id}-${field}`;
     setExpandedTexts(prev => ({
@@ -127,49 +104,32 @@ const StudentRequest = () => {
     }));
   };
 
-  // Función para renderizar texto con opción de expandir
   const renderExpandableText = (text, id, field) => {
     const key = `${id}-${field}`;
     const isExpanded = expandedTexts[key];
     const maxLength = 50;
 
-    if (text.length <= maxLength) {
-      return text;
-    }
+    if (!text) return '';
+    if (text.length <= maxLength) return text;
 
-    if (isExpanded) {
-      return (
-        <span>
-          {text}{' '}
-          <button 
-            className="expand-button"
-            onClick={() => handleExpandText(id, field)}
-          >
-            Ver menos
-          </button>
-        </span>
-      );
-    }
-
-    return (
+    return isExpanded ? (
+      <span>
+        {text}{' '}
+        <button className="expand-button" onClick={() => handleExpandText(id, field)}>Ver menos</button>
+      </span>
+    ) : (
       <span>
         {text.substring(0, maxLength)}...{' '}
-        <button 
-          className="expand-button"
-          onClick={() => handleExpandText(id, field)}
-        >
-          Ver más
-        </button>
+        <button className="expand-button" onClick={() => handleExpandText(id, field)}>Ver más</button>
       </span>
     );
   };
 
-  // Filtrar solicitudes según la búsqueda
-  const solicitudesFiltradas = solicitudes.filter(solicitud => 
-    solicitud.nombreCompleto.toLowerCase().includes(busqueda.toLowerCase()) ||
-    solicitud.correo.toLowerCase().includes(busqueda.toLowerCase()) ||
-    solicitud.materias.toLowerCase().includes(busqueda.toLowerCase()) ||
-    solicitud.estado.toLowerCase().includes(busqueda.toLowerCase())
+  const solicitudesFiltradas = solicitudes.filter(solicitud =>
+    (solicitud?.usuario?.username ?? '').toLowerCase().includes(busqueda.toLowerCase()) ||
+    (solicitud?.usuario?.email ?? '').toLowerCase().includes(busqueda.toLowerCase()) ||
+    (solicitud?.subjects ?? '').toLowerCase().includes(busqueda.toLowerCase()) ||
+    (solicitud?.status ?? '').toLowerCase().includes(busqueda.toLowerCase())
   );
 
   return (
@@ -177,9 +137,9 @@ const StudentRequest = () => {
       <div className="request-header">
         <h1>Solicitudes de Tutoría</h1>
         <div className="search-container">
-          <input 
-            type="text" 
-            placeholder="Buscar solicitudes..." 
+          <input
+            type="text"
+            placeholder="Buscar solicitudes..."
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
             className="search-input"
@@ -203,42 +163,40 @@ const StudentRequest = () => {
           <tbody>
             {solicitudesFiltradas.length > 0 ? (
               solicitudesFiltradas.map(solicitud => (
-                <tr key={solicitud.id} className={`estado-${solicitud.estado}`}>
-                  <td>{solicitud.nombreCompleto}</td>
-                  <td>{solicitud.correo}</td>
-                  <td>{solicitud.semestre}</td>
+                <tr key={solicitud.id} className={`estado-${solicitud.status}`}>
+                  <td>{solicitud.usuario?.username}</td>
+                  <td>{solicitud.usuario?.email}</td>
+                  <td>{solicitud.semester}</td>
                   <td className="text-cell">
-                    {renderExpandableText(solicitud.motivo, solicitud.id, 'motivo')}
+                    {renderExpandableText(solicitud.reason, solicitud.id, 'reason')}
                   </td>
-                  <td>{solicitud.materias}</td>
+                  <td>{solicitud.subjects}</td>
                   <td>
-                    <span className={`estado-badge ${solicitud.estado}`}>
-                      {solicitud.estado}
+                    <span className={`estado-badge ${solicitud.status}`}>
+                      {solicitud.status}
                     </span>
                   </td>
                   <td className="options-cell">
-                    {solicitud.estado === 'pendiente' && (
+                    {solicitud.status === 'pendiente' ? (
                       <>
-                    <button 
-                      className="action-button approve"
-                      onClick={() => handleOpenModal(solicitud.id, 'aprobar')}
-                      title="Aprobar solicitud"
-                    >
-                      <FaCheck />
-                    </button>
-
-                    <button 
-                      className="action-button reject"
-                      onClick={() => handleOpenModal(solicitud.id, 'rechazar')}
-                      title="Rechazar solicitud"
-                    >
-                      <FaTimes />
-                    </button>
+                        <button
+                          className="action-button approve"
+                          onClick={() => handleOpenModal(solicitud.id, 'aprobar')}
+                          title="Aprobar solicitud"
+                        >
+                          <FaCheck />
+                        </button>
+                        <button
+                          className="action-button reject"
+                          onClick={() => handleOpenModal(solicitud.id, 'rechazar')}
+                          title="Rechazar solicitud"
+                        >
+                          <FaTimes />
+                        </button>
                       </>
-                    )}
-                    {(solicitud.estado === 'aprobado' || solicitud.estado === 'rechazado') && (
+                    ) : (
                       <span className="status-text">
-                        {solicitud.estado === 'aprobado' ? 'Aprobado' : 'Rechazado'}
+                        {solicitud.status === 'aprobado' ? 'Aprobado' : 'Rechazado'}
                       </span>
                     )}
                   </td>
@@ -246,8 +204,8 @@ const StudentRequest = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="8" className="no-results">
-                  No se encontraron solicitudes con esa búsqueda
+                <td colSpan="7" className="no-results">
+                  No se encontraron solicitudes
                 </td>
               </tr>
             )}
@@ -255,25 +213,14 @@ const StudentRequest = () => {
         </table>
       </div>
 
-      {/* Modal de confirmación */}
       {modalVisible && (
         <div className="modal-overlay">
           <div className="modal-container">
             <h2 className="modal-title">{modalConfig.title}</h2>
             <p className="modal-message">{modalConfig.message}</p>
             <div className="modal-buttons">
-              <button 
-                className="modal-button cancel"
-                onClick={handleCloseModal}
-              >
-                Cancelar
-              </button>
-              <button 
-                className="modal-button confirm"
-                onClick={handleConfirmAction}
-              >
-                Confirmar
-              </button>
+              <button className="modal-button cancel" onClick={handleCloseModal}>Cancelar</button>
+              <button className="modal-button confirm" onClick={handleConfirmAction}>Confirmar</button>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CreateUser from '../createUser/CreateUser';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 const UserManagement = () => {
   const [showModal, setShowModal] = useState(false);
@@ -18,7 +18,6 @@ const UserManagement = () => {
       if (response.ok) {
         toast.success("Usuario creado con éxito");
         setShowModal(false);
-        // Puedes recargar la lista de usuarios aquí si ya la tienes
       } else {
         toast.error(data.error || "No se pudo crear el usuario");
       }
@@ -31,11 +30,15 @@ const UserManagement = () => {
   return (
     <div className="user-management">
       <h2>Gestión de Usuarios</h2>
-      <button onClick={() => setShowModal(true)}>Crear Nuevo Tutor</button>
+      <button onClick={() => setShowModal(true)}>Crear Nuevo Usuario</button>
 
+      <CreateUser 
+        isOpen={showModal} 
+        onClose={() => setShowModal(false)} 
+        onSave={handleCreateUser}
+      />
     </div>
   );
 };
 
 export default UserManagement;
-

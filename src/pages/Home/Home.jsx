@@ -118,13 +118,15 @@ return (
                         <p><strong>Fecha:</strong> {tutoring.date}</p>
                         <p><strong>Programa:</strong> {tutoring.program}</p>
                         <p><strong>Modalidad:</strong> {tutoring.modality}</p>
-                        <p><strong>Salón:</strong> {tutoring.classroom}</p>
+                        {tutoring.connection_link ? (
+                          <p><strong>Enlace:</strong> <a target="_blank" href={tutoring.connection_link}>Unirse</a></p>
+                        ) : (
+                          <p><strong>Salón:</strong> {tutoring.classroom}</p>
+                        )}
                         <p><strong>Capacidad:</strong> {tutoring.capacity}</p>
                         <p><strong>Hora:</strong> {tutoring.start_time} - {tutoring.end_time}</p>
                         <p><strong>Email tutor:</strong> {tutoring.tutor?.email}</p>
-                        {tutoring.connection_link && (
-                          <p><strong>Enlace:</strong> <a target="_blank" href={tutoring.connection_link}>Ir al enlace</a></p>
-                        )}
+                        
                       </div>
                     </div>
                   <div className="tutor-tutorial-footer">
