@@ -1,0 +1,250 @@
+/* Estilos generales del dashboard */
+.dashboard-container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    overflow-y: auto;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.dashboard-title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.dashboard-search {
+    margin-top: 10px;
+}
+
+.dashboard-search input {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    min-width: 300px;
+    transition: all 0.3s ease;
+}
+
+.dashboard-search input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
+}
+
+/* Estilos para la tabla */
+.table-container {
+    overflow-y: auto;
+    height: 700px;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.table-container::-webkit-scrollbar{
+    width: 0;
+}
+
+
+
+.students-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.students-table th, .students-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.students-table th {
+    background-color: #275092;
+    color: white;
+    font-weight: 600;
+}
+
+.students-table tr:hover {
+    background-color: #f5f8fa;
+}
+
+/* Estilos para las insignias de rol */
+.role-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.role-badge.aprendiz {
+    background-color: #e1f5fe;
+    color: #0288d1;
+}
+
+.role-badge.tutor {
+    background-color: #e8f5e9;
+    color: #388e3c;
+}
+
+.role-badge.administrador {
+    background-color: #e8eaf6;
+    color: #3f51b5;
+}
+
+/* Estilos para los botones de acción */
+.options-cell {
+    white-space: nowrap;
+}
+
+.action-buttonDashboard {
+    margin-right: 8px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.action-buttonDashboard:last-child {
+    margin-right: 0;
+}
+
+.action-buttonDashboard.edit {
+    color: #3498db;
+}
+
+.action-buttonDashboard.delete {
+    color: #e74c3c;
+}
+
+.action-buttonDashboard.save {
+    color: #2ecc71;
+}
+
+.action-buttonDashboard.cancel {
+    color: #7f8c8d;
+}
+
+.action-buttonDashboard:hover {
+    transform: scale(1.15);
+}
+
+.action-buttonDashboard.edit:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.action-buttonDashboard.delete:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.action-buttonDashboard.save:hover {
+    background-color: rgba(46, 204, 113, 0.1);
+}
+
+.action-buttonDashboard.cancel:hover {
+    background-color: rgba(127, 140, 141, 0.1);
+}
+
+/* Estilos para el modo de edición */
+.edit-input {
+width: 100%;
+padding: 8px;
+border: 1px solid #ddd;
+border-radius: 4px;
+font-size: 0.95rem;
+}
+
+.edit-input:focus {
+outline: none;
+border-color: #3498db;
+}
+
+/* Mensaje cuando no hay resultados */
+.no-results {
+text-align: center;
+padding: 20px;
+color: #7f8c8d;
+font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dashboard-search {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .dashboard-search input {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .action-buttonDashboard {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Botón flotante */
+.floating-buttonAdmin {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: #275092;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+  }
+  
+  .floating-buttonAdmin:hover {
+    background-color: #1c3d78;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  }
+  
+  .floating-buttonAdmin:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    .floating-buttonAdmin {
+      width: 48px;
+      height: 48px;
+      bottom: 70px;
+      right: 20px;
+      font-size: 1.2rem;
+    }
+  }

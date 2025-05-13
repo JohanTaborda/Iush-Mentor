@@ -59,6 +59,71 @@
   padding: 0.5rem; /*Reduce si es mayor*/
 }
 
+.tutoring__results {
+  margin: 2rem 0;
+  padding: 1rem;
+  border-top: 2px solid #ddd;
+  background-color: white;
+  font-family: 'Manrope', sans-serif;
+}
+
+.tutoring__results h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.6rem;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+}
+
+.tutoring__card-result {
+  background-color: #f0f8ff; /* color solicitado */
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+  border: 1px solid #ccc;
+}
+
+.tutoring__card-result:hover {
+  transform: translateY(-2px);
+}
+
+.tutoring__card-result h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.tutoring__card-result p {
+  margin: 0.3rem 0;
+  color: #444;
+  font-family: 'Manrope', sans-serif;
+  line-height: 1.5;
+}
+
+.tutoring__card-result strong {
+  color: #333;
+  font-weight: 600;
+}
+
+.tutoring__card-result a {
+  background-color: #184ea5; /* Azul brillante (estilo Tailwind) */
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.4rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  align-self:center; /* Alinea el botón a la izquierda */
+  transition: background-color 0.3s ease; /* Suaviza cambio de color al hover */
+  
+}
+
+.tutoring__card-result a:hover {
+  background-color: #357ab8;
+}
+
 .tutoring__no-results {
   background-color: #ffffff;
   border: 2px dashed #94a3b8;
@@ -122,4 +187,151 @@
 /* Posicionamiento adicional para la flecha derecha */
 .carousel-arrow--right {
   margin-right: 0.25rem;
+}
+
+/* Estilos para el modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background-color: white;
+  width: 90%;
+  padding: 0 !important;
+  max-width: 800px;
+  max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: #275092;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  
+  color: #fff;
+  z-index: 1;
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.modal-close:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+
+/* Estilos para el botón de inscripción */
+.tutoring__enroll-btn {
+  background-color: #2c75fa;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 12px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.tutoring__enroll-btn:hover {
+  background-color: #1a5fd7;
+}
+
+/* Mensaje de inscripción exitosa */
+.tutoring__enrolled-message {
+  color: #2e7d32;
+  font-weight: bold;
+  margin-top: 12px;
+  padding: 8px;
+  background-color: #e8f5e9;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Ajustar el espacio para la tarjeta de resultado */
+.tutoring__card-result {
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #fff;
+}
+
+
+/* Estilos del botón flotante */
+.floating-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #0056b3;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  font-weight: 500;
+}
+
+.floating-button:hover {
+  background-color: #003d82;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.floating-button svg {
+  margin-right: 5px;
+}
+
+@media (max-width: 767px) {
+  .floating-button{
+    bottom: 70px;
+  }
 }

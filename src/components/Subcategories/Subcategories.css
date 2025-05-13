@@ -1,77 +1,77 @@
 /* Estilo base para la tarjeta de subcategoría */
 .subcategory-card {
   background-color: #f0f8ff; /* Azul muy claro, da un toque limpio y moderno */
-  border-radius: 0.5rem; /* Bordes redondeados */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Sombra suave */
-  padding: 0.85rem; /* Espaciado interno general */
-  max-width: 240px;
-  flex: 1 0 auto; /* No crecer, no reducir, ocupar su espacio */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animaciones suaves */
-  font-size: 0.95rem; /* Tamaño de fuente base */
-  height: 100%;
+  border-radius: 0.5rem; /* Bordes redondeados para suavizar el diseño */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); /* Sombra sutil para dar profundidad */
+  padding: 0.85rem; /* Espaciado interno para separar el contenido del borde */
+  max-width: 240px; /* Ancho máximo de la tarjeta */
+  flex: 1 0 auto; /* No se expande ni se reduce, mantiene su tamaño */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves al hacer hover */
+  font-size: 0.95rem; /* Tamaño base de fuente */
+  height: 100%; /* Ocupa toda la altura disponible */
   display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Distribuye contenido verticalmente */
+  flex-direction: column; /* Organiza el contenido en columna */
+  justify-content: space-between; /* Distribuye el contenido verticalmente */
 }
 
-/* Efecto al pasar el mouse por encima de la tarjeta */
+/* Efecto visual al pasar el cursor sobre la tarjeta */
 .subcategory-card:hover {
   transform: translateY(-3px); /* Eleva ligeramente la tarjeta */
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más marcada */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más intensa para resaltar */
 }
 
-/* Encabezado de la tarjeta: ícono + título */
+/* Encabezado de la tarjeta: contiene ícono y título */
 .subcategory-card__header {
   display: flex;
-  align-items: center;
-  margin-bottom: 0.6rem;
+  align-items: center; /* Centra verticalmente ícono y texto */
+  margin-bottom: 0.6rem; /* Espacio debajo del encabezado */
 }
 
 /* Estilo del ícono de la subcategoría */
 .subcategory-card__icon {
-  margin-right: 0.45rem;
-  font-size: 1.4rem;
+  margin-right: 0.45rem; /* Espacio entre ícono y título */
+  font-size: 1.4rem; /* Tamaño del ícono */
 }
 
-/* Título del programa */
+/* Título del programa o subcategoría */
 .subcategory-card__title {
-  font-family: 'Outfit', sans-serif; /* Fuente moderna para títulos */
-  font-size: 1.15rem;
-  font-weight: 600;
-  margin: 0;
-  color: #1e293b; /* Azul oscuro */
+  font-family: 'Outfit', sans-serif; /* Fuente moderna y legible */
+  font-size: 1.15rem; /* Tamaño del título */
+  font-weight: 600; /* Negrita */
+  margin: 0; /* Elimina márgenes por defecto */
+  color: #1e293b; /* Azul oscuro para buena legibilidad */
 }
 
 /* Descripción breve del programa */
 .subcategory-card__description {
-  font-family: 'Manrope', sans-serif; /* Fuente para texto descriptivo */
-  font-size: 0.88rem;
-  color: #555; /* Gris medio */
-  align-content: center;
+  font-family: 'Manrope', sans-serif; /* Fuente secundaria para texto */
+  font-size: 0.88rem; /* Tamaño ligeramente menor */
+  color: #555; /* Gris medio para contraste suave */
+  align-content: center; /* Centra el contenido si es necesario */
 }
 
 /* Botón para acceder a las tutorías */
 .subcategory-card__button {
-  background-color: #184ea5; /* Azul brillante (estilo Tailwind) */
-  color: #fff;
-  border: none;
-  padding: 0.3rem 0.75rem;
-  border-radius: 0.4rem;
-  font-size: 0.95rem;
-  cursor: pointer;
-  align-self:center; /* Alinea el botón a la izquierda */
-  transition: background-color 0.3s ease; /* Suaviza cambio de color al hover */
+  background-color: #184ea5; /* Azul vibrante */
+  color: #fff; /* Texto blanco */
+  border: none; /* Sin borde */
+  padding: 0.3rem 0.75rem; /* Espaciado interno */
+  border-radius: 0.4rem; /* Bordes redondeados */
+  font-size: 0.95rem; /* Tamaño del texto */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  align-self: center; /* Centra el botón horizontalmente */
+  transition: background-color 0.3s ease; /* Transición suave al cambiar color */
 }
 
-/* Efecto hover del botón */
+/* Efecto visual al pasar el cursor sobre el botón */
 .subcategory-card__button:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 10px 0 #000;
-  }
+  transform: scale(1.02); /* Aumenta ligeramente el tamaño */
+  box-shadow: 0 0 10px 0 #000; /* Sombra para resaltar el botón */
+}
 
+/* Estilos responsivos para pantallas pequeñas */
 @media (max-width: 599px) {
-  .subcategory-card{
-    max-width: 100%;
+  .subcategory-card {
+    max-width: 100%; /* Ocupa todo el ancho disponible */
   }
-
 }
