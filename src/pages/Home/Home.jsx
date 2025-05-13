@@ -55,9 +55,11 @@ const Home = () => {
   }
 }, [dataUser]);
 
-//Función para cancelar tutoría inscrito como estudiante
-
+// Función para cancelar tutoría inscrito como estudiante
 const handleCancelEnrollment = async (enrollmentId) => {
+  const confirmCancel = window.confirm("¿Está seguro que desea cancelar la inscripción?");
+  if (!confirmCancel) return;
+
   try {
     const res = await fetch(`http://localhost:3000/enrollments/${enrollmentId}`, {
       method: "DELETE"

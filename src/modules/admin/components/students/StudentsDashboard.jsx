@@ -133,7 +133,7 @@ const StudentsDashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
-        <h1 className="dashboard-title">Gestión de Estudiantes</h1>
+        <h1 className="dashboard-title">Gestión de Usuarios</h1>
         <div className="dashboard-search">
           <input type="text" placeholder="Buscar por nombre, correo o rol..." value={busqueda} onChange={(e) => setBusqueda(e.target.value)} />
         </div>

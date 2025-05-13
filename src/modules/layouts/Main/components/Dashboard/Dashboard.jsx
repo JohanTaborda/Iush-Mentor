@@ -5,8 +5,12 @@ import './Dashboard.css' // Estilos personalizados para el componente App.
 import Navbar from "../../../Navbar/Navbar.jsx"
 import WorkSpace from "../../../WorkSpace/WorkSpace.jsx"
 
-const App = ({setMainComponent}) => {
-  const [rol, setRol] = useState('aprendiz');
+//importamos estado global de usuario
+import { useUserStore } from '../../../../../stores/Store'; // importa tu store
+
+const App = ({ setMainComponent }) => {
+  const user = useUserStore((state) => state.user); // accede al usuario global
+  const rol = user?.userRol || 'aprendiz'; // obtiene el rol del usuario autenticado
   // Constantes.
   //Constante que actualiza su estado con el botón seleccionado en el navbar. Este intenta recuperar el valor guardado en el sessionStorage, si no hay valores, muestra 'Tutorias'
   //usamos sessionStorage para que me guarde el valor de forma temporal, mientras la pestaña este abierta.

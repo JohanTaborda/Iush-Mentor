@@ -147,20 +147,6 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
             {errors.confirmarContrasena && <span className="error-message">{errors.confirmarContrasena}</span>}
           </div>
           
-          <div className="form-group">
-            <label htmlFor="rol">Rol del Usuario</label>
-            <select
-              id="rol"
-              name="rol"
-              value={formData.rol}
-              onChange={handleChange}
-            >
-              <option value="estudiante">Estudiante</option>
-              <option value="tutor">Tutor</option>
-              <option value="administrador">Administrador</option>
-            </select>
-          </div>
-          
           <div className="form-buttons">
             <button type="button" className="cancel-button" onClick={onClose}> Cancelar </button>
             <button type="submit" className="save-button"> Guardar Usuario </button>

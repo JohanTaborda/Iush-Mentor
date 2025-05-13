@@ -35,7 +35,7 @@ const Navbar = ({setButtonSelected, setMainComponent, rol}) => {
     
     if (rol === 'administrador') {
         buttonSections = [
-            { title: "Estudiantes", icon: icon_Students(), path: "/admin/estudiantes" },
+            { title: "Usuarios", icon: icon_Students(), path: "/admin/estudiantes" },
             { title: "Solicitudes", icon: icon_TutorRequests(), path: "/admin/solicitudes" }
         ];
     } else {
