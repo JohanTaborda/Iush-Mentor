@@ -1,29 +1,28 @@
 import React, { useState } from 'react';
 import './CreateUser.css';
 import { FaTimes } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Asegúrate de importar los estilos
 
 const CreateUser = ({ isOpen, onClose, onSave }) => {
-  // Estado para los datos del formulario
   const [formData, setFormData] = useState({
-    nombreCompleto: '',
-    correo: '',
-    contrasena: '',
-    confirmarContrasena: '',
-    rol: 'estudiante'
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    user_type: 'tutor',
+    program: '',
   });
 
-  // Estado para errores de validación
   const [errors, setErrors] = useState({});
 
-  // Manejar cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value
     });
-    
-    // Limpiar error del campo cuando se modifica
+
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -32,56 +31,78 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
     }
   };
 
-  // Validar el formulario
   const validateForm = () => {
     const newErrors = {};
-    
-    // Validar nombre
-    if (!formData.nombreCompleto.trim()) {
-      newErrors.nombreCompleto = 'El nombre completo es obligatorio';
+    let isValid = true;
+
+    if (!formData.username.trim()) {
+      newErrors.username = 'El nombre de usuario es obligatorio';
+      toast.error('El nombre de usuario es obligatorio');
+      isValid = false;
     }
-    
-    // Validar correo
-    if (!formData.correo.trim()) {
-      newErrors.correo = 'El correo electrónico es obligatorio';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.correo)) {
-      newErrors.correo = 'Formato de correo electrónico inválido';
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = 'El correo electrónico es obligatorio';
+      toast.error('El correo electrónico es obligatorio');
+      isValid = false;
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = 'Formato de correo electrónico inválido';
+      toast.error('El formato del correo electrónico es inválido');
+      isValid = false;
     }
-    
-    // Validar contraseña
-    if (!formData.contrasena) {
-      newErrors.contrasena = 'La contraseña es obligatoria';
-    } else if (formData.contrasena.length < 6) {
-      newErrors.contrasena = 'La contraseña debe tener al menos 6 caracteres';
+
+    if (!formData.password) {
+      newErrors.password = 'La contraseña es obligatoria';
+      toast.error('La contraseña es obligatoria');
+      isValid = false;
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
+      toast.error('La contraseña debe tener al menos 6 caracteres');
+      isValid = false;
     }
-    
-    // Validar confirmación de contraseña
-    if (formData.contrasena !== formData.confirmarContrasena) {
-      newErrors.confirmarContrasena = 'Las contraseñas no coinciden';
+
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Las contraseñas no coinciden';
+      toast.error('Las contraseñas no coinciden');
+      isValid = false;
     }
-    
+
+    if (!["tutor", "aprendiz"].includes(formData.user_type)) {
+      newErrors.user_type = 'Tipo de usuario inválido';
+      toast.error('Tipo de usuario inválido');
+      isValid = false;
+    }
+
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return isValid;
   };
 
-  // Manejar envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
-      onSave(formData);
-      // Limpiar el formulario después de guardar
-      setFormData({
-        nombreCompleto: '',
-        correo: '',
-        contrasena: '',
-        confirmarContrasena: '',
-        rol: 'estudiante'
-      });
+      const { confirmPassword, ...userDataToSend } = formData;
+
+      onSave(userDataToSend)
+        .then(() => {
+          toast.success('Usuario creado correctamente');
+          setFormData({
+            username: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            user_type: 'tutor',
+            program: '',
+          });
+          onClose();
+        })
+        .catch((error) => {
+          toast.error(`Error: ${error?.message || 'No se pudo crear el usuario'}`);
+        });
     }
   };
 
-  // Si no está abierto, no renderizar
   if (!isOpen) return null;
 
   return (
@@ -93,80 +114,85 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
             <FaTimes />
           </button>
         </div>
-        
+
         <form onSubmit={handleSubmit} className="create-user-form">
           <div className="form-group">
-            <label htmlFor="nombreCompleto">Nombre Completo</label>
+            <label htmlFor="username">Nombre de Usuario</label>
             <input
               type="text"
-              id="nombreCompleto"
-              name="nombreCompleto"
-              value={formData.nombreCompleto}
+              id="username"
+              name="username"
+              value={formData.username}
+              pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"
+              title="Solo letras"
               onChange={handleChange}
-              className={errors.nombreCompleto ? 'error-input' : ''}
+              className={errors.username ? 'error-input' : ''}
             />
-            {errors.nombreCompleto && <span className="error-message">{errors.nombreCompleto}</span>}
+            {errors.username && <span className="error-message">{errors.username}</span>}
           </div>
-          
+
           <div className="form-group">
-            <label htmlFor="correo">Correo Electrónico</label>
+            <label htmlFor="email">Correo Electrónico</label>
             <input
               type="email"
-              id="correo"
-              name="correo"
-              value={formData.correo}
+              id="email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
-              className={errors.correo ? 'error-input' : ''}
+              className={errors.email ? 'error-input' : ''}
             />
-            {errors.correo && <span className="error-message">{errors.correo}</span>}
+            {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
-          
+
           <div className="form-group">
-            <label htmlFor="contrasena">Contraseña</label>
+            <label htmlFor="password">Contraseña</label>
             <input
               type="password"
-              id="contrasena"
-              name="contrasena"
-              value={formData.contrasena}
+              id="password"
+              name="password"
+              value={formData.password}
               onChange={handleChange}
-              className={errors.contrasena ? 'error-input' : ''}
+              className={errors.password ? 'error-input' : ''}
             />
-            {errors.contrasena && <span className="error-message">{errors.contrasena}</span>}
+            {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
-          
+
           <div className="form-group">
-            <label htmlFor="confirmarContrasena">Confirmar Contraseña</label>
+            <label htmlFor="confirmPassword">Confirmar Contraseña</label>
             <input
               type="password"
-              id="confirmarContrasena"
-              name="confirmarContrasena"
-              value={formData.confirmarContrasena}
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
               onChange={handleChange}
-              className={errors.confirmarContrasena ? 'error-input' : ''}
+              className={errors.confirmPassword ? 'error-input' : ''}
             />
-            {errors.confirmarContrasena && <span className="error-message">{errors.confirmarContrasena}</span>}
+            {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
           </div>
-          
+
           <div className="form-group">
-            <label htmlFor="rol">Rol del Usuario</label>
+            <label htmlFor="user_type">Tipo de Usuario</label>
             <select
-              id="rol"
-              name="rol"
-              value={formData.rol}
+              id="user_type"
+              name="user_type"
+              value={formData.user_type}
               onChange={handleChange}
+              className={errors.user_type ? 'error-input' : ''}
             >
-              <option value="estudiante">Estudiante</option>
               <option value="tutor">Tutor</option>
-              <option value="administrador">Administrador</option>
             </select>
+            {errors.user_type && <span className="error-message">{errors.user_type}</span>}
           </div>
-          
+
           <div className="form-buttons">
-            <button type="button" className="cancel-button" onClick={onClose}> Cancelar </button>
-            <button type="submit" className="save-button"> Guardar Usuario </button>
+            <button type="button" className="cancel-button" onClick={onClose}>Cancelar</button>
+            <button type="submit" className="save-button">Guardar Usuario</button>
           </div>
         </form>
       </div>
+      <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick rtl={false}
+        pauseOnFocusLoss draggable pauseOnHover
+      />
     </div>
   );
 };

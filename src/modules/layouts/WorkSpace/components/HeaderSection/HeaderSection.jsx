@@ -179,9 +179,7 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected}) => 
           <Dropdown.Toggle variant="secondary" className="button--profile">
             <Avatar
               src={
-                dataUser?.profileImage
-                  ? `http://localhost:3000/uploads/${dataUser.profileImage}`
-                  : undefined
+                dataUser?.profileImage? `http://localhost:3000/uploads/${dataUser.profileImage}` : undefined
               }
               alt={dataUser?.username}
             >
