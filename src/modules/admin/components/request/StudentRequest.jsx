@@ -13,16 +13,20 @@ const StudentRequest = () => {
   });
   const [expandedTexts, setExpandedTexts] = useState({});
   const [busqueda, setBusqueda] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   // Cargar solicitudes desde el backend
   useEffect(() => {
     const fetchSolicitudes = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch('http://localhost:3000/tutor-requests');
         const data = await response.json();
         setSolicitudes(data);
       } catch (error) {
         console.error('Error al cargar solicitudes:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -148,69 +152,73 @@ const StudentRequest = () => {
       </div>
 
       <div className="table-container">
-        <table className="requests-table">
-          <thead>
-            <tr>
-              <th>Nombre Completo</th>
-              <th>Correo</th>
-              <th>Semestre</th>
-              <th>Motivo</th>
-              <th>Materias</th>
-              <th>Estado</th>
-              <th>Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {solicitudesFiltradas.length > 0 ? (
-              solicitudesFiltradas.map(solicitud => (
-                <tr key={solicitud.id} className={`estado-${solicitud.status}`}>
-                  <td>{solicitud.usuario?.username}</td>
-                  <td>{solicitud.usuario?.email}</td>
-                  <td>{solicitud.semester}</td>
-                  <td className="text-cell">
-                    {renderExpandableText(solicitud.reason, solicitud.id, 'reason')}
-                  </td>
-                  <td>{solicitud.subjects}</td>
-                  <td>
-                    <span className={`estado-badge ${solicitud.status}`}>
-                      {solicitud.status}
-                    </span>
-                  </td>
-                  <td className="options-cell">
-                    {solicitud.status === 'pendiente' ? (
-                      <>
-                        <button
-                          className="action-button approve"
-                          onClick={() => handleOpenModal(solicitud.id, 'aprobar')}
-                          title="Aprobar solicitud"
-                        >
-                          <FaCheck />
-                        </button>
-                        <button
-                          className="action-button reject"
-                          onClick={() => handleOpenModal(solicitud.id, 'rechazar')}
-                          title="Rechazar solicitud"
-                        >
-                          <FaTimes />
-                        </button>
-                      </>
-                    ) : (
-                      <span className="status-text">
-                        {solicitud.status === 'aprobado' ? 'Aprobado' : 'Rechazado'}
+        {isLoading ? (
+          <div>Cargando Solicitudes...</div>
+        ) : (
+            <table className="requests-table">
+            <thead>
+              <tr>
+                <th>Nombre Completo</th>
+                <th>Correo</th>
+                <th>Semestre</th>
+                <th>Motivo</th>
+                <th>Materias</th>
+                <th>Estado</th>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {solicitudesFiltradas.length > 0 ? (
+                solicitudesFiltradas.map(solicitud => (
+                  <tr key={solicitud.id} className={`estado-${solicitud.status}`}>
+                    <td>{solicitud.usuario?.username}</td>
+                    <td>{solicitud.usuario?.email}</td>
+                    <td>{solicitud.semester}</td>
+                    <td className="text-cell">
+                      {renderExpandableText(solicitud.reason, solicitud.id, 'reason')}
+                    </td>
+                    <td>{solicitud.subjects}</td>
+                    <td>
+                      <span className={`estado-badge ${solicitud.status}`}>
+                        {solicitud.status}
                       </span>
-                    )}
+                    </td>
+                    <td className="options-cell">
+                      {solicitud.status === 'pendiente' ? (
+                        <>
+                          <button
+                            className="action-button approve"
+                            onClick={() => handleOpenModal(solicitud.id, 'aprobar')}
+                            title="Aprobar solicitud"
+                          >
+                            <FaCheck />
+                          </button>
+                          <button
+                            className="action-button reject"
+                            onClick={() => handleOpenModal(solicitud.id, 'rechazar')}
+                            title="Rechazar solicitud"
+                          >
+                            <FaTimes />
+                          </button>
+                        </>
+                      ) : (
+                        <span className="status-text">
+                          {solicitud.status === 'aprobado' ? 'Aprobado' : 'Rechazado'}
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" className="no-results">
+                    No se encontraron solicitudes
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="7" className="no-results">
-                  No se encontraron solicitudes
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
 
       {modalVisible && (

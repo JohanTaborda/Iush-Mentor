@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './CreateUser.css';
 import { FaTimes } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Asegúrate de importar los estilos
 
 const CreateUser = ({ isOpen, onClose, onSave }) => {
   const [formData, setFormData] = useState({
@@ -32,34 +33,49 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
 
   const validateForm = () => {
     const newErrors = {};
+    let isValid = true;
 
     if (!formData.username.trim()) {
       newErrors.username = 'El nombre de usuario es obligatorio';
+      toast.error('El nombre de usuario es obligatorio');
+      isValid = false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
       newErrors.email = 'El correo electrónico es obligatorio';
+      toast.error('El correo electrónico es obligatorio');
+      isValid = false;
     } else if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Formato de correo electrónico inválido';
+      toast.error('El formato del correo electrónico es inválido');
+      isValid = false;
     }
 
     if (!formData.password) {
       newErrors.password = 'La contraseña es obligatoria';
+      toast.error('La contraseña es obligatoria');
+      isValid = false;
     } else if (formData.password.length < 6) {
       newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
+      toast.error('La contraseña debe tener al menos 6 caracteres');
+      isValid = false;
     }
 
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Las contraseñas no coinciden';
+      toast.error('Las contraseñas no coinciden');
+      isValid = false;
     }
 
     if (!["tutor", "aprendiz"].includes(formData.user_type)) {
       newErrors.user_type = 'Tipo de usuario inválido';
+      toast.error('Tipo de usuario inválido');
+      isValid = false;
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return isValid;
   };
 
   const handleSubmit = (e) => {
@@ -84,8 +100,6 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
         .catch((error) => {
           toast.error(`Error: ${error?.message || 'No se pudo crear el usuario'}`);
         });
-    } else {
-      toast.warning("Completa correctamente el formulario");
     }
   };
 
@@ -109,6 +123,8 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
               id="username"
               name="username"
               value={formData.username}
+              pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$"
+              title="Solo letras"
               onChange={handleChange}
               className={errors.username ? 'error-input' : ''}
             />
@@ -174,6 +190,9 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
           </div>
         </form>
       </div>
+      <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick rtl={false}
+        pauseOnFocusLoss draggable pauseOnHover
+      />
     </div>
   );
 };

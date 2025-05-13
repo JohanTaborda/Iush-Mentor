@@ -5,6 +5,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     height: 100%;
+    overflow-y: auto;
 }
 
 .dashboard-header {
@@ -42,11 +43,18 @@
 
 /* Estilos para la tabla */
 .table-container {
-    overflow-x: auto;
+    overflow-y: auto;
+    height: 700px;
     background-color: white;
     border-radius: 6px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+
+.table-container::-webkit-scrollbar{
+    width: 0;
+}
+
+
 
 .students-table {
     width: 100%;
@@ -78,7 +86,7 @@
     text-transform: capitalize;
 }
 
-.role-badge.estudiante {
+.role-badge.aprendiz {
     background-color: #e1f5fe;
     color: #0288d1;
 }

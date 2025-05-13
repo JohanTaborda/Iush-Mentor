@@ -130,7 +130,7 @@ const StudentsDashboard = () => {
                 <th>Opciones</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className='ejemplo'>
               {usuariosFiltrados.length > 0 ? (
                 usuariosFiltrados.map(estudiante => (
                   <tr key={estudiante.userId}>
