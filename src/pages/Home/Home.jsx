@@ -6,6 +6,7 @@ import 'react-calendar/dist/Calendar.css';// Importa los estilos por defecto del
 import {useUserStore, useMentorStore} from "../../stores/Store"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ModalDelete from "../../components/modalDelete/ModalDelete.jsx"
 
 const Home = () => {
   // Estado para guardar la fecha seleccionada en el calendario
@@ -14,7 +15,10 @@ const Home = () => {
   const [dataTutoring, setDataTutoring] = useState(useMentorStore(value => value.tutoringSessions))
   const [rol, setRol] = useState(dataUser.userRol !== "tutor")
   const [enrolledTutorings, setEnrolledTutorings] = useState([]);
-
+  // Estado para el modal de confirmación
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalDelete, setIsModalDelete] = useState(false);
+  const [enrollmentToCancel, setEnrollmentToCancel] = useState(null);
 
   const tutorTutorings = dataTutoring.filter( tut => tut.tutor?.username === dataUser?.username);
   
@@ -55,20 +59,31 @@ const Home = () => {
   }
 }, [dataUser]);
 
+// Función para abrir el modal de confirmación
+const openCancelModal = (enrollmentId) => {
+  setEnrollmentToCancel(enrollmentId);
+  setIsModalOpen(true);
+};
+
+const openDeleteModal = (enrollmentId) => {
+  setEnrollmentToCancel(enrollmentId);
+  setIsModalDelete(true);
+}
 // Función para cancelar tutoría inscrito como estudiante
-const handleCancelEnrollment = async (enrollmentId) => {
-  const confirmCancel = window.confirm("¿Está seguro que desea cancelar la inscripción?");
-  if (!confirmCancel) return;
+const handleCancelEnrollment = async () => {
+  if (!enrollmentToCancel) return;
 
   try {
-    const res = await fetch(`http://localhost:3000/enrollments/${enrollmentId}`, {
+    const res = await fetch(`http://localhost:3000/enrollments/${enrollmentToCancel}`, {
       method: "DELETE"
     });
     const data = await res.json();
 
     if (res.ok) {
       toast.success("Inscripción cancelada");
-      setEnrolledTutorings(prev => prev.filter(en => en.id !== enrollmentId));
+      setEnrolledTutorings(prev => prev.filter(en => en.id !== enrollmentToCancel));
+      setIsModalOpen(false);
+      setEnrollmentToCancel(null);
     } else {
       toast.error(data.error || "No se pudo cancelar la inscripción");
     }
@@ -85,7 +100,10 @@ return (
         {/* Contenedor de tutorías a dirigir como tutor */}
                 {/* Contenedor de tutorías a dirigir como tutor */}
         <fieldset className="preset-container" style={{display: `${!rol ? "block" : "none"}`}}>
-          <legend className="tittle-container">Tutorías a dirigir como tutor</legend>
+          <div>
+            <legend className="tittle-container">Tutorías a dirigir como tutor</legend>
+            <button className="preset-btn" onClick={() => navigate("/tutorias")}> Ir a crear </button>
+          </div>
           <div className="student-tutorials-wrapper">
             {tutorTutorings && tutorTutorings.length > 0 ? (
               <div className="student-tutorials-grid">
@@ -110,9 +128,9 @@ return (
                       </div>
                     </div>
                   <div className="tutor-tutorial-footer">
-                    <button className="tutor-btn tutor-btn--edit" onClick={() => {/* lógica para editar */}}>Editar</button>
-                    <button className="tutor-btn tutor-btn--delete" onClick={() => {/* lógica para eliminar */}}>Eliminar</button>
-                    <button className="tutor-btn tutor-btn--view" onClick={() => {/* lógica para ver estudiantes */}}>Ver Estudiantes</button>
+                    <button className="edit-enrollment-btn" onClick={() => {/* lógica para editar */}}>Editar</button>
+                    <button className="cancel-enrollment-btn" onClick={() => openDeleteModal(tutoring.id)}>Eliminar</button>
+                    <button className="view-enrollment-btn" onClick={() => {/* lógica para ver estudiantes */}}>Ver Estudiantes</button>
                   </div>
                   </div>
                 ))
@@ -123,13 +141,12 @@ return (
               </div>
             )}
           </div>
-          <button className="preset-btn" onClick={() => navigate("/tutorias")}> Ir a crear </button>
         </fieldset>
 
         {/* Contenedor de tutorías inscritas como estudiante */}
         <fieldset className="mytutorials-container" style={{display: `${rol ? "block" : "none"}`, marginTop: `${rol ? "25px" : "none"}`}} >
           <legend className="tittle-container">Tutorías inscritas como estudiante</legend>
-          
+          <button className="preset-btn" onClick={() => navigate("/tutorias")}> Agendar </button>
           <div className="student-tutorials-wrapper">
             {enrolledTutorings.length > 0 ? (
               <div className="student-tutorials-grid">
@@ -156,7 +173,7 @@ return (
                       </div>
                     </div>
                     <div className="student-tutorial-footer">
-                      <button className="cancel-enrollment-btn" onClick={() => handleCancelEnrollment(enrollment.id)}>Cancelar inscripción</button>
+                      <button className="cancel-enrollment-btn" onClick={() => openCancelModal(enrollment.id)}>Cancelar inscripción</button>
                     </div>
                   </div>
                 ))}
@@ -170,8 +187,6 @@ return (
           
           <ToastContainer position="bottom-left" autoClose={3000} />
           
-          {/* Botón Agendar */}
-          <button className="preset-btn" onClick={() => navigate("/tutorias")}> Agendar </button>
         </fieldset>
 
         {/* Contenedor del calendario de tutorías */}
@@ -182,12 +197,29 @@ return (
           <Calendar onChange={setDate} value={date} />
         </fieldset>
       </section>
+
+    {isModalOpen && (
+      <ModalDelete title="Cancelar inscripción" description="¿Estás seguro que deseas cancelar la inscripción a esta tutoría?"
+        isOpen={isModalOpen} onConfirm={handleCancelEnrollment}
+        onCancel={() => {
+          setIsModalOpen(false);
+          setEnrollmentToCancel(null);
+        }}
+      />
+    )}
+
+    {isModalDelete && (
+      <ModalDelete title="Eliminar Tutoria" description="¿Estás seguro que deseas eliminar esta tutoría?"
+        isOpen={isModalDelete} onConfirm={handleCancelEnrollment}
+        onCancel={() => {
+          setIsModalDelete(false);
+          setEnrollmentToCancel(null);
+        }}
+      />
+    )}
     </main>
   );
 };
 
 // Exporta el componente Home para usarlo en otras partes del proyecto
 export default Home;
-
-
-

@@ -19,37 +19,45 @@ const DataSection = ({ buttonSelected, searchTerm }) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user); // obtiene el usuario
   const rol = user?.userRol || "aprendiz"; //obtiene el rol con fallback
+  console.log(rol)
+useEffect(() => {
+  const currentPath = window.location.pathname;
 
-  useEffect(() => {
-    const currentPath = window.location.pathname;
+  // Si es administrador y está en la ruta raíz o en /inicio, redirigir a /admin/usuarios
+  if (rol === "administrador" && (currentPath === "/" || currentPath === "/inicio")) {
+    navigate("/admin/usuarios");
+    return;
+  }
 
-    switch (buttonSelected) {
-      case "Inicio":
-        navigate("/inicio");
-        break;
-      case "Tutorias":
-        if (!currentPath.startsWith("/tutorias/")) {
-          navigate("/tutorias");
-        }
-        break;
-      case "Foro":
-        navigate("/foro");
-        break;
-      case "Configuracion":
-        navigate("/perfil/configuracion");
-        break;
-
-      //Solo permite navegación si es admin
-      case "Estudiantes":
-        if (rol === "administrador") navigate("/admin/estudiantes");
-        break;
-      case "Solicitudes":
-        if (rol === "administrador") navigate("/admin/solicitudes");
-        break;
-      default:
-        break;
-    }
-  }, [buttonSelected, navigate, rol]); // Agregamos navigate como dependencia
+  switch (buttonSelected) {
+    case "Inicio":
+      navigate(rol === "administrador" ? "/admin/usuarios" : "/inicio");
+      break;
+    case "Tutorias":
+      if (!currentPath.startsWith("/tutorias/")) {
+        navigate("/tutorias");
+      }
+      break;
+    case "Foro":
+      navigate("/foro");
+      break;
+    case "Configuracion":
+      navigate("/perfil/configuracion");
+      break;
+    case "Usuarios":
+      if (rol === "administrador") {
+        navigate("/admin/usuarios");
+      }
+      break;
+    case "Solicitudes":
+      if (rol === "administrador") {
+        navigate("/admin/solicitudes");
+      }
+      break;
+    default:
+      break;
+  }
+}, [buttonSelected, navigate, rol]); // Agregamos navigate como dependencia
 
 
   return (
@@ -65,7 +73,7 @@ const DataSection = ({ buttonSelected, searchTerm }) => {
         {/* Rutas administrativas SOLO si es admin */}
         {rol === "administrador" && (
           <>
-            <Route path="/admin/estudiantes" element={<StudentsDashboard />} />
+            <Route path="/admin/usuarios" element={<StudentsDashboard />} />
             <Route path="/admin/solicitudes" element={<StudentRequest />} />
           </>
         )}
