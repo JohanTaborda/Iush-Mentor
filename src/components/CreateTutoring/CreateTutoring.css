@@ -77,14 +77,16 @@
 }
 
 .buttons--templateTutoring {
-    display: flex;
+    display: flex;    
     justify-content: space-between;
+    flex-direction: row-reverse;
     margin-top: 20px;
 }
 
 .button--Tutoring{
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 5px 10px;
+    height: 45px;
     cursor: pointer;
     font-family: "Outfit";
     border: none;
@@ -98,7 +100,6 @@
 #button--Submit {
     background-color: #275092;
     color: #fff;
-
 }
 
 #button--Cancel {

@@ -32,8 +32,9 @@
     background-color: #275092;
     color: white;
     border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 30px;
+    padding: 5px 10px;
+    height: 50px;
+    border-radius: 5px;
     font-size: 1rem;
     font-weight: 500;
     cursor: pointer;

@@ -117,17 +117,12 @@
   border-radius: 8px;
   background: rgb(220, 227, 235);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
   font-weight: bold;
   text-align: center;
   transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s;
 }
 
-/* Efecto hover para los botones */
-.school_btn:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+
 
 /* Texto de la escuela */
 .school_text {
@@ -240,12 +235,6 @@
 
 .expert_description {
   font-family: "Manrope";
-}
-
-/* Efecto hover para las tarjetas de expertos */
-.expert_card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Icono de expertos */

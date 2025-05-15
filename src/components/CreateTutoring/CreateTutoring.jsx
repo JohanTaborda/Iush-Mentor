@@ -213,12 +213,8 @@ const CreateTutoring = ({ closeWindow }) => {
                     </div>
 
                     <div className="buttons--templateTutoring">
-                        <button type="submit" className="button--Tutoring" id="button--Submit">
-                            Crear Tutoría
-                        </button>
-                        <button type="button" className="button--Tutoring" id="button--Cancel" onClick={() => closeWindow(false)}>
-                            Cancelar
-                        </button>
+                        <button type="submit" className="button--Tutoring" id="button--Submit">Crear Tutoría</button>
+                        <button type="button" className="button--Tutoring" id="button--Cancel" onClick={() => closeWindow(false)}>Cancelar</button>
                     </div>
                 </form>
 

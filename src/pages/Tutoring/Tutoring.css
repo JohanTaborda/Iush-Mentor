@@ -225,6 +225,7 @@
   padding: 16px 20px;
   border-bottom: 1px solid #e0e0e0;
   display: flex;
+  font-family: "Outfit";
   justify-content: space-between;
   align-items: center;
   position: sticky;
@@ -264,11 +265,12 @@
 
 /* Estilos para el botón de inscripción */
 .tutoring__enroll-btn {
-  background-color: #2c75fa;
+  background-color: #184ea5; /* Azul vibrante */
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 5px 10px;
+  height: 40px;
+  border-radius: 5px;
   cursor: pointer;
   margin-top: 12px;
   font-weight: 500;
@@ -305,6 +307,7 @@
   position: fixed;
   bottom: 30px;
   right: 30px;
+  font-family: "Outfit";
   display: flex;
   align-items: center;
   gap: 8px;

@@ -53,11 +53,11 @@ const Header = ({ setMainComponent }) => {
 // Componente reutilizable para los botones de escuelas
 const SchoolButton = ({ text, icon, schoolText }) => {
   return (
-    <button className="school_btn">
+    <div className="school_btn">
       {icon && <span className="school_icon">{icon}</span>}
       {schoolText && <span className="school_text">{schoolText}</span>}
       <span className="school_description">{text}</span>
-    </button>
+    </div>
   );
 };
 
