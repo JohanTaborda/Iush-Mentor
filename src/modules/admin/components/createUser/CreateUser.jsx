@@ -185,7 +185,7 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
           </div>
 
           <div className="form-buttons">
-            <button type="button" className="cancel-button" onClick={onClose}>Cancelar</button>
+            <button type="button" className="cancel-button" id='button--Cancel' onClick={onClose}>Cancelar</button>
             <button type="submit" className="save-button">Guardar Usuario</button>
           </div>
         </form>

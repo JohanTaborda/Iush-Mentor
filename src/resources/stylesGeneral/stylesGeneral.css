@@ -53,3 +53,24 @@
     transform: translate(-50%, -50%) translateY(100%);
     opacity: 0;
 }
+
+#button--Cancel{
+    background-color: #f2f2f2;
+    color: #333;
+    border: 1px solid #ddd;
+
+}
+
+#button--Cancel:hover{
+    background-color: #e6e6e6;
+}
+
+.loadingComponents{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Outfit";
+  font-size: 18px;
+  margin-top: 20px;
+}
