@@ -16,6 +16,7 @@
 }
 
 .request-header h1 {
+  font-family: "Outfit";
   font-size: 1.8rem;
   color: #2c3e50;
   margin: 0;
@@ -62,9 +63,14 @@
 
 .requests-table th {
   background-color: #275092;
+  font-family: "Outfit";
   color: white;
   font-weight: 600;
   white-space: nowrap;
+}
+
+.requests-table td{
+  font-family: "Manrope";
 }
 
 .requests-table tr:hover {
@@ -274,4 +280,14 @@ tr.estado-rechazado {
     padding: 5px 8px;
     font-size: 0.75rem;
   }
+}
+
+.loadingComponents{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Outfit";
+  font-size: 18px;
+  margin-top: 20px;
 }

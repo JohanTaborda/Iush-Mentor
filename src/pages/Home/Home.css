@@ -39,19 +39,22 @@
 .preset-btn {
   background-color: #184ea5;          /* Azul brillante (sobrescribe el color anterior) */
   color: white;                       /* Texto blanco */
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Outfit', sans-serif;
   border: none;
   font-size: medium;                  /* Tamaño de fuente medio */
-  padding: 0.5rem 1.3rem;             /* Altura y ancho del botón */
-  border-radius: 0.6rem;              /* Bordes redondeados */
+  padding: 5px 10px;
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
   cursor: pointer;                    /* Manito al pasar el mouse */
   align-self: flex-start;             /* Alinea el botón a la izquierda en contenedores flex */
   transition: background-color 0.3s ease; /* Transición suave al cambiar color */
 }
 
 .preset-btn:hover{ /* Efecto hover para el botón de registro */
-  transform: scale(1.02);
-  box-shadow: 0 0 10px 0 #000;
+  transform: scale(1.01);
+  background-color: #003d82;
+
 }
 
 .general-container {
@@ -65,11 +68,6 @@
     width: 100%;                      /* Ocupa todo el ancho del contenedor */
     box-sizing: border-box;          /* El padding se incluye dentro del ancho */
   }
-}
-
-/* Estilo al pasar el mouse por el botón */
-.preset-btn:hover {
-  background-color: #6091fa;         /* Azul más claro (hover) */
 }
 
 /* Estilo del contenedor del calendario */
@@ -168,37 +166,38 @@
 }
 
 .cancel-enrollment-btn {
-  background: white;
-  color: #e74c3c;
-  border: 1px solid #e74c3c;
-  border-radius: 4px;
+  background-color: #dc3545;
+  color: white;
+  border: 1px solid #dc3545;
+  border-radius: 5px;
+  font-family: "Outfit";
   padding: 5px 10px;
   cursor: pointer;
 }
 
-.cancel-enrollment-btn:hover  { background-color: #fff5f5; }
+.cancel-enrollment-btn:hover  {   background-color: #c82333; }
 
 .edit-enrollment-btn {
-  background: white;
-  color: #4285F4;
+  background: #4285F4;
+  color: #fff;
   border: 1px solid #4285F4;
   border-radius: 4px;
   padding: 5px 10px;
   cursor: pointer;
 }
 
-.edit-enrollment-btn:hover{background-color: #f4f8ff;}
+.edit-enrollment-btn:hover{background-color: rgb(100, 153, 238);}
 
 .view-enrollment-btn {
-  background: white;
-  color: #34A853;
+  background: #34A853;
   border: 1px solid #34A853;
+  color: #FFF;
   border-radius: 4px;
-  padding: 5px 10px;
+  padding: 5px 15px;
   cursor: pointer;
 }
 
-.view-enrollment-btn:hover{ background-color: #f5fcf6; }
+.view-enrollment-btn:hover{ background-color: #4ba162; }
 
 
 @media (max-width: 480px) {
@@ -207,7 +206,7 @@
 
 /* Estilos para los botones de las tutorías del tutor */
 .tutor-tutorial-footer {
-  padding: 10px 15px;
+  padding: 10px 5px;
   display: flex;
   justify-content: center;
   gap: 5px;
@@ -216,5 +215,6 @@
   margin-top: auto;
   text-align: center;
   font-size: 15px;
+  font-family: "Outfit";
 }
 

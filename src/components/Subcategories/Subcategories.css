@@ -55,8 +55,10 @@
   background-color: #184ea5; /* Azul vibrante */
   color: #fff; /* Texto blanco */
   border: none; /* Sin borde */
-  padding: 0.3rem 0.75rem; /* Espaciado interno */
-  border-radius: 0.4rem; /* Bordes redondeados */
+  padding: 5px 10px;
+  font-family: "Outfit";
+  height: 35px;
+  border-radius: 5px; /* Bordes redondeados */
   font-size: 0.95rem; /* Tamaño del texto */
   cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
   align-self: center; /* Centra el botón horizontalmente */
@@ -65,8 +67,8 @@
 
 /* Efecto visual al pasar el cursor sobre el botón */
 .subcategory-card__button:hover {
-  transform: scale(1.02); /* Aumenta ligeramente el tamaño */
-  box-shadow: 0 0 10px 0 #000; /* Sombra para resaltar el botón */
+  transform: scale(1.01); /* Aumenta ligeramente el tamaño */
+  box-shadow: 0 0 6px 0 #000; /* Sombra para resaltar el botón */
 }
 
 /* Estilos responsivos para pantallas pequeñas */

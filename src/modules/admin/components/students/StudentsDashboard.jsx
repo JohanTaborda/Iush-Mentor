@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './studentsDashboard.css'; 
 import CreateUser from '../createUser/CreateUser'; 
 import api from '../../../../services/Api/axiosConfig.js';
+import { BeatLoader } from 'react-spinners'; 
 
 import { FaEdit, FaTrash, FaSave, FaTimes, FaPlus } from 'react-icons/fa';
 
@@ -119,7 +120,10 @@ const StudentsDashboard = () => {
 
       <div className="table-container">
         {loading ? (
-          <p>Cargando usuarios...</p>
+          <div className='loadingComponents'>
+            Cargando Usuarios...
+            <BeatLoader color="#184ea5"/>
+          </div>
         ) : (
           <table className="students-table">
             <thead>

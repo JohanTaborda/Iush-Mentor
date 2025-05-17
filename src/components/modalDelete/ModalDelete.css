@@ -37,6 +37,7 @@
   margin: 0;
   color: #333;
   font-size: 1.5rem;
+  font-family: "Outfit";
 }
 
 .delete-dialog-close {
@@ -56,6 +57,7 @@
   padding: 20px;
   line-height: 1.5;
   color: #555;
+  font-family: "Manrope";
 }
 
 .delete-dialog-actions {
@@ -67,9 +69,8 @@
 }
 
 .delete-dialog-btn-secondary, .delete-dialog-btn-primary {
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -77,6 +78,7 @@
 .delete-dialog-btn-secondary {
   background-color: #f2f2f2;
   color: #333;
+  font-family: "Outfit";
   border: 1px solid #ddd;
 }
 
@@ -87,6 +89,7 @@
 .delete-dialog-btn-primary {
   background-color: #dc3545;
   color: white;
+  font-family: "Outfit";
   border: 1px solid #dc3545;
 }
 

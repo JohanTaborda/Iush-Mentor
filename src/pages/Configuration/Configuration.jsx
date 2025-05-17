@@ -468,7 +468,7 @@ const Configuration = () => {
                             />
                             {/* Botón para abrir el selector de archivos */}
                             <label htmlFor="imagen-perfil">
-                                <Button variant="contained" component="span">
+                                <Button variant="contained" className='buttonEditProfile' component="span">
                                     Subir Imagen
                                 </Button>
                             </label>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './StudenRequest.css';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import { BeatLoader } from 'react-spinners'; 
 
 const StudentRequest = () => {
   const [solicitudes, setSolicitudes] = useState([]);
@@ -153,7 +154,11 @@ const StudentRequest = () => {
 
       <div className="table-container">
         {isLoading ? (
-          <div>Cargando Solicitudes...</div>
+          <div className='loadingComponents'>
+            Cargando Solicitudes...
+            <BeatLoader color="#184ea5"/>
+          </div>
+          
         ) : (
             <table className="requests-table">
             <thead>

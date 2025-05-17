@@ -77,41 +77,36 @@
 }
 
 .buttons--templateTutoring {
-    display: flex;
+    display: flex;    
     justify-content: space-between;
+    flex-direction: row-reverse;
     margin-top: 20px;
 }
 
 .button--Tutoring{
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 5px 10px;
+    height: 45px;
     cursor: pointer;
     font-family: "Outfit";
     border: none;
 }
 
-.button--Tutoring:hover{
-    transform: scale(1.02);
-    box-shadow: 0px 0px 10px rgba(7, 7, 7, 0.2);
+#button--CancelTutoring{
+    background-color: #f2f2f2;
+    color: #333;
+    border: 1px solid #ddd;
+
+}
+
+#button--CancelTutoring:hover{
+    background-color: #e6e6e6;
 }
 
 #button--Submit {
     background-color: #275092;
     color: #fff;
-
 }
-
-#button--Cancel {
-    background-color: #fff;
-    border: 1px solid rgb(230, 225, 225);
-    color: #000;
-
-}
-
-.button--Cancel:hover {
-    background-color: #aaa;
-}
-
 
 @media screen and (max-width: 768px) { /* Estilos para pantallas pequeñas */
     #container__createTutoring { width: 90%;}

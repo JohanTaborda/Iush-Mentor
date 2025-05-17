@@ -33,7 +33,7 @@ const Logout = ({setVisWindowsLogout, setMainComponent}) => {
             <section  className="containerGeneralOverlay"id="containerGeneralLogout"> {/*Contenedor central, que almacena toda la información interactiva del componente. */}
                 <h1 className="Logout__title">¿Desea Cerrar Sesión?</h1>
                 <div className="logout__buttons">
-                    <button className="buttons--interactive" id="button--cancel" onClick={() => handleCloseWindow()}>Cancelar</button>
+                    <button className="buttons--interactive" id="button--Cancel" onClick={() => handleCloseWindow()}>Cancelar</button>
                     <Link to="/" > <button className="buttons--interactive" id="button--acept" onClick={() => handleCloseSesion()}>Aceptar</button></Link> 
                 </div>
             </section>
