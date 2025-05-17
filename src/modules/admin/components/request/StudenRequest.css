@@ -37,7 +37,7 @@
 
 .search-input:focus {
   outline: none;
-  border-color: #3498db;
+  border-color: #184ea5;
   box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.25);
 }
 
@@ -282,12 +282,3 @@ tr.estado-rechazado {
   }
 }
 
-.loadingComponents{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: "Outfit";
-  font-size: 18px;
-  margin-top: 20px;
-}

@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
 import "./Forum.css"; // Estilos personalizados para el componente Forum.
 import ForumTopic from "../../components/forumTopic/forumTopic.jsx";
-import { FaRegCommentAlt } from "react-icons/fa";
+import { FaRegCommentAlt, FaSearch } from "react-icons/fa";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
+import { FormControl, Select, MenuItem } from '@mui/material';
 const Forum = () => {
 
     // Variables.
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedProgram, setSelectedProgram] = useState('');
     const [postData, setPostData] = useState([
         {
             id: 1,
             title: "¿Cómo prepararse para una entrevista técnica?",
             author: "Carlos Mendez",
             avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+            program: "Talento Humano",
             date: "10/05/2025",
             likes: 24,
             likedByUser: false,
@@ -30,6 +34,7 @@ const Forum = () => {
             title: "Recursos para aprender React en 2025",
             author: "Ana Gómez",
             avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+            program: "Ing. Sistemas",
             date: "08/05/2025",
             likes: 35,
             likedByUser: false,
@@ -47,6 +52,7 @@ const Forum = () => {
             title: "Hackathon virtual este fin de semana",
             author: "Martín Soto",
             avatar: "https://randomuser.me/api/portraits/men/67.jpg",
+            program: "Tec. Sistemas",
             date: "11/05/2025",
             likes: 18,
             likedByUser: false,
@@ -60,6 +66,22 @@ const Forum = () => {
         }
     ]);
     
+    // Obtener lista única de programas para el filtro
+    const uniquePrograms = [...new Set(postData.map(post => post.program))];
+    
+    // Función para filtrar publicaciones
+    const filteredPosts = postData.filter(post => {
+        const matchesSearch = (
+            post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            post.author.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        
+        const matchesProgram = selectedProgram === '' || post.program === selectedProgram;
+        
+        return matchesSearch && matchesProgram;
+    });
+
     // Función para dar like a una publicación
     const handleLike = (postId) => {
         setPostData(postData.map(post => {
@@ -131,17 +153,44 @@ const Forum = () => {
             </div>
             
             <div className="forum-content">
+                <div className="filters-container">
+                    <div className="search-filter">
+                        <div className="search-input-container">
+                            <FaSearch className="search-icon" />
+                            <input type="text" placeholder="Buscar publicaciones..." value={searchQuery}onChange={(e) => setSearchQuery(e.target.value)}className="search-input"/>
+                        </div>
+                    </div>
+                    <div className="program-filter">
+                       <FormControl fullWidth size="small">
+                            <Select value={selectedProgram} onChange={(e) => setSelectedProgram(e.target.value)} displayEmpty
+                                sx={{  minWidth: '200px',height: '45px', backgroundColor: '#f5f5f5', borderRadius: '5px',
+                                    '& .MuiOutlinedInput-notchedOutline': {borderColor: '#e0e0e0'},
+                                    '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#184ea5'}
+                                }}
+                            >
+                                <MenuItem value="">Todos los programas</MenuItem>
+                                {uniquePrograms.map(program => (
+                                    <MenuItem key={program} value={program}>{program}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </div>
+                </div>
+                
                 <div className="posts-container">
                     <h2>Publicaciones</h2>
-                    {postData.length > 0 ? (
-                        postData.map(post => (
+                    {filteredPosts.length > 0 ? (
+                        filteredPosts.map(post => (
                             <div className="post-card" key={post.id}>
                                 <div className="post-header">
                                     <div className="post-author">
                                         <img src={post.avatar} alt={`Avatar de ${post.author}`} className="author-avatar" />
                                         <span>{post.author}</span>
                                     </div>
-                                    <span className="post-date">{post.date}</span>
+                                    <div style={{gap:"10px", display:"flex"}}>
+                                        <span className="post-date">{post.program} </span>
+                                        <span className="post-date">{post.date}</span>
+                                    </div>
                                 </div>
                                 <h3 className="post-title">{post.title}</h3>
                                 <p className="post-excerpt">{post.excerpt}</p>
@@ -181,7 +230,7 @@ const Forum = () => {
                             </div>
                         ))
                     ) : (
-                        <p className="no-posts">No hay publicaciones disponibles</p>
+                        <p className="no-posts">No hay publicaciones que coincidan con tu búsqueda</p>
                     )}
                 </div>
                 {isModalOpen && (
