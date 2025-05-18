@@ -19,7 +19,6 @@ const DataSection = ({ buttonSelected, searchTerm }) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user); // obtiene el usuario
   const rol = user?.userRol || "aprendiz"; //obtiene el rol con fallback
-  console.log(rol)
 useEffect(() => {
   const currentPath = window.location.pathname;
 

@@ -45,7 +45,6 @@ const Configuration = () => {
     });
 
     // Función para actualizar el perfil del usuario conexión con el backend
-    // Función para actualizar el perfil del usuario conexión con el backend
     const updateProfile = async () => {
         try {
             const response = await fetch(`http://localhost:3000/users/${dataUser.userId}`, {
@@ -172,13 +171,14 @@ const Configuration = () => {
 
     // Enviar solicitud de tutor
     const handleTutorSubmit = async (e) => {
+
             e.preventDefault();
                 console.log("Datos que se envían al backend:", {
                 reason: tutorData.reason,
                 subjects: tutorData.subjects,
                 semester: tutorData.semester,
                 userId: dataUser.userId
-                });
+            });
             try {
                 const response = await fetch('http://localhost:3000/tutor-requests', {
                 method: 'POST',
@@ -214,42 +214,42 @@ const Configuration = () => {
 
     // Enviar imagen de perfil
     const handleImageSubmit = async (e) => {
-  e.preventDefault();
+        e.preventDefault();
 
-  if (!profileImage) {
-    toast.error("Primero selecciona una imagen");
-    return;
-  }
+        if (!profileImage) {
+            toast.error("Primero selecciona una imagen");
+            return;
+        }
 
-  const formData = new FormData();
-  formData.append("profileImage", profileImage);
+        const formData = new FormData();
+        formData.append("profileImage", profileImage);
 
-  try {
-    const response = await fetch(`http://localhost:3000/users/${dataUser.userId}/profile-image`, {
-      method: "PUT",
-      body: formData
-    });
+        try {
+            const response = await fetch(`http://localhost:3000/users/${dataUser.userId}/profile-image`, {
+            method: "PUT",
+            body: formData
+            });
 
-    const result = await response.json();
+            const result = await response.json();
 
-    if (!response.ok) {
-      throw new Error(result.error || "Error al subir la imagen");
-    }
+            if (!response.ok) {
+            throw new Error(result.error || "Error al subir la imagen");
+            }
 
-    toast.success("Imagen de perfil actualizada");
+            toast.success("Imagen de perfil actualizada");
 
-    //Actualiza la imagen en pantalla
-    setImagen(`http://localhost:3000/uploads/${result.profileImage}`);
+            //Actualiza la imagen en pantalla
+            setImagen(`http://localhost:3000/uploads/${result.profileImage}`);
 
-    // Actualiza el store global para que persista tras recargar
-    useUserStore.setState({
-      user: { ...dataUser, profileImage: result.profileImage }
-    });
+            // Actualiza el store global para que persista tras recargar
+            useUserStore.setState({
+            user: { ...dataUser, profileImage: result.profileImage }
+            });
 
-  } catch (error) {
-    toast.error("Error: " + error.message);
-  }
-};
+        } catch (error) {
+            toast.error("Error: " + error.message);
+        }
+    };
 
     // Manejar cambio de imagen de perfil
     const handleImagenChange = (e) => {
@@ -426,16 +426,26 @@ const Configuration = () => {
                                 name="reason"
                                 onChange={handleTutorDataChange}
                                 label="¿Por qué quieres ser tutor?"
+                                inputProps={{ maxLength: 52 }}
                                 variant="outlined"
                                 required
                             />
-                            <TextField
-                                name="subjects"
-                                onChange={handleTutorDataChange}
-                                label="Materias que enseñarias (Separadas por comas)"
-                                variant="outlined"
-                                required
-                            />
+                            <FormControl variant="outlined" fullWidth required>
+                                <InputLabel id="program-focus-label">Programa de enfoque:</InputLabel>
+                                <Select
+                                    labelId="program-focus-label"
+                                    id="program-focus-select"
+                                    name="subjects"
+                                    onChange={handleTutorDataChange}
+                                    label="Programa de enfoque:"
+                                >
+                                    {programas.filter(programa => programa !== "Selecciona un programa").map((programa, index) => (
+                                        <MenuItem key={index} value={programa}>
+                                            {programa}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                             <TextField
                                 name='semester'
                                 onChange={handleTutorDataChange}
