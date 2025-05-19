@@ -18,7 +18,8 @@ const StudentsDashboard = () => {
   const [editFormData, setEditFormData] = useState({
     username: '',
     email: '',
-    userRol: ''
+    userRol: '',
+    program: ''
   });
 
   useEffect(() => {   // Efecto para cargar todos los usuarios al montar el componente
@@ -130,6 +131,7 @@ const StudentsDashboard = () => {
               <tr>
                 <th>Nombre Completo</th>
                 <th>Correo</th>
+                <th>Programa</th>
                 <th>Rol</th>
                 <th>Opciones</th>
               </tr>
@@ -150,6 +152,13 @@ const StudentsDashboard = () => {
                         <input type="email"  name="email" value={editFormData.email} onChange={handleEditFormChange} className="edit-input"/>
                       ) : (
                         estudiante.email
+                      )}
+                    </td>
+                                        <td>
+                      {editingId === estudiante.userId ? (
+                        <input type="text"  name="program" value={editFormData.program} onChange={handleEditFormChange} className="edit-input"/>
+                      ) : (
+                        estudiante.program || "Sin programa"
                       )}
                     </td>
                     <td>
@@ -175,10 +184,12 @@ const StudentsDashboard = () => {
                           </button>
                         </>
                       ) : (
-                        <>
-                          <button  className="action-buttonDashboard edit" onClick={() => handleEditClick(estudiante)}  title="Editar estudiante">  <FaEdit />  </button>
-                          <button  className="action-buttonDashboard delete" onClick={() => handleDeleteClick(estudiante.userId)} title="Eliminar estudiante"  > <FaTrash />  </button>
-                        </>
+                        estudiante.user_type !== "administrador" && (
+                          <>
+                            <button  className="action-buttonDashboard edit" onClick={() => handleEditClick(estudiante)}  title="Editar estudiante">  <FaEdit />  </button>
+                            <button  className="action-buttonDashboard delete" onClick={() => handleDeleteClick(estudiante.userId)} title="Eliminar estudiante"  > <FaTrash />  </button>
+                          </>
+                        )
                       )}
                     </td>
                   </tr>

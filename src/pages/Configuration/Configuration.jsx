@@ -426,7 +426,7 @@ const Configuration = () => {
                                 name="reason"
                                 onChange={handleTutorDataChange}
                                 label="¿Por qué quieres ser tutor?"
-                                inputProps={{ maxLength: 52 }}
+                                inputProps={{ maxLength: 100 }}
                                 variant="outlined"
                                 required
                             />

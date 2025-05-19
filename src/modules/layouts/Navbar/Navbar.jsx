@@ -11,7 +11,7 @@ import { IoMdHome, IoMdExit } from "react-icons/io";
 import { MdForum, MdAdminPanelSettings } from "react-icons/md";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { SiCodementor } from "react-icons/si";
-import { FaUsers, FaUserGraduate } from "react-icons/fa";
+import { FaUsers, FaUserGraduate, FaCalendarAlt } from "react-icons/fa";
 
 const Navbar = ({setButtonSelected, setMainComponent, rol}) => {
     const location = useLocation();
@@ -29,6 +29,7 @@ const Navbar = ({setButtonSelected, setMainComponent, rol}) => {
     const icon_Admin = () => <MdAdminPanelSettings className="sidebar__icons"/>
     const icon_Students = () => <FaUsers className="sidebar__icons"/>
     const icon_TutorRequests = () => <FaUserGraduate className="sidebar__icons"/>
+    const icon_Calendar = () => <FaCalendarAlt className="sidebar__icons"/>
     
     // Definimos botones según el rol
     let buttonSections = [];
@@ -42,6 +43,7 @@ const Navbar = ({setButtonSelected, setMainComponent, rol}) => {
         buttonSections = [ 
             { title: "Inicio", icon: icon_Home(), path: "/inicio" },
             { title: "Tutorias", icon: icon_Tutoring(), path: "/tutorias" },
+            { title: "Calendario", icon: icon_Calendar(), path: "/calendario" },
             { title: "Foro", icon: icon_Forum(), path: "/foro" },
             { title: "Danos tu opinión", icon: icon_Opinion() }
         ];

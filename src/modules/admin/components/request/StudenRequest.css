@@ -169,9 +169,8 @@ tr.estado-rechazado {
 }
 
 .status-text {
-  font-size: 0.85rem;
-  font-style: italic;
-  color: #7f8c8d;
+  display: flex;
+  justify-content: center;
 }
 
 /* Mensaje cuando no hay resultados */
@@ -206,6 +205,7 @@ tr.estado-rechazado {
 }
 
 .modal-title {
+  font-family: "Outfit";
   margin-top: 0;
   color: #2c3e50;
   font-size: 1.5rem;
@@ -213,6 +213,7 @@ tr.estado-rechazado {
 
 .modal-message {
   margin-bottom: 20px;
+  font-family: "Manrope";
   line-height: 1.5;
   color: #34495e;
 }
@@ -229,21 +230,23 @@ tr.estado-rechazado {
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s ease;
+  font-family: "Outfit";
 }
 
 .modal-button.cancel {
-  background-color: #95a5a6;
-  color: white;
+  background-color: #f2f2f2;
+  color: #333;
+  border: 1px solid #ddd;
   margin-right: 10px;
 }
 
 .modal-button.confirm {
-  background-color: #3498db;
+  background-color: #275092;
   color: white;
 }
 
 .modal-button:hover {
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 /* Responsive */
@@ -282,3 +285,55 @@ tr.estado-rechazado {
   }
 }
 
+/* Estilos para el mini modal */
+.text-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.text-modal-container {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.text-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.text-modal-header h3 {
+  margin: 0;
+  color: #000;
+  font-family: "Outfit";
+}
+
+.text-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+}
+
+.text-modal-content {
+  padding: 16px;
+  font-family: "Manrope";
+  font-size: 17px;
+  line-height: 1.5;
+}

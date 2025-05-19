@@ -43,8 +43,6 @@
 .sidebar__buttons{ /*Propiedades para el contenedor que almacena los botones del componente.*/
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     margin-top: 10px;
     height: 100% ;
 }
@@ -179,6 +177,12 @@
 
     .sidebarMinimized{width: 60px;} /*Ancho que toma el navbar cuando esta minimizado*/
 
+    .sidebar__buttons{ /*Propiedades para el contenedor que almacena los botones del componente.*/
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        height: 100% ;
+    }
 
     .sidebar--button { /*Propiedades para cada uno de los botones del componente.*/
         display: flex;
@@ -250,31 +254,31 @@
     .custom-arrowTooltip {color: #285194 !important; } /*Propiedades para la flecha del Tooltip, en este caso le cambiamos el color.*/
 
     /*media query, para estilos específicos cuando el ancho de la pantalla es de 768px o menor.*/
-@media screen and (max-width: 768px) {
-    .containerSidebar{ /*Propiedades para el bloque general del navbar*/
-        margin-top: auto;
-        background: linear-gradient(#030507,  #152f5a);
-        height: 60px;
-        width: 100vw;
+    @media screen and (max-width: 768px) {
+        .containerSidebar{ /*Propiedades para el bloque general del navbar*/
+            margin-top: auto;
+            background: linear-gradient(#030507,  #152f5a);
+            height: 60px;
+            width: 100vw;
+        }
+        
+        .sidebar__header{display: none; } /*Propiedades para el header del navbar, osea ocultamos este contenedor*/
+
+        .sidebar__elements { /*Propiedades para el bloque que almacena los elementos del navbar*/
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .sidebar__buttons { /*Propiedades para el contenedor que almacena los botones del componente.*/
+            flex-direction: row;
+            margin: 0;       
+        }
+
+        .sidebar--button__Text {display: none; } /* Oculta el texto de los botones*/
+
+        #sidebar--button__opinion{ margin-top: 0;  } /*Propiedades para el botón de 'Cuentos tu Opinión'. Lo alineamos a los demás botones.*/
     }
-
-    .sidebar__header{display: none; } /*Propiedades para el header del navbar, osea ocultamos este contenedor*/
-
-    .sidebar__elements { /*Propiedades para el bloque que almacena los elementos del navbar*/
-        width: 100%;
-        margin-top: 12px;
-    }
-
-    .sidebar__buttons { /*Propiedades para el contenedor que almacena los botones del componente.*/
-        flex-direction: row;
-        margin: 0;       
-    }
-
-    .sidebar--button__Text {display: none; } /* Oculta el texto de los botones*/
-
-    #sidebar--button__opinion{ margin-top: 0;  } /*Propiedades para el botón de 'Cuentos tu Opinión'. Lo alineamos a los demás botones.*/
-    }
-
+    
     .sidebar--button__Text {display: none; } /* Oculta el texto de los botones*/
 
     #sidebar--button__exit{ margin-top: 0;  } /*Propiedades para el botón de 'Cuentos tu Opinión'. Lo alineamos a los demás botones.*/
