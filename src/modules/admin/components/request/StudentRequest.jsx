@@ -47,15 +47,15 @@ const StudentRequest = () => {
 
     if (tipo === 'aprobar') {
       config.title = 'Aprobar Solicitud';
-      config.message = '¿Estás seguro de que deseas aprobar esta solicitud de tutoría?';
+      config.message = '¿Estás segur@ de que deseas aprobar esta solicitud de tutor?';
       config.action = handleApproveRequest;
     } else if (tipo === 'rechazar') {
       config.title = 'Rechazar Solicitud';
-      config.message = '¿Estás seguro de que deseas rechazar esta solicitud de tutoría?';
+      config.message = '¿Estás segur@ de que deseas rechazar esta solicitud de tutor?';
       config.action = handleRejectRequest;
     } else if (tipo === 'eliminar') {
       config.title = 'Eliminar Solicitud';
-      config.message = '¿Estás seguro de que deseas eliminar esta solicitud de tutoría?';
+      config.message = '¿Estás segur@ de que deseas eliminar esta solicitud de tutor?';
       config.action = handleDeleteRequest;
     }
 

@@ -3,7 +3,10 @@ import './studentsDashboard.css';
 import CreateUser from '../createUser/CreateUser'; 
 import api from '../../../../services/Api/axiosConfig.js';
 import { BeatLoader } from 'react-spinners'; 
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import ModalDelete from '../../../../components/modalDelete/ModalDelete';
 import { FaEdit, FaTrash, FaSave, FaTimes, FaPlus } from 'react-icons/fa';
 
 const StudentsDashboard = () => {
@@ -13,6 +16,11 @@ const StudentsDashboard = () => {
   const [busqueda, setBusqueda] = useState('');
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const navigate = useNavigate();
+  
+  // Estado para el modal de eliminación
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
   
   // Estado para el formulario de edición
   const [editFormData, setEditFormData] = useState({
@@ -22,7 +30,7 @@ const StudentsDashboard = () => {
     program: ''
   });
 
-  useEffect(() => {   // Efecto para cargar todos los usuarios al montar el componente
+  useEffect(() => {
     const fetchAllUsers = async () => {
       try {
         setLoading(true);
@@ -56,9 +64,34 @@ const StudentsDashboard = () => {
     setEditingId(null);
   };
 
-  // Manejador para eliminar un estudiante
-  const handleDeleteClick = async (estudianteId) => {
+  // Abrir modal de eliminación y guardar referencia al usuario
+  const handleDeleteClick = (estudianteId) => {
+    setUserToDelete(estudianteId);
+    setIsDeleteModalOpen(true);
+  };
 
+  // Función para confirmar la eliminación
+  const confirmDelete = async () => {
+    try {
+      const response = await api.delete(`/users/${userToDelete}`);
+      
+      if (response.status === 200) {
+        setUsersData(prevUsers => prevUsers.filter(user => user.id !== userToDelete));
+        toast.success("Usuario eliminado correctamente");
+      }
+    } catch (error) {
+      console.error("Error al eliminar el usuario:", error);
+      toast.error(`Error al eliminar el usuario: ${error.response?.data?.message || error.message}`);
+    } finally {
+      setIsDeleteModalOpen(false);
+      setUserToDelete(null);
+    }
+  };
+
+  // Función para cancelar la eliminación
+  const cancelDelete = () => {
+    setIsDeleteModalOpen(false);
+    setUserToDelete(null);
   };
 
   // Manejador para cambios en el formulario de edición
@@ -73,35 +106,32 @@ const StudentsDashboard = () => {
 
   // Manejador para guardar los cambios
   const handleSaveClick = async (estudianteId) => {
-
+    // Implementación pendiente
   };
   
   // Manejador para crear un nuevo usuario
   const handleCreateUser = async (userData) => {
-  try {
-    const response = await fetch('http://localhost:3000/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData)
-    });
+    try {
+      const response = await api.post('/users', userData);
 
-    if (!response.ok) {
-      const error = await response.json();
-      alert(`Error: ${error.error}`);
-      return;
-    }
-
-    const newUser = await response.json();
-
-    // Aquí deberías agregarlo al estado si lo necesitas
-    alert(newUser.message || "Usuario creado correctamente");
-
-    setIsCreateModalOpen(false);
-  } catch (error) {
-    console.error("Error en la petición:", error);
-    alert("Error al crear el usuario");
-  }
-};
+      if (response.status === 201 || response.status === 200) {
+        // Obtener el usuario creado desde la respuesta
+        const newUser = response.data;
+        
+        // Actualizar el estado local añadiendo el nuevo usuario
+        setUsersData(prevUsers => [...prevUsers, newUser]);
+        
+        // Mostrar notificación de éxito
+        toast.success("Usuario creado correctamente");
+        
+        // Cerrar el modal
+        setIsCreateModalOpen(false);
+      }
+    } catch (error) {
+      console.error("Error en la petición:", error);
+      toast.error(`Error al crear el usuario: ${error.response?.data?.message || error.message}`);
+    } 
+  };
 
   // Filtrar usuarios según la búsqueda
   const usuariosFiltrados = usersData.filter(usuario => 
@@ -139,32 +169,31 @@ const StudentsDashboard = () => {
             <tbody className='ejemplo'>
               {usuariosFiltrados.length > 0 ? (
                 usuariosFiltrados.map(estudiante => (
-                  <tr key={estudiante.userId}>
+                  <tr key={estudiante.id}>
                     <td>
-                      {editingId === estudiante.userId ? (
+                      {editingId === estudiante.id ? (
                         <input type="text" name="username" value={editFormData.username} onChange={handleEditFormChange} className="edit-input"  />
                       ) : (
                         estudiante.username
                       )}
                     </td>
                     <td>
-                      {editingId === estudiante.userId ? (
+                      {editingId === estudiante.id ? (
                         <input type="email"  name="email" value={editFormData.email} onChange={handleEditFormChange} className="edit-input"/>
                       ) : (
                         estudiante.email
                       )}
                     </td>
-                                        <td>
-                      {editingId === estudiante.userId ? (
+                    <td>
+                      {editingId === estudiante.id ? (
                         <input type="text"  name="program" value={editFormData.program} onChange={handleEditFormChange} className="edit-input"/>
                       ) : (
                         estudiante.program || "Sin programa"
                       )}
                     </td>
                     <td>
-                      {editingId === estudiante.userId ? (
-                        <select  name="userRol" value={editFormData.user_type} onChange={handleEditFormChange} className="edit-input"
-                        >
+                      {editingId === estudiante.id ? (
+                        <select  name="userRol" value={editFormData.user_type} onChange={handleEditFormChange} className="edit-input">
                           <option value="estudiante">Aprendiz</option>
                           <option value="tutor">Tutor</option>
                           <option value="administrador">Administrador</option>
@@ -174,20 +203,24 @@ const StudentsDashboard = () => {
                       )}
                     </td>
                     <td className="options-cell">
-                      {editingId === estudiante.userId ? (
+                      {editingId === estudiante.id ? (
                         <>
-                          <button className="action-buttonDashboard save"onClick={() => handleSaveClick(estudiante.userId)} title="Guardar cambios">
+                          <button className="action-buttonDashboard save" onClick={() => handleSaveClick(estudiante.id)} title="Guardar cambios">
                             <FaSave />
                           </button>
-                          <button  className="action-buttonDashboard cancel" onClick={handleCancelClick} title="Cancelar edición"> 
+                          <button className="action-buttonDashboard cancel" onClick={handleCancelClick} title="Cancelar edición"> 
                             <FaTimes /> 
                           </button>
                         </>
                       ) : (
                         estudiante.user_type !== "administrador" && (
                           <>
-                            <button  className="action-buttonDashboard edit" onClick={() => handleEditClick(estudiante)}  title="Editar estudiante">  <FaEdit />  </button>
-                            <button  className="action-buttonDashboard delete" onClick={() => handleDeleteClick(estudiante.userId)} title="Eliminar estudiante"  > <FaTrash />  </button>
+                            <button className="action-buttonDashboard edit" onClick={() => handleEditClick(estudiante)} title="Editar estudiante">
+                              <FaEdit />
+                            </button>
+                            <button className="action-buttonDashboard delete" onClick={() => handleDeleteClick(estudiante.id)} title="Eliminar estudiante">
+                              <FaTrash />
+                            </button>
                           </>
                         )
                       )}
@@ -196,16 +229,22 @@ const StudentsDashboard = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="no-results"> No se encontraron usuarios con esa búsqueda</td>
+                  <td colSpan="5" className="no-results">No se encontraron usuarios con esa búsqueda</td>
                 </tr>
               )}
             </tbody>
           </table>
         )}
       </div>
-      
+
+      {/* Modal de confirmación para eliminar usuario */}
+      <ModalDelete isOpen={isDeleteModalOpen}title="Eliminar Usuario" description="¿Estás seguro que deseas eliminar este usuario? Esta acción no se puede deshacer." 
+        onConfirm={confirmDelete} onCancel={cancelDelete}/>
+
+      <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick rtl={false} pauseOnFocusLoss draggable  pauseOnHover/>
+
       {/* Botón flotante para agregar nuevo usuario */}
-      <button className="floating-buttonAdmin" onClick={() => setIsCreateModalOpen(true)} title="Crear nuevo usuario"> <FaPlus /> </button>
+      <button className="floating-buttonAdmin" onClick={() => setIsCreateModalOpen(true)} title="Crear nuevo usuario"><FaPlus /></button>
       
       {/* Modal de creación de usuario */}
       <CreateUser 
