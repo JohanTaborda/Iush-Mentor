@@ -7,7 +7,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import ModalDelete from '../../../../components/modalDelete/ModalDelete';
-import { FaEdit, FaTrash, FaSave, FaTimes, FaPlus } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaSave, FaTimes, FaPlus } from 'react-icons/fa'
+import EditUser from '../editUser/EditUser';
+;
 
 const StudentsDashboard = () => {
   // Estado para almacenar la lista de todos los usuarios
@@ -16,6 +18,8 @@ const StudentsDashboard = () => {
   const [busqueda, setBusqueda] = useState('');
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [userToEdit, setUserToEdit] = useState(null);
   const navigate = useNavigate();
   
   // Estado para el modal de eliminación
@@ -29,6 +33,7 @@ const StudentsDashboard = () => {
     userRol: '',
     program: ''
   });
+  
 
   useEffect(() => {
     const fetchAllUsers = async () => {
@@ -48,16 +53,10 @@ const StudentsDashboard = () => {
 
   // Manejador para iniciar la edición de un estudiante
   const handleEditClick = (estudiante) => {
-    /*setEditingId(estudiante.userId);
-      
-      // Configuramos los valores del formulario con los datos del usuario
-      setEditFormData({
-        username: estudiante.username,
-        email: estudiante.email,
-        userRol: estudiante.userRol
-      });
-    */
+    setUserToEdit(estudiante);
+    setIsEditModalOpen(true);
   };
+
 
   // Manejador para cancelar la edición
   const handleCancelClick = () => {
@@ -105,9 +104,46 @@ const StudentsDashboard = () => {
   };
 
   // Manejador para guardar los cambios
-  const handleSaveClick = async (estudianteId) => {
-    // Implementación pendiente
-  };
+// Manejador para guardar los cambios
+const handleSaveClick = async (userId, userData) => {
+  try {
+    console.log("Datos a enviar:", userData); // Para depuración
+    
+    const response = await fetch(`http://localhost:3000/users/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: userData.username,
+        email: userData.email,
+        program: userData.program,
+        user_type: userData.user_type
+      })
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Error en la actualización");
+    }
+
+    const updatedUser = await response.json();
+    
+    // Actualizar la lista de usuarios con los datos actualizados
+    setUsersData(prevUsers => 
+      prevUsers.map(user => 
+        user.id === userId ? { ...user, ...updatedUser } : user
+      )
+    );
+    
+    toast.success("Usuario actualizado correctamente");
+    setIsEditModalOpen(false);
+    setUserToEdit(null);
+  } catch (error) {
+    console.error("Error al actualizar el usuario:", error);
+    toast.error(`Error al actualizar el usuario: ${error.message}`);
+  }
+};
   
   // Manejador para crear un nuevo usuario
   const handleCreateUser = async (userData) => {
@@ -194,7 +230,7 @@ const StudentsDashboard = () => {
                     <td>
                       {editingId === estudiante.id ? (
                         <select  name="userRol" value={editFormData.user_type} onChange={handleEditFormChange} className="edit-input">
-                          <option value="estudiante">Aprendiz</option>
+                          <option value="aprendiz">Aprendiz</option>
                           <option value="tutor">Tutor</option>
                           <option value="administrador">Administrador</option>
                         </select>
@@ -236,6 +272,13 @@ const StudentsDashboard = () => {
           </table>
         )}
       </div>
+
+      <EditUser 
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        onSave={handleSaveClick}
+        userData={userToEdit}
+      />
 
       {/* Modal de confirmación para eliminar usuario */}
       <ModalDelete isOpen={isDeleteModalOpen}title="Eliminar Usuario" description="¿Estás seguro que deseas eliminar este usuario? Esta acción no se puede deshacer." 

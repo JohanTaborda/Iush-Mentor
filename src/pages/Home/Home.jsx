@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalDelete from "../../components/modalDelete/ModalDelete.jsx"
 import { BeatLoader } from 'react-spinners'; 
+import CreateTutoring from "../../components/CreateTutoring/CreateTutoring.jsx"; // Importar el componente de creación
 
 const Home = () => {
   // Estado para guardar la fecha seleccionada en el calendario
@@ -20,6 +21,9 @@ const Home = () => {
   const [isModalDelete, setIsModalDelete] = useState(false);
   const [enrollmentToCancel, setEnrollmentToCancel] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  // Estado para el modal de creación/edición
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [tutoringToEdit, setTutoringToEdit] = useState(null);
 
   const tutorTutorings = dataTutoring.filter( tut => tut.tutor?.username === dataUser?.username);
   
@@ -46,63 +50,108 @@ const Home = () => {
 
   //Tutorias inscritas como estudiante
   useEffect(() => {
-  const fetchEnrolledTutorings = async () => {
+    const fetchEnrolledTutorings = async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/enrollments/student/${dataUser.userId}`);
+        const data = await res.json();
+        if (res.ok) {
+          setEnrolledTutorings(data);
+        }
+      } catch (error) {
+        console.error("Error al cargar tutorías inscritas:", error);
+      }
+    };
+
+    if (dataUser.userRol === "aprendiz") {
+      fetchEnrolledTutorings();
+    }
+  }, [dataUser]);
+
+  // Función para abrir modal de creación/edición
+  const openEditModal = (tutoring) => {
+    setTutoringToEdit(tutoring);
+    setIsCreateModalOpen(true);
+  };
+
+  // Función para cerrar modal de creación/edición
+  const closeCreateModal = () => {
+    setIsCreateModalOpen(false);
+    setTutoringToEdit(null);
+  };
+
+  // Función para abrir el modal de confirmación
+  const openCancelModal = (enrollmentId) => {
+    setEnrollmentToCancel(enrollmentId);
+    setIsModalOpen(true);
+  };
+
+  const openDeleteModal = (enrollmentId) => {
+    setEnrollmentToCancel(enrollmentId);
+    setIsModalDelete(true);
+  }
+
+  // Función para eliminar tutoría como tutor
+  const handleDeleteTutoring = async () => {
+    if (!enrollmentToCancel) return;
+
     try {
-      const res = await fetch(`http://localhost:3000/enrollments/student/${dataUser.userId}`);
+      setIsLoading(true);
+      const res = await fetch(`http://localhost:3000/tutoring/${enrollmentToCancel}`, {
+        method: "DELETE"
+      });
       const data = await res.json();
+
       if (res.ok) {
-        setEnrolledTutorings(data);
+        toast.success("Tutoría eliminada correctamente");
+        setDataTutoring(prev => prev.filter(tut => tut.id !== enrollmentToCancel));
+        setIsModalDelete(false);
+        setEnrollmentToCancel(null);
+      } else {
+        toast.error(data.error || "No se pudo eliminar la tutoría");
       }
     } catch (error) {
-      console.error("Error al cargar tutorías inscritas:", error);
+      console.error("Error al eliminar tutoría:", error);
+      toast.error("Error al conectar con el servidor.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  if (dataUser.userRol === "aprendiz") {
-    fetchEnrolledTutorings();
-  }
-}, [dataUser]);
+  // Función para cancelar tutoría inscrito como estudiante
+  const handleCancelEnrollment = async () => {
+    if (!enrollmentToCancel) return;
 
-// Función para abrir el modal de confirmación
-const openCancelModal = (enrollmentId) => {
-  setEnrollmentToCancel(enrollmentId);
-  setIsModalOpen(true);
-};
+    try {
+      const res = await fetch(`http://localhost:3000/enrollments/${enrollmentToCancel}`, {
+        method: "DELETE"
+      });
+      const data = await res.json();
 
-const openDeleteModal = (enrollmentId) => {
-  setEnrollmentToCancel(enrollmentId);
-  setIsModalDelete(true);
-}
-// Función para cancelar tutoría inscrito como estudiante
-const handleCancelEnrollment = async () => {
-  if (!enrollmentToCancel) return;
-
-  try {
-    const res = await fetch(`http://localhost:3000/enrollments/${enrollmentToCancel}`, {
-      method: "DELETE"
-    });
-    const data = await res.json();
-
-    if (res.ok) {
-      toast.success("Inscripción cancelada");
-      setEnrolledTutorings(prev => prev.filter(en => en.id !== enrollmentToCancel));
-      setIsModalOpen(false);
-      setEnrollmentToCancel(null);
-    } else {
-      toast.error(data.error || "No se pudo cancelar la inscripción");
+      if (res.ok) {
+        toast.success("Inscripción cancelada");
+        setEnrolledTutorings(prev => prev.filter(en => en.id !== enrollmentToCancel));
+        setIsModalOpen(false);
+        setEnrollmentToCancel(null);
+      } else {
+        toast.error(data.error || "No se pudo cancelar la inscripción");
+      }
+    } catch (error) {
+      console.error("Error al cancelar inscripción:", error);
+      toast.error("Error al conectar con el servidor.");
     }
-  } catch (error) {
-    console.error("Error al cancelar inscripción:", error);
-    toast.error("Error al conectar con el servidor.");
-  }
-};
+  };
 
+  // Función para actualizar la lista de tutorías después de editar
+  const handleTutoringUpdated = (updatedTutoring) => {
+    setDataTutoring(prev => prev.map(tut => 
+      tut.id === updatedTutoring.id ? updatedTutoring : tut
+    ));
+  };
 
-return (
+  return (
     <main>
       <section className="general-container" >
         {/* Contenedor de tutorías a dirigir como tutor */}
-                {/* Contenedor de tutorías a dirigir como tutor */}
         <fieldset className="preset-container" style={{display: `${!rol ? "block" : "none"}`}}>
           <div>
             <legend className="tittle-container">Tutorías a dirigir como tutor</legend>
@@ -140,7 +189,12 @@ return (
                         </div>
                       </div>
                     <div className="tutor-tutorial-footer">
-                      <button className="edit-enrollment-btn" onClick={() => {/* lógica para editar */}}>Editar</button>
+                      <button 
+                        className="edit-enrollment-btn" 
+                        onClick={() => openEditModal(tutoring)}
+                      >
+                        Editar
+                      </button>
                       <button className="cancel-enrollment-btn" onClick={() => openDeleteModal(tutoring.id)}>Eliminar</button>
                       <button className="view-enrollment-btn" onClick={() => {/* lógica para ver estudiantes */}}>Ver Estudiantes</button>
                     </div>
@@ -211,25 +265,28 @@ return (
 
       </section>
 
-    {isModalOpen && (
-      <ModalDelete title="Cancelar inscripción" description="¿Estás seguro que deseas cancelar la inscripción a esta tutoría?"
-        isOpen={isModalOpen} onConfirm={handleCancelEnrollment}
-        onCancel={() => {
-          setIsModalOpen(false);
-          setEnrollmentToCancel(null);
-        }}
-      />
-    )}
+      {/* Modal para eliminar tutoría */}
+      {isModalDelete && (
+        <ModalDelete 
+          title="Eliminar Tutoría" 
+          description="¿Estás seguro que deseas eliminar esta tutoría? Esta acción no se puede deshacer."
+          isOpen={isModalDelete} 
+          onConfirm={handleDeleteTutoring}
+          onCancel={() => {
+            setIsModalDelete(false);
+            setEnrollmentToCancel(null);
+          }}
+        />
+      )}
 
-    {isModalDelete && (
-      <ModalDelete title="Eliminar Tutoria" description="¿Estás seguro que deseas eliminar esta tutoría?"
-        isOpen={isModalDelete} onConfirm={handleCancelEnrollment}
-        onCancel={() => {
-          setIsModalDelete(false);
-          setEnrollmentToCancel(null);
-        }}
-      />
-    )}
+      {/* Modal para crear/editar tutoría */}
+      {isCreateModalOpen && (
+        <CreateTutoring 
+          closeWindow={closeCreateModal} 
+          tutoringToEdit={tutoringToEdit}
+          onTutoringUpdated={handleTutoringUpdated}
+        />
+      )}
     </main>
   );
 };
