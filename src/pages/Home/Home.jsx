@@ -1,7 +1,6 @@
 import React, {useState, useEffect, use} from "react";// Importa React (necesario para componentes JSX)
 import "./Home.css";// Importa los estilos específicos de este componente
 import { useNavigate } from 'react-router-dom';// Importa el hook useNavigate de react-router-dom 
-import Calendar from 'react-calendar';// Importa el componente de calendario
 import 'react-calendar/dist/Calendar.css';// Importa los estilos por defecto del calendario
 import {useUserStore, useMentorStore} from "../../stores/Store"
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,7 +11,7 @@ import { BeatLoader } from 'react-spinners';
 const Home = () => {
   // Estado para guardar la fecha seleccionada en el calendario
   const [date, setDate] = useState(new Date());
-  const[dataUser, setDataUser] = useState(useUserStore(state => state.user))
+  const [dataUser, setDataUser] = useState(useUserStore(state => state.user))
   const [dataTutoring, setDataTutoring] = useState(useMentorStore(value => value.tutoringSessions))
   const [rol, setRol] = useState(dataUser.userRol !== "tutor")
   const [enrolledTutorings, setEnrolledTutorings] = useState([]);
@@ -210,13 +209,6 @@ return (
           
         </fieldset>
 
-        {/* Contenedor del calendario de tutorías */}
-        <fieldset className="calendar-container">
-          <legend className="tittle-calendar">Calendario de Tutorías:</legend>
-
-          {/* Componente de calendario con fecha seleccionada y actualizable */}
-          <Calendar onChange={setDate} value={date} />
-        </fieldset>
       </section>
 
     {isModalOpen && (

@@ -8,6 +8,7 @@ import Tutoring from "../../../../../pages/Tutoring/Tutoring.jsx";
 import Forum from "../../../../../pages/Forum/Forum.jsx";
 import Home from "../../../../../pages/Home/Home.jsx";
 import Configuration from "../../../../../pages/Configuration/Configuration.jsx";
+import Calendar from "../../../../../pages/Calendar/Calendar.jsx";
 
 // Importar componentes administrativos
 import StudentsDashboard from "../../../../admin/components/students/studentsDashboard.jsx";
@@ -19,7 +20,6 @@ const DataSection = ({ buttonSelected, searchTerm }) => {
   const navigate = useNavigate();
   const user = useUserStore((state) => state.user); // obtiene el usuario
   const rol = user?.userRol || "aprendiz"; //obtiene el rol con fallback
-  console.log(rol)
 useEffect(() => {
   const currentPath = window.location.pathname;
 
@@ -40,6 +40,9 @@ useEffect(() => {
       break;
     case "Foro":
       navigate("/foro");
+      break;
+    case "Calendario":
+      navigate("/calendario");
       break;
     case "Configuracion":
       navigate("/perfil/configuracion");
@@ -68,6 +71,7 @@ useEffect(() => {
         <Route path="/tutorias" element={<Tutoring searchTerm={searchTerm} />} />
         <Route path="/tutorias/:subschool" element={<Tutoring searchTerm={searchTerm} />} />
         <Route path="/foro" element={<Forum />} />
+        <Route path="/calendario" element={<Calendar />} />
         <Route path="/perfil/configuracion" element={<Configuration />} />
 
         {/* Rutas administrativas SOLO si es admin */}

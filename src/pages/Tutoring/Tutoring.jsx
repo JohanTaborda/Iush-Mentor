@@ -87,11 +87,11 @@ const SubschoolCarousel = ({ title, data, onCardClick }) => {
   );
 };
 
-// VISTA PRINCIPAL DEL MODAL DE LAS TUTORIAS CREADAS.
 const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
   const navigate = useNavigate(); // Importamos useNavigate en este componente
   const [enrolledTutorings, setEnrolledTutorings] = useState({}); // Estado para controlar inscripciones
   const [isLoading, setIsLoading] = useState(true); // Estado para controlar la carga de datos
+  const [searchQuery, setSearchQuery] = useState(''); // Estado para la búsqueda
 
   // Verificar inscripciones existentes cuando se abre el modal
   useEffect(() => {
@@ -120,6 +120,13 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
       checkEnrollments();
     }
   }, [isOpen, userData, tutorings]);
+
+  useEffect(() => {
+    // Resetear la búsqueda cuando se abre el modal
+    if (isOpen) {
+      setSearchQuery('');
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -159,6 +166,23 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
     }
   };
 
+  // Normaliza texto eliminando tildes y convirtiendo a minúscula
+  const normalizeText = (text) => {
+    if (!text) return '';
+    return text.toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  };
+
+  // Filtrar tutorías según la búsqueda
+  const filteredTutorings = tutorings.filter(tut => {
+    const searchLower = normalizeText(searchQuery);
+    return (
+      normalizeText(tut.title).includes(searchLower) ||
+      normalizeText(tut.description).includes(searchLower) ||
+      normalizeText(tut.tutor?.username).includes(searchLower) ||
+      normalizeText(tut.modality).includes(searchLower)
+    );
+  });
+
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content">
@@ -168,11 +192,23 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
             <IoMdClose size={24} />
           </button>
         </div>
+        
+        {/* Campo de búsqueda */}
+        <div className="modal-search">
+          <input
+            type="text"
+            placeholder="Buscar por título, descripción o tutor..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="tutoring__search-input"
+          />
+        </div>
+        
         <div className="modal-body">
           {isLoading ? (
             <p>Cargando tutorías...</p>
-          ) : tutorings.length > 0 ? (
-            tutorings.map((tut) => (
+          ) : filteredTutorings.length > 0 ? (
+            filteredTutorings.map((tut) => (
               <div key={tut.id} className="tutoring__card-result">
                 <h3>{tut.title}</h3>
                 <p>{tut.description}</p>
@@ -194,7 +230,7 @@ const TutoringModal = ({ isOpen, onClose, subschool, tutorings, userData }) => {
               </div>
             ))
           ) : (
-            <p>No hay tutorías para esta subescuela.</p>
+            <p>No se encontraron tutorías con tu búsqueda.</p>
           )}
         </div>
       </div>
