@@ -279,6 +279,19 @@ const Home = () => {
         />
       )}
 
+      {isModalOpen && (
+        <ModalDelete 
+          title="Cancelar Inscripción" 
+          description="¿Estás seguro que deseas cancelar tu inscripción a esta tutoría? Esta acción no se puede deshacer."
+          isOpen={isModalOpen} 
+          onConfirm={handleCancelEnrollment}
+          onCancel={() => {
+            setIsModalOpen(false);
+            setEnrollmentToCancel(null);
+          }}
+        />
+      )}
+
       {/* Modal para crear/editar tutoría */}
       {isCreateModalOpen && (
         <CreateTutoring 
