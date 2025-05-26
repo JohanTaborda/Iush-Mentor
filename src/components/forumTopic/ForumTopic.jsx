@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react";
 import "./ForumTopic.css";
-import { useForm } from "react-hook-form"; // Manejo de formularios
+import { useForm } from "react-hook-form"; 
+import { useUserStore } from "../../stores/Store";
+import axios from "axios";
 
+//Componente principal Foro
 const ForumTopic = ({onClose}) => {
+    const { user } = useUserStore();
+    const userId = user?.userId; 
+    const userProgram = user?.program;
     const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [fileError, setFileError] = useState("");
@@ -46,11 +52,22 @@ const ForumTopic = ({onClose}) => {
         setValue('files', updatedFiles);
     };
 
-    const onSubmit = async (formData) => { //En esta función se mandan los valores al backend de los datos registrados. 
-        console.log(formData)
-        onClose(false)
-    };
+    const onSubmit = async (formData) => {
+  try {
+    const response = await axios.post("http://localhost:3000/forum", {
+      id_user: userId,
+      title: formData.title,
+      excerpt: formData.description.slice(0, 150),
+      content: formData.description,
+      program: userProgram
+    });
 
+    console.log("Publicación creada:", response.data);
+    onClose(false); // Cierra el modal
+  } catch (error) {
+    console.error("Error al crear publicación:", error);
+  }
+};
     return(
         <div className="overlayGeneral" >
             <div className="containerGeneralOverlay" id="container__createTutoring">
