@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react"; //Importamos los hooks
+import React, { useState, useEffect } from "react"; 
 import "./Register.css";
-import logo from "../../resources/images/logoAplication/Logo-IushMentor.png"; //Importamos el logo del registro. 
-import api from '../../services/Api/axiosConfig.js'; // Importamos la configuración de Axios para realizar solicitudes HTTP
+import logo from "../../resources/images/logoAplication/Logo-IushMentor.png";  
+import api from '../../services/Api/axiosConfig.js'; 
 import { BeatLoader } from "react-spinners";
-import { IoIosClose } from "react-icons/io"; //Importamos el icono para cerrar el registro.
-import { Link } from "react-router-dom"; //Hacemos uso del link para las rutas.
-import { useForm } from "react-hook-form"; //Utilizamos useForm, para el formulario de registro.
-
-import { ToastContainer, toast } from "react-toastify"; //Hacemos uso de toastify para las fichas con mensajes importantes.
-import "react-toastify/dist/ReactToastify.css"; //Importamos los estilos para las fichas
-
-import { useNavigate } from "react-router-dom"; //Importamos el hook useNavigate para redirigir al usuario a la página de inicio de sesión después de registrarse.
+import { IoIosClose } from "react-icons/io"; 
+import { Link } from "react-router-dom"; 
+import { useForm } from "react-hook-form"; 
+import { ToastContainer, toast } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css"; 
+import { useNavigate } from "react-router-dom"; 
 
 //Recibimos mediante props el estado de la ventana de registro y el estado de la ventana de autenticación.
 const Register = ({setVisAuth, setVisRegister}) => {
@@ -70,7 +68,7 @@ const Register = ({setVisAuth, setVisRegister}) => {
         if (errors.program?.type === "required") toast.error("El programa es obligatorio.");
     }, [errors]);
       
-    const icon_close = () => <IoIosClose className="closeRegister" color="#000" onClick={() => setVisAuth(false)} style={{ display: validate ? "none" : "block" }}  />; //Icono para cerrar el registro.
+    const icon_close = () => <IoIosClose className="closeRegister" color="#000" onClick={() => setVisAuth(false)} style={{ display: validate ? "none" : "block" }}  />; 
     
     const programas = [ "Selecciona un programa", "Administración de empresas", "Comunicación Organizacional", "Contaduría Pública", "Derecho",
         "Mercadeo", "Negocios Internacionales", "Tecnología en gestión del talento humano", "Tecnología en gestión empresarial", "Tecnología en Gestión de Mercadeo y Ventas",

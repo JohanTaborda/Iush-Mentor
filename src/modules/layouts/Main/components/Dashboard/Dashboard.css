@@ -1,12 +1,12 @@
-#WorkSpaceGeneralStyles{ /*Bloque que almacena los componentes hijos.*/
-  display: flex; /* Usamos flexbox para organizar elementos horizontalmente */
-  height: 100vh; /* Ocupa toda la altura de la ventana */
-  overflow: hidden; /* Evita scrolls inesperados */
+#WorkSpaceGeneralStyles{ 
+  display: flex; 
+  height: 100vh; 
+  overflow: hidden; 
 }
 
 /*media query, para estilos específicos cuando el ancho de la pantalla es de 768px o menor.*/
 @media screen and (max-width: 768px) {
-  #WorkSpaceGeneralStyles{ /*Bloque que almacena los componentes hijos.*/
-    flex-direction: column; /*Le cambiamos la dirección al contenido, ya no se muestra uno al lado del otro, si no, uno encima del otro.*/
+  #WorkSpaceGeneralStyles{ 
+    flex-direction: column; 
   }
 }

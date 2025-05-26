@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from "react";
-import "./CreateTutoring.css"; // Estilos personalizados
-import { ToastContainer, toast } from "react-toastify"; // Para notificaciones
+import "./CreateTutoring.css"; 
+import { ToastContainer, toast } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css";
-import { useForm } from "react-hook-form"; // Manejo de formularios
-import {useMentorStore, useUserStore} from "../../stores/Store"; // Estado global con Zustand
-import {useNavigate } from "react-router-dom"; // Navigate redirecciona automáticamente.
+import { useForm } from "react-hook-form"; 
+import {useMentorStore, useUserStore} from "../../stores/Store"; 
+import {useNavigate } from "react-router-dom"; 
 
-const CreateTutoring = ({ closeWindow }) => {
+const CreateTutoring = ({ closeWindow, tutoringToEdit, onTutoringUpdated }) => {
     const dataUser = useUserStore(state => state.user); 
-    const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
+    const { register, handleSubmit, formState: { errors }, watch, setValue, reset } = useForm({
+        defaultValues: {
+            title: "",
+            description: "",
+            capacity: "",
+            startDate: "",
+            startTime: "",
+            endTime: "",
+            program: "",
+            modality: "",
+            link: ""
+        }
+    });
     const navigate = useNavigate();
-
+    const [isEditing, setIsEditing] = useState(false);
     
     // Observadores para campos del formulario
     const startTime = watch("startTime");
@@ -26,6 +38,34 @@ const CreateTutoring = ({ closeWindow }) => {
     // Obtenemos todos los títulos de subescuelas combinando ambas listas
     const allSubschoolNames = [...adminSubschools, ...creativeSubschools].map(item => item.title);
 
+    // Cargar datos si estamos editando
+    useEffect(() => {
+        if (tutoringToEdit) {
+            setIsEditing(true);
+            
+            // Formatear fecha para que sea compatible con input date (YYYY-MM-DD)
+            const formattedDate = new Date(tutoringToEdit.date).toISOString().split('T')[0];
+            
+            // Completar los campos del formulario con los datos de la tutoría a editar
+            reset({
+                title: tutoringToEdit.title || "",
+                description: tutoringToEdit.description || "",
+                capacity: tutoringToEdit.capacity || "",
+                startDate: formattedDate,
+                startTime: tutoringToEdit.start_time || "",
+                endTime: tutoringToEdit.end_time || "",
+                program: tutoringToEdit.program || "",
+                modality: tutoringToEdit.modality || "",
+                link: tutoringToEdit.modality === "Virtual" 
+                    ? tutoringToEdit.connection_link 
+                    : tutoringToEdit.classroom || ""
+            });
+        } else {
+            setIsEditing(false);
+            reset();
+        }
+    }, [tutoringToEdit, reset]);
+
     // Envío del formulario
     const onSubmit = async (formData) => {
         if (formData.startTime >= formData.endTime) {
@@ -34,39 +74,77 @@ const CreateTutoring = ({ closeWindow }) => {
         }
 
         try {
-            const response = await fetch("http://localhost:3000/tutoring", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    id_tutor: dataUser.userId,
-                    title: formData.title,
-                    description: formData.description,
-                    capacity: formData.capacity,
-                    date: formData.startDate,
-                    start_time: formData.startTime,
-                    end_time: formData.endTime,
-                    program: formData.program,
-                    modality: formData.modality,
-                    connection_link: formData.modality === "Virtual" ? formData.link : null,
-                    classroom: formData.modality === "Presencial" ? formData.link : null,
-                }),
-            });
+            // Preparar datos comunes para crear o editar
+            const tutoringData = {
+                id_tutor: dataUser.userId,
+                title: formData.title,
+                description: formData.description,
+                capacity: formData.capacity,
+                date: formData.startDate,
+                start_time: formData.startTime,
+                end_time: formData.endTime,
+                program: formData.program,
+                modality: formData.modality,
+                connection_link: formData.modality === "Virtual" ? formData.link : null,
+                classroom: formData.modality === "Presencial" ? formData.link : null,
+            };
+
+            let response;
+            
+            // Si estamos editando, hacemos un PUT
+            if (isEditing && tutoringToEdit) {
+                response = await fetch(`http://localhost:3000/tutoring/${tutoringToEdit.id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(tutoringData),
+                });
+            } else {
+                // Si estamos creando, hacemos un POST
+                response = await fetch("http://localhost:3000/tutoring", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(tutoringData),
+                });
+            }
 
             const data = await response.json();
 
             if (response.ok) {
-                toast.success("Tutoría creada exitosamente");
+                const successMessage = isEditing
+                    ? "Tutoría actualizada exitosamente"
+                    : "Tutoría creada exitosamente";
+                    
+                toast.success(successMessage);
+                
+                // Si estamos editando, notificar al componente padre
+                if (isEditing && onTutoringUpdated) {
+                    onTutoringUpdated({
+                        ...tutoringToEdit,
+                        ...tutoringData,
+                        id: tutoringToEdit.id,
+                        tutor: tutoringToEdit.tutor
+                    });
+                }
+                
                 setTimeout(() => {
                     closeWindow(false);
-                    navigate("/inicio");
-                }, 3000);
+                    // Solo navegamos al inicio si estamos creando desde otra página
+                    if (!isEditing) {
+                        navigate("/inicio");
+                    }
+                }, 2000);
             } else {
-                toast.error(data.error || "Error al crear tutoría");
+                const errorMessage = isEditing
+                    ? "Error al actualizar tutoría"
+                    : "Error al crear tutoría";
+                toast.error(data.error || errorMessage);
             }
         } catch (error) {
-            console.error("Error al crear tutoría:", error);
+            console.error("Error:", error);
             toast.error("Error de conexión con el servidor");
         }
     };
@@ -101,18 +179,11 @@ const CreateTutoring = ({ closeWindow }) => {
         if (errors.link) toast.error(errors.link.message);
     }, [errors]);
 
-    const handleOverlayClick = (e) => {
-        // Solo cerrar si el clic fue directamente en el overlay, no en sus hijos
-        if (e.target.className === "overlayGeneral") {
-            closeWindow(false);
-        }
-    };
-
     return (
-        <div className="overlayGeneral" onClick={handleOverlayClick}>
+        <div className="overlayGeneral" >
             <div className="containerGeneralOverlay" id="container__createTutoring">
                 <header className="header_Tutoring">
-                    <h1 className="title_Tutoring">Crear Tutoría</h1>
+                    <h1 className="title_Tutoring">{isEditing ? 'Editar Tutoría' : 'Crear Tutoría'}</h1>
                 </header>
 
                 <form className="info__formTutoring" onSubmit={handleSubmit(onSubmit)}>
@@ -213,8 +284,17 @@ const CreateTutoring = ({ closeWindow }) => {
                     </div>
 
                     <div className="buttons--templateTutoring">
-                        <button type="submit" className="button--Tutoring" id="button--Submit">Crear Tutoría</button>
-                        <button type="button" className="button--Tutoring" id="button--CancelTutoring" onClick={() => closeWindow(false)}>Cancelar</button>
+                        <button type="submit" className="button--Tutoring" id="button--Submit">
+                            {isEditing ? 'Guardar Cambios' : 'Crear Tutoría'}
+                        </button>
+                        <button 
+                            type="button" 
+                            className="button--Tutoring" 
+                            id="button--CancelTutoring" 
+                            onClick={() => closeWindow(false)}
+                        >
+                            Cancelar
+                        </button>
                     </div>
                 </form>
 

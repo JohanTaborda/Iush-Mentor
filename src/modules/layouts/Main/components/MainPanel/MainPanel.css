@@ -49,7 +49,7 @@
 }
 
 /* Efecto hover para el botón de inicio de sesión */
-.login_btn_MainPanel:hover{ /*Hover para los botones de crear.*/
+.login_btn_MainPanel:hover{ 
   transform: scale(1.02);
   box-shadow: 0 0 10px 0 #000;
 }

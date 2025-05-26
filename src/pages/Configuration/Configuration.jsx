@@ -281,7 +281,7 @@ const Configuration = () => {
                 <Tab
                     className='titleTabs'
                     label="Solicitar ser tutor"
-                    style={{ display: `${dataUser.userRol !== "tutor" ? "block" : "none"}` }}
+                    style={{ display: `${dataUser.userRol === "aprendiz" ? "block" : "none"}` }}
                 />
                 <Tab className='titleTabs' label="Imagen de perfil" />
             </Tabs>
@@ -527,7 +527,7 @@ const Configuration = () => {
                 </Typography>
 
                 {/* Información sobre solicitud de tutor (solo si no es tutor) */}
-                <div style={{ display: `${dataUser.userRol !== "tutor" ? "block" : "none"}` }}>
+                <div style={{ display: `${dataUser.userRol === "aprendiz" ? "block" : "none"}` }}>
                     <Typography className='textInfoData' sx={{ mt: 2 }}>Solicitud de tutor</Typography>
                     <Typography className='descriptionInfoData'>
                         • Sea específico sobre sus motivaciones y experiencia.<br />

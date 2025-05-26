@@ -38,7 +38,7 @@ const Calendar = () => {
     const [tutoringDates, setTutoringDates] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [eventsForSelectedDate, setEventsForSelectedDate] = useState([]);
-    const [allTutorings, setAllTutorings] = useState([]); // Nuevo estado
+    const [allTutorings, setAllTutorings] = useState([]); 
 
     const navigate = useNavigate();
     const dataUser = useUserStore(state => state.user);
