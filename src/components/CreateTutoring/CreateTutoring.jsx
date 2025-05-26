@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./CreateTutoring.css"; // Estilos personalizados
-import { ToastContainer, toast } from "react-toastify"; // Para notificaciones
+import "./CreateTutoring.css"; 
+import { ToastContainer, toast } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css";
-import { useForm } from "react-hook-form"; // Manejo de formularios
-import {useMentorStore, useUserStore} from "../../stores/Store"; // Estado global con Zustand
-import {useNavigate } from "react-router-dom"; // Navigate redirecciona automáticamente.
+import { useForm } from "react-hook-form"; 
+import {useMentorStore, useUserStore} from "../../stores/Store"; 
+import {useNavigate } from "react-router-dom"; 
 
 const CreateTutoring = ({ closeWindow, tutoringToEdit, onTutoringUpdated }) => {
     const dataUser = useUserStore(state => state.user); 
@@ -179,15 +179,8 @@ const CreateTutoring = ({ closeWindow, tutoringToEdit, onTutoringUpdated }) => {
         if (errors.link) toast.error(errors.link.message);
     }, [errors]);
 
-    const handleOverlayClick = (e) => {
-        // Solo cerrar si el clic fue directamente en el overlay, no en sus hijos
-        if (e.target.className === "overlayGeneral") {
-            closeWindow(false);
-        }
-    };
-
     return (
-        <div className="overlayGeneral" onClick={handleOverlayClick}>
+        <div className="overlayGeneral" >
             <div className="containerGeneralOverlay" id="container__createTutoring">
                 <header className="header_Tutoring">
                     <h1 className="title_Tutoring">{isEditing ? 'Editar Tutoría' : 'Crear Tutoría'}</h1>

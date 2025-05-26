@@ -1,13 +1,14 @@
-import React, {useState, useEffect, use} from "react";// Importa React (necesario para componentes JSX)
-import "./Home.css";// Importa los estilos específicos de este componente
-import { useNavigate } from 'react-router-dom';// Importa el hook useNavigate de react-router-dom 
-import 'react-calendar/dist/Calendar.css';// Importa los estilos por defecto del calendario
+import React, {useState, useEffect, use} from "react";
+import "./Home.css";
+import { useNavigate } from 'react-router-dom';
+import 'react-calendar/dist/Calendar.css';
 import {useUserStore, useMentorStore} from "../../stores/Store"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalDelete from "../../components/modalDelete/ModalDelete.jsx"
 import { BeatLoader } from 'react-spinners'; 
-import CreateTutoring from "../../components/CreateTutoring/CreateTutoring.jsx"; // Importar el componente de creación
+import CreateTutoring from "../../components/CreateTutoring/CreateTutoring.jsx"; 
+import ModalStudents from "./components/ModalStudents.jsx"
 
 const Home = () => {
   // Estado para guardar la fecha seleccionada en el calendario
@@ -26,6 +27,10 @@ const Home = () => {
   const [tutoringToEdit, setTutoringToEdit] = useState(null);
 
   const tutorTutorings = dataTutoring.filter( tut => tut.tutor?.username === dataUser?.username);
+
+  //Estado para obtener listado de estudiantes
+  const [studentsList, setStudentsList] = useState([]);
+  const [showStudentsModal, setShowStudentsModal] = useState(false);
   
   // Sincroniza las tutorías al cargar Home
   useEffect(() => {
@@ -148,6 +153,23 @@ const Home = () => {
     ));
   };
 
+  //Función para traer los estudiantes inscritos en una tutoría
+  const handleViewStudents = async (tutoringId) => {
+  try {
+    const res = await fetch(`http://localhost:3000/enrollments/tutoring/${tutoringId}`);
+    const data = await res.json();
+    if (res.ok) {
+      setStudentsList(data);
+      setShowStudentsModal(true);
+    } else {
+      toast.error(data.error || "No se pudieron cargar los estudiantes.");
+    }
+  } catch (error) {
+    console.error("Error al obtener estudiantes:", error);
+    toast.error("Error al conectar con el servidor.");
+  }
+};
+
   return (
     <main>
       <section className="general-container" >
@@ -196,7 +218,8 @@ const Home = () => {
                         Editar
                       </button>
                       <button className="cancel-enrollment-btn" onClick={() => openDeleteModal(tutoring.id)}>Eliminar</button>
-                      <button className="view-enrollment-btn" onClick={() => {/* lógica para ver estudiantes */}}>Ver Estudiantes</button>
+                      <button className="view-enrollment-btn" onClick={() => handleViewStudents(tutoring.id)}
+                        > Ver Estudiantes </button>
                     </div>
                     </div>
                   ))
@@ -300,9 +323,16 @@ const Home = () => {
           onTutoringUpdated={handleTutoringUpdated}
         />
       )}
+
+      {/*Modal para ver estudiantes inscritos a una tutoría*/}
+      {showStudentsModal && (
+        <ModalStudents
+          students={studentsList}
+          onClose={() => setShowStudentsModal(false)}
+        />
+      )}
     </main>
   );
 };
 
-// Exporta el componente Home para usarlo en otras partes del proyecto
 export default Home;

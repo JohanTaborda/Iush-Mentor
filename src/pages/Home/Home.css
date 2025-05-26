@@ -1,57 +1,58 @@
 .tittle-container {
-  font-family: 'Outfit', sans-serif;  /* Fuente decorativa para el título */
-  font-size: 1.25rem;                  /* Tamaño de letra */
-  font-weight: bold;                  /* Letra en negrita */
-  margin-bottom: 0.5rem;              /* Espacio inferior */
+  font-family: 'Outfit', sans-serif;  
+  font-size: 1.25rem;                 
+  font-weight: bold;                 
+  margin-bottom: 0.5rem;             
 }
 
 /* Estilo para el contenedor de tutorías como tutor */
 .preset-container {
-  font-family: 'Manrope', sans-serif; /* Fuente moderna y legible */
+  font-family: 'Manrope', sans-serif; 
   font-size: 1rem;
-  color: #4a4a4a;                     /* Texto gris oscuro */
-  background-color: white;       /* Fondo gris claro */
+  color: #4a4a4a;                    
+  background-color: white;       
   border: 1px solid #ccc;
-  border-radius: 0.75rem;                /* Bordes redondeados */
-  padding: 0.75rem 1rem;                     /* Espaciado interno */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  margin-bottom: 1.5rem;                /* Espacio entre fieldsets */
+  border-radius: 0.75rem;                
+  padding: 0.75rem 1rem;                    
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+  margin-bottom: 1.5rem;                
   margin-top: 2rem;
-  margin-inline: auto; /* Centra horizontalmente */
+  margin-inline: auto; 
 }
 
 /* Estilo para el contenedor de tutorías como estudiante */
 .mytutorials-container {
-  font-family: 'Manrope', sans-serif; /* Fuente moderna y legible */
+  font-family: 'Manrope', sans-serif; 
   font-size: 1rem;
-  color: #4a4a4a;                     /* Texto gris oscuro */
-  background-color: white;       /* Fondo gris claro */
+  color: #4a4a4a;                     
+  background-color: white;    
   border: 1px solid #ccc;
-  border-radius: 0.75rem;                /* Bordes redondeados */
-  padding: 0.75rem 1rem;                     /* Espaciado interno */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  margin-bottom: 1.5rem;                /* Espacio entre fieldsets */
-  margin-inline: auto; /* Centra horizontalmente */
-  padding-inline: 1rem; /* Agrega espacio a los lados para todo lo que esté dentro del <section> */
+  border-radius: 0.75rem;                
+  padding: 0.75rem 1rem;                    
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+  margin-bottom: 1.5rem;                
+  margin-inline: auto; 
+  padding-inline: 1rem; /
 }
 
 /* Estilo base para los botones "Agendar" */
 .preset-btn {
-  background-color: #184ea5;          /* Azul brillante (sobrescribe el color anterior) */
-  color: white;                       /* Texto blanco */
+  background-color: #184ea5;          
+  color: white;                       
   font-family: 'Outfit', sans-serif;
   border: none;
-  font-size: medium;                  /* Tamaño de fuente medio */
+  font-size: medium;                 
   padding: 5px 10px;
   width: 100px;
   height: 35px;
   border-radius: 5px;
-  cursor: pointer;                    /* Manito al pasar el mouse */
-  align-self: flex-start;             /* Alinea el botón a la izquierda en contenedores flex */
-  transition: background-color 0.3s ease; /* Transición suave al cambiar color */
+  cursor: pointer;                    
+  align-self: flex-start;             
+  transition: background-color 0.3s ease; 
+  margin-bottom: 10px;
 }
 
-.preset-btn:hover{ /* Efecto hover para el botón de registro */
+.preset-btn:hover{ 
   transform: scale(1.01);
   background-color: #003d82;
 
@@ -65,8 +66,8 @@
 /* Responsividad: el botón se adapta al ancho completo en pantallas pequeñas */
 @media (max-width: 480px) {
   .preset-btn {
-    width: 100%;                      /* Ocupa todo el ancho del contenedor */
-    box-sizing: border-box;          /* El padding se incluye dentro del ancho */
+    width: 100%;                      
+    box-sizing: border-box;         
   }
 }
 
@@ -75,12 +76,12 @@
   font-family: 'Manrope', sans-serif;
   color: #4a4a4a;
   background-color: whitesmoke;
-  border-radius: 0.75rem;            /* ⚠️ IMPORTANTE: rem no debe llevar espacio */
+  border-radius: 0.75rem;            
   padding: 0.5rem 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 1rem;
   border: none;
-  display: flex;                     /* Para alinear el calendario */
+  display: flex;                     
   flex-direction: column;
   align-items: center;
 }
@@ -198,6 +199,84 @@
 }
 
 .view-enrollment-btn:hover{ background-color: #4ba162; }
+
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(20, 20, 20, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 25px 30px;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  font-family: 'Outfit', sans-serif;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-title {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+.students-list {
+  list-style: none;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.students-list li {
+  padding: 8px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.modal-button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+
+.custom-close-button {
+  background: #4285F4;
+  color: #fff;
+  border: 1px solid #4285F4;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Outfit', sans-serif;
+  transition: background-color 0.2s ease;
+  margin-bottom: 10px;
+}
+
+.custom-close-button:hover {
+  background-color: #2c6cd1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  } 
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 
 @media (max-width: 480px) {
