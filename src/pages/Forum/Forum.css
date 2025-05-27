@@ -111,7 +111,7 @@
     font-family: "Outfit";
 }
 
-.post-excerpt {
+.post-content {
     color: #555;
     margin-bottom: 1.2rem;
     line-height: 1.5;
@@ -161,6 +161,30 @@
     color: #275092;
 }
 
+.liked-by {
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
+  margin-left: 8px;
+}
+
+.likers-list {
+  list-style: none;
+  margin: 0.5rem 0 0 0;
+  padding: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.show-likers-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-left: 4px;
+  padding: 0;
+}
 /* Sección de comentarios */
 .comments-section {
     margin-top: 1.5rem;
@@ -183,19 +207,27 @@
 }
 
 .comment-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.comment-author {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: "Manrope";
+.comment-meta {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 }
 
+.comment-author span {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.comment-date {
+  font-size: 13px;
+  color: #888;
+  margin-top: 2px;
+}
 .comment-avatar {
     width: 24px;
     height: 24px;
@@ -204,10 +236,10 @@
 }
 
 .comment-text {
-    color: #555;
-    font-family: "Manrope";
-    line-height: 1.4;
-    font-size: 0.95rem;
+  margin-left: 52px; /* deja espacio al avatar */
+  margin-top: 5px;
+  font-size: 15px;
+  color: #333;
 }
 
 .new-comment {
@@ -243,6 +275,32 @@
     cursor: not-allowed;
 }
 
+.post-attachments {
+  margin-top: 10px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.attachment-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.attachment-icon {
+  font-size: 20px; /* aumenta tamaño aquí */
+  margin-right: 8px;
+  color: #184ea5;
+}
+
+.attachment-link {
+  color: #184ea5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.attachment-link:hover {
+  text-decoration: underline;
+}
 /* Responsive */
 @media (max-width: 768px) {
     .forum-container {
