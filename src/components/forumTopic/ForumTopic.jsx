@@ -3,6 +3,8 @@ import "./ForumTopic.css";
 import { useForm } from "react-hook-form"; 
 import { useUserStore } from "../../stores/Store";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //Componente principal Foro
 const ForumTopic = ({onClose}) => {
@@ -52,22 +54,36 @@ const ForumTopic = ({onClose}) => {
         setValue('files', updatedFiles);
     };
 
-    const onSubmit = async (formData) => {
+ const onSubmit = async (formData) => {
   try {
-    const response = await axios.post("http://localhost:3000/forum", {
-      id_user: userId,
-      title: formData.title,
-      excerpt: formData.description.slice(0, 150),
-      content: formData.description,
-      program: userProgram
+    const data = new FormData();
+    data.append("id_user", userId);
+    data.append("title", formData.title);
+    data.append("excerpt", formData.description.slice(0, 150));
+    data.append("content", formData.description);
+    data.append("program", userProgram);
+
+    selectedFiles.forEach((file) => {
+      data.append("attachments", file);
     });
 
-    console.log("Publicación creada:", response.data);
-    onClose(false); // Cierra el modal
+    const response = await axios.post("http://localhost:3000/forum", data, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+
+    toast.success("Publicación creada exitosamente ");
+    setTimeout(() => {
+    onClose(false);
+    }, 1000);
   } catch (error) {
     console.error("Error al crear publicación:", error);
+    toast.error("Error al crear la publicación");
   }
 };
+
+
     return(
         <div className="overlayGeneral" >
             <div className="containerGeneralOverlay" id="container__createTutoring">
@@ -138,7 +154,7 @@ const ForumTopic = ({onClose}) => {
                         <button type="button" className="button--Tutoring" id="button--Cancel" onClick={() => onClose(false)}>Cancelar</button>
                     </div>
                 </form>
-
+                <ToastContainer position="bottom-right" autoClose={3000} />
             </div>
         </div>
     )

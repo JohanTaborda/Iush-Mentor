@@ -275,6 +275,32 @@
     cursor: not-allowed;
 }
 
+.post-attachments {
+  margin-top: 10px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.attachment-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.attachment-icon {
+  font-size: 20px; /* aumenta tamaño aquí */
+  margin-right: 8px;
+  color: #184ea5;
+}
+
+.attachment-link {
+  color: #184ea5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.attachment-link:hover {
+  text-decoration: underline;
+}
 /* Responsive */
 @media (max-width: 768px) {
     .forum-container {

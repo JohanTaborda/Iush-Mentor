@@ -191,6 +191,28 @@ const Forum = () => {
                 </div>
                 <h3 className="post-title">{post.title}</h3>
                 <p className="post-content"><strong>Contenido:</strong> {post.content}</p>
+                {Array.isArray(post.attachments) && post.attachments.length > 0 && (
+                    <div className="post-attachments">
+                        <h4>Archivos adjuntos:</h4>
+                        <ul>
+                        {post.attachments.map((fileUrl, index) => (
+                            <li key={index}>
+                           <li key={index} className="attachment-item">
+                            <span className="attachment-icon">📎</span>
+                            <a
+                                href={`http://localhost:3000/${fileUrl}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="attachment-link"
+                            >
+                                Ver archivo {index + 1}
+                            </a>
+                            </li>
+                            </li>
+                        ))}
+                        </ul>
+                    </div>
+                    )}
                 <div className="post-footer">
                   <div className="post-stats">
                     <button
