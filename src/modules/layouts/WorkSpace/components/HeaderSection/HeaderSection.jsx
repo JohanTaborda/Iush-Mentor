@@ -134,10 +134,10 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected}) => 
       
       <div className="container_buttons">
         <Dropdown>
+          {/*
           <Dropdown.Toggle variant="secondary" className="button--notification">
             {notifications.length > 0 ? icon_onNotification() : icon_notification()}
           </Dropdown.Toggle>
-
           <Dropdown.Menu className="container__notifications">
             <section>
               <div className="title__notifications" style={{borderBottom: "1px solid #fff"}}>
@@ -173,8 +173,8 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected}) => 
               </div>
             </section>
           </Dropdown.Menu>
+          */}
         </Dropdown>
-        
         <Dropdown>
           <Dropdown.Toggle variant="secondary" className="button--profile">
             <Avatar
@@ -192,6 +192,7 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected}) => 
             className="container__list"
             style={{ backgroundColor: "#285194" }}
           >
+            {/*}
             <Dropdown.Item
               as="div"
               className="switche--color"
@@ -204,6 +205,7 @@ const HeaderSection = ({ buttonSelected, onSearchChange, setButtonSelected}) => 
               </Form>
               {icon_moon()}
             </Dropdown.Item>
+            */}
             <Link to="#" onClick={() => setButtonSelected("Configuracion")}>
               <Dropdown.Item
                 as="div"

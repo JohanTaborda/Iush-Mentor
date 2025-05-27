@@ -1,24 +1,14 @@
-// Importa React y hooks necesarios
 import React, { useEffect, useState } from "react";
-
-// Importa los estilos personalizados del panel principal
 import "./MainPanel.css";
-
-// Importa herramientas de navegación
 import { Link, useLocation } from "react-router-dom";
-
-// Importa el componente de autenticación (Login/Register)
 import Auth from "../../../../Auth/Auth.jsx";
-
-// Importa íconos visuales para las secciones
 import { FcReadingEbook, FcFinePrint, FcMindMap, FcIdea, FcLibrary } from "react-icons/fc";
 
 // Componente Header que contiene el logo, título y botón de inicio de sesión
 const Header = ({ setMainComponent }) => {
-  const location = useLocation(); // Hook para obtener la ruta actual
-  const [visAuth, setVisAuth] = useState(false); // Estado para mostrar u ocultar el componente Auth
+  const location = useLocation(); 
+  const [visAuth, setVisAuth] = useState(false); 
 
-  // Muestra el componente Auth si la ruta es /ingresar o /registro
   useEffect(() => {
     setVisAuth(location.pathname.startsWith("/ingresar") || location.pathname.startsWith("/registro"));
   }, [location.pathname]);
@@ -53,11 +43,11 @@ const Header = ({ setMainComponent }) => {
 // Componente reutilizable para los botones de escuelas
 const SchoolButton = ({ text, icon, schoolText }) => {
   return (
-    <button className="school_btn">
+    <div className="school_btn">
       {icon && <span className="school_icon">{icon}</span>}
       {schoolText && <span className="school_text">{schoolText}</span>}
       <span className="school_description">{text}</span>
-    </button>
+    </div>
   );
 };
 

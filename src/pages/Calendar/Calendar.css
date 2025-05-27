@@ -1,0 +1,51 @@
+.calendar-container {
+  padding: 24px;
+  max-width: 1000px;
+  margin: 80px auto;
+}
+
+.titleCalendar, .date__info__calendar{
+    font-family: "Outfit" !important;
+}
+
+.calendar-wrapper {
+  padding: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Animación para los badges de eventos */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.MuiBadge-badge {
+  animation: pulse 2s infinite;
+}
+
+/* Estilos para los días con eventos */
+.tutoringDay {
+  background-color: #bbdefb33;
+  border-radius: 50%;
+  border: 2px solid #1976d2;
+}
+
+/* Estilos responsivos */
+@media (max-width: 960px) {
+  .calendar-container {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .calendar-container {
+    padding: 8px;
+  }
+
+  .titleCalendar{
+    text-align: center;
+  }
+}

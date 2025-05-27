@@ -3,6 +3,7 @@ import './CreateUser.css';
 import { FaTimes } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Asegúrate de importar los estilos
+import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
 
 const CreateUser = ({ isOpen, onClose, onSave }) => {
   const [formData, setFormData] = useState({
@@ -14,9 +15,30 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
     program: '',
   });
 
+  const programas = [ "Selecciona un programa", "Administración de empresas", "Comunicación Organizacional", "Contaduría Pública", "Derecho",
+        "Mercadeo", "Negocios Internacionales", "Tecnología en gestión del talento humano", "Tecnología en gestión empresarial", "Tecnología en Gestión de Mercadeo y Ventas",
+        "Tecnología en gestión de negocios internacionales","Animación", "Ingeniería Electrónica", "Ingeniería Industrial", "Ingeniería de Sistemas", "Diseño Gráfico",
+        "Diseño de Modas", "Tecnología en sistemas", "Realización y producción musical", "Ingeniería en inteligencia de negocios"
+  ];
+
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: null
+      });
+    }
+  };
+
+  const handleMaterialChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -49,6 +71,12 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
     } else if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Formato de correo electrónico inválido';
       toast.error('El formato del correo electrónico es inválido');
+      isValid = false;
+    }
+    
+    if (formData.program === '' || formData.program === 'Selecciona un programa') {
+      newErrors.program = 'Debes seleccionar un programa';
+      toast.error('Debes seleccionar un programa');
       isValid = false;
     }
 
@@ -143,6 +171,19 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
             />
             {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
+          
+          <div className="form-group mui-select-container">
+            <label htmlFor="program">Programas</label>
+            <FormControl fullWidth error={!!errors.program} variant="outlined" size="small">
+              <Select id="program" name="program" value={formData.program} onChange={handleMaterialChange} displayEmpty>
+                {programas.map((programa, index) => (
+                  <MenuItem  key={index}  value={programa === "Selecciona un programa" ? "" : programa} disabled={programa === "Selecciona un programa"}>
+                    {programa}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
 
           <div className="form-group">
             <label htmlFor="password">Contraseña</label>
@@ -185,13 +226,21 @@ const CreateUser = ({ isOpen, onClose, onSave }) => {
           </div>
 
           <div className="form-buttons">
-            <button type="button" className="cancel-button" onClick={onClose}>Cancelar</button>
+            <button type="button" className="cancel-button" id='button--Cancel' onClick={onClose}>Cancelar</button>
             <button type="submit" className="save-button">Guardar Usuario</button>
           </div>
         </form>
       </div>
-      <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar={false} newestOnTop={true} closeOnClick rtl={false}
-        pauseOnFocusLoss draggable pauseOnHover
+      <ToastContainer 
+        position="bottom-right" 
+        autoClose={3000} 
+        hideProgressBar={false} 
+        newestOnTop={true} 
+        closeOnClick 
+        rtl={false}
+        pauseOnFocusLoss 
+        draggable 
+        pauseOnHover
       />
     </div>
   );

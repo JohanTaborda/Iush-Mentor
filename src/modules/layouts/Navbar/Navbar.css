@@ -1,4 +1,4 @@
-.containerSidebar{ /*Propiedades para el bloque general del navbar*/
+.containerSidebar{ 
     position: relative;
     display: flex;
     justify-content: center;
@@ -10,20 +10,20 @@
     overflow: hidden;
 }
 
-.sidebar__elements{ /*Propiedades para el bloque que almacena los elementos del navbar*/
+.sidebar__elements{ 
     height: calc(100vh - 70px);
     width: 90%;
     margin-top: 20px;
 }
 
-.sidebar__header{ /*Propiedades para el header del navbar*/
+.sidebar__header{ 
     display: flex;
     align-items: center;
     justify-content: space-around;
     text-wrap: nowrap;
 }
 
-.sidebar__title{ /*Propiedades para el titulo*/
+.sidebar__title{ 
     font-size: 25px;
     font-family: "Outfit";
     font-weight: 800;
@@ -31,29 +31,29 @@
     text-wrap: nowrap;
 }
 
-#sidebar__iconMenu{ /*Propiedades para el icono que permite minimizar el navbar*/
+#sidebar__iconMenu{ 
     font-size: 30px;
     color: #f7f7f7;
     cursor: pointer;
     flex-shrink: 0;
 }
 
-.sidebarMinimized{width: 60px;} /*Ancho que toma el navbar cuando esta minimizado*/
+.sidebarMinimized{width: 60px;} 
 
-.sidebar__buttons{ /*Propiedades para el contenedor que almacena los botones del componente.*/
+.sidebar__buttons{ 
     display: flex;
     flex-direction: column;
     margin-top: 10px;
     height: 100% ;
 }
 
-.sidebar--button, .button--opinionNav { /*Propiedades para cada uno de los botones del componente.*/
+.sidebar--button, .button--opinionNav { 
     display: flex;
     align-items: center;
     gap: 15px;
     width: 100%;
     height: 40px;
-    padding-left: 12px; /*Validar si dejarno o quitarlo.*/
+    padding-left: 12px; 
     margin-bottom: 10px;
     border: none;
     border-radius: 8px;
@@ -63,52 +63,52 @@
     text-wrap: nowrap;
 }
 
-#sidebar--button__navbarMinized{ /*Propiedades que toman los iconos cuando la barra esta minimizada.*/
+#sidebar--button__navbarMinized{ 
     justify-content: center;
-    padding-left: 4px;
+    padding-left: 0;
     background-color: transparent;
     color: #fff;
 }
 
-#sidebar--button__navbarMinized:hover{opacity: 1;} /*Hover para los iconos cuando la barra esta minimizada.*/
+#sidebar--button__navbarMinized:hover{opacity: 1;} 
 
-.sidebar--button:hover{ /*Hover para cada uno de los botones del componente*/
+.sidebar--button:hover{ 
     opacity: 0.5;
     background-color: #f9f9f9;
     color: #000;
 }
 
-.button--opinionNav:hover{ /*Hover para el botón de Opiniones.*/
+.button--opinionNav:hover{ 
     opacity: 1;
     background-color: #f9f9f9;
 }
 
-.sidebar__button--active{ /*Propiedad que se toma cuando se le da clic a uno de los botones.*/
+.sidebar__button--active{
     opacity: 1;
     background-color: #f9f9f9;
     color: #000;
 }
 
-.sidebar__button--active:hover{opacity: 1;} /*Si el botón esta activo, se le da una opacidad de 1*/
+.sidebar__button--active:hover{opacity: 1;} 
 
-.sidebar__icons{font-size: 20px;} /*Tamaño para los iconos que estan en los botones.*/
+.sidebar__icons{font-size: 20px;} 
 
-.sidebar--button__Text{ /*Propiedades par los textos de los botones*/
+.sidebar--button__Text{ 
     font-size: 16px;
     font-weight: 500;
     font-family: "Outfit";
     cursor: pointer;
 }
 
-#sidebar--button__opinion{ /*Propiedades para el botón de 'Cuentos tu Opinión'.*/
+#sidebar--button__opinion{ 
     padding-left: 4px;
     background-color: transparent;
     color: #fff;
 }
 
-#sidebar--button__opinion:hover{opacity: 1;} /*Hover para el botón de 'Opinion'*/
+#sidebar--button__opinion:hover{opacity: 1;} 
 
-#sidebar--button__exit{ /*Propiedades para el botón de 'Cuentos tu Opinión'.*/
+#sidebar--button__exit{
     margin-top: auto;  
     justify-content: center;
     padding-left: 4px;
@@ -117,10 +117,10 @@
     opacity: 1;
 }
 
-#sidebar--button__exit:hover{opacity: 0.5;} /*Hover para el botón de 'Opinion'*/
+#sidebar--button__exit:hover{opacity: 0.5;} 
 
 
-.custom-tooltip { /*Propiedades para el bloque del Tooltip*/
+.custom-tooltip { 
     background-color: #285194 !important; 
     color: white !important; 
     font-size: 12px !important;
@@ -130,11 +130,11 @@
     box-shadow: 0 0 5px 0 #0C192E !important;
 }
 
-.custom-arrowTooltip {color: #285194 !important; } /*Propiedades para la flecha del Tooltip, en este caso le cambiamos el color.*/
+.custom-arrowTooltip {color: #285194 !important; } 
 
 /*media query, para estilos específicos cuando el ancho de la pantalla es de 768px o menor.*/
 @media screen and (max-width: 768px) {
-    .containerSidebar{ /*Propiedades para el bloque general del navbar*/
+    .containerSidebar{ 
         position: relative;
         display: flex;
         justify-content: center;
@@ -146,13 +146,13 @@
         overflow: hidden;
     }
 
-    .sidebar__elements{ /*Propiedades para el bloque que almacena los elementos del navbar*/
+    .sidebar__elements{ 
         height: calc(100vh - 70px);
         width: 90%;
         margin-top: 20px;
     }
 
-    .sidebar__header{ /*Propiedades para el header del navbar*/
+    .sidebar__header{ 
         display: flex;
         align-items: center;
         justify-content: space-around;
@@ -160,7 +160,7 @@
 
     }
 
-    .sidebar__title{ /*Propiedades para el titulo*/
+    .sidebar__title{ 
         font-size: 25px;
         font-family: "Outfit";
         font-weight: 800;
@@ -168,29 +168,29 @@
         text-wrap: nowrap;
     }
 
-    #sidebar__iconMenu{ /*Propiedades para el icono que permite minimizar el navbar*/
+    #sidebar__iconMenu{ 
         font-size: 30px;
         color: #f7f7f7;
         cursor: pointer;
         flex-shrink: 0;
     }
 
-    .sidebarMinimized{width: 60px;} /*Ancho que toma el navbar cuando esta minimizado*/
+    .sidebarMinimized{width: 60px;} 
 
-    .sidebar__buttons{ /*Propiedades para el contenedor que almacena los botones del componente.*/
+    .sidebar__buttons{ 
         display: flex;
         flex-direction: column;
         margin-top: 10px;
         height: 100% ;
     }
 
-    .sidebar--button { /*Propiedades para cada uno de los botones del componente.*/
+    .sidebar--button { 
         display: flex;
         align-items: center;
         gap: 15px;
         width: 100%;
         height: 40px;
-        padding-left: 12px; /*Validar si dejarno o quitarlo.*/
+        padding-left: 12px;
         margin-bottom: 10px;
         border: none;
         border-radius: 8px;
@@ -200,38 +200,38 @@
         text-wrap: nowrap;
     }
 
-    #sidebar--button__navbarMinized{ /*Propiedades que toman los iconos cuando la barra esta minimizada.*/
+    #sidebar--button__navbarMinized{ 
         justify-content: center;
         padding-left: 4px;
         background-color: transparent;
         color: #fff;
     }
-    #sidebar--button__navbarMinized:hover{opacity: 1;} /*Hover para los iconos cuando la barra esta minimizada.*/
+    #sidebar--button__navbarMinized:hover{opacity: 1;} 
 
-    .sidebar--button:hover{ /*Hover para cada uno de los botones del componente*/
+    .sidebar--button:hover{ 
         opacity: 0.5;
         background-color: #f9f9f9;
         color: #000;
     }
 
-    .sidebar__button--active{ /*Propiedad que se toma cuando se le da clic a uno de los botones.*/
+    .sidebar__button--active{ 
         opacity: 1;
         background-color: #f9f9f9;
         color: #000;
     }
 
-    .sidebar__button--active:hover{opacity: 1;} /*Si el botón esta activo, se le da una opacidad de 1*/
+    .sidebar__button--active:hover{opacity: 1;} 
 
-    .sidebar__icons{font-size: 20px;} /*Tamaño para los iconos que estan en los botones.*/
+    .sidebar__icons{font-size: 20px;} 
 
-    .sidebar--button__Text{ /*Propiedades par los textos de los botones*/
+    .sidebar--button__Text{ 
         font-size: 16px;
         font-weight: 500;
         font-family: "Outfit";
         cursor: pointer;
     }
 
-    #sidebar--button__opinion{ /*Propiedades para el botón de 'Cuentos tu Opinión'.*/
+    #sidebar--button__opinion{ 
         margin-top: auto;  
         justify-content: center;
         padding-left: 4px;
@@ -239,9 +239,9 @@
         color: #fff;
     }
 
-    #sidebar--button__opinion:hover{opacity: 1;} /*Hover para el botón de 'Opinion'*/
+    #sidebar--button__opinion:hover{opacity: 1;} 
 
-    .custom-tooltip { /*Propiedades para el bloque del Tooltip*/
+    .custom-tooltip { 
         background-color: #285194 !important; 
         color: white !important; 
         font-size: 12px !important;
@@ -251,35 +251,35 @@
         box-shadow: 0 0 5px 0 #0C192E !important;
     }
 
-    .custom-arrowTooltip {color: #285194 !important; } /*Propiedades para la flecha del Tooltip, en este caso le cambiamos el color.*/
+    .custom-arrowTooltip {color: #285194 !important; } 
 
     /*media query, para estilos específicos cuando el ancho de la pantalla es de 768px o menor.*/
     @media screen and (max-width: 768px) {
-        .containerSidebar{ /*Propiedades para el bloque general del navbar*/
+        .containerSidebar{ 
             margin-top: auto;
             background: linear-gradient(#030507,  #152f5a);
             height: 60px;
             width: 100vw;
         }
         
-        .sidebar__header{display: none; } /*Propiedades para el header del navbar, osea ocultamos este contenedor*/
+        .sidebar__header{display: none; } 
 
-        .sidebar__elements { /*Propiedades para el bloque que almacena los elementos del navbar*/
+        .sidebar__elements { 
             width: 100%;
             margin-top: 12px;
         }
 
-        .sidebar__buttons { /*Propiedades para el contenedor que almacena los botones del componente.*/
+        .sidebar__buttons { 
             flex-direction: row;
             margin: 0;       
         }
 
-        .sidebar--button__Text {display: none; } /* Oculta el texto de los botones*/
+        .sidebar--button__Text {display: none; }
 
-        #sidebar--button__opinion{ margin-top: 0;  } /*Propiedades para el botón de 'Cuentos tu Opinión'. Lo alineamos a los demás botones.*/
+        #sidebar--button__opinion{ margin-top: 0;  }
     }
     
-    .sidebar--button__Text {display: none; } /* Oculta el texto de los botones*/
+    .sidebar--button__Text {display: none; } 
 
-    #sidebar--button__exit{ margin-top: 0;  } /*Propiedades para el botón de 'Cuentos tu Opinión'. Lo alineamos a los demás botones.*/
+    #sidebar--button__exit{ margin-top: 0;  } 
 }

@@ -1,7 +1,4 @@
-// Importa la función 'create' de la librería Zustand para crear un store de estado global
 import { create } from 'zustand';
-
-// Importa íconos de la librería react-icons/fc para representar visualmente las subescuelas
 import {
   FcStatistics, FcCustomerSupport, FcCurrencyExchange, FcBusiness, FcBriefcase,
   FcGlobe, FcFlowChart, FcOrganization, FcDebt, FcDiploma2,

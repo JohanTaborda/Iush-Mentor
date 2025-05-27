@@ -1,21 +1,12 @@
-// Importa el store de Zustand para manejar el estado del usuario
 import { useUserStore } from "../../stores/Store"; 
-// Importa React y hooks necesarios
 import React, { useState } from "react"; 
-// Importa estilos CSS específicos del componente Login
 import "./Login.css";  
-// Importa íconos para mostrar/ocultar contraseña
 import { FaRegEyeSlash } from "react-icons/fa6"; 
 import { FaRegEye } from "react-icons/fa"; 
-// Ícono decorativo de gorro de graduación
 import { GiGraduateCap } from "react-icons/gi"; 
-// Importa componente Modal de Bootstrap (aunque no se usa directamente aquí)
 import { Modal } from "bootstrap";
-// Ícono para cerrar el modal
 import { IoIosClose } from "react-icons/io";
-// Componente de navegación entre rutas
 import { Link } from "react-router-dom";
-// Importa funciones y estilos de notificaciones
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
@@ -33,9 +24,8 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
     const [closeButton, setCloseButton] = useState(false);
     const [success, setSuccess] = useState("");  
 
-    // Función que maneja el envío del formulario
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Previene recarga de página
+        e.preventDefault(); 
 
         // Validación básica de campos vacíos
         if (!user.trim() || !password.trim()) {
@@ -71,7 +61,7 @@ const Login = ({ setVisRegister, setMainComponent, setVisAuth }) => {
                 setGlobalUser(data);
 
                 // Notificación de éxito personalizada con username
-                    toast.success(`¡Bienvenido! ${data.username} `, {
+                    toast.success(`¡Bienvenid@! ${data.username} `, {
                     position: "top-center",
                     autoClose: 1500,
                     hideProgressBar: false,
