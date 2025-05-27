@@ -60,7 +60,11 @@ const Forum = () => {
     fetchPosts();
   }, []);
 
-  const uniquePrograms = [...new Set(postData.map(post => post.program))];
+  const programas = [ "Selecciona un programa", "Administración de empresas", "Comunicación Organizacional", "Contaduría Pública", "Derecho",
+        "Mercadeo", "Negocios Internacionales", "Tecnología en gestión del talento humano", "Tecnología en gestión empresarial", "Tecnología en Gestión de Mercadeo y Ventas",
+        "Tecnología en gestión de negocios internacionales","Animación", "Ingeniería Electrónica", "Ingeniería Industrial", "Ingeniería de Sistemas", "Diseño Gráfico",
+        "Diseño de Modas", "Tecnología en sistemas", "Realización y producción musical", "Ingeniería en inteligencia de negocios"
+  ];
 
   const filteredPosts = postData.filter(post => {
     const matchesSearch =
@@ -164,7 +168,7 @@ const Forum = () => {
                 }}
               >
                 <MenuItem value="">Todos los programas</MenuItem>
-                {uniquePrograms.map(program => (
+                {programas.map(program => (
                   <MenuItem key={program} value={program}>{program}</MenuItem>
                 ))}
               </Select>
@@ -194,23 +198,21 @@ const Forum = () => {
                 {Array.isArray(post.attachments) && post.attachments.length > 0 && (
                     <div className="post-attachments">
                         <h4>Archivos adjuntos:</h4>
-                        <ul>
+                      <ul>
                         {post.attachments.map((fileUrl, index) => (
-                            <li key={index}>
-                           <li key={index} className="attachment-item">
+                          <li key={index} className="attachment-item">
                             <span className="attachment-icon">📎</span>
                             <a
-                                href={`http://localhost:3000/${fileUrl}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="attachment-link"
+                              href={`http://localhost:3000/${fileUrl}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="attachment-link"
                             >
-                                Ver archivo {index + 1}
+                              Ver archivo {index + 1}
                             </a>
-                            </li>
-                            </li>
+                          </li>
                         ))}
-                        </ul>
+                      </ul>
                     </div>
                     )}
                 <div className="post-footer">

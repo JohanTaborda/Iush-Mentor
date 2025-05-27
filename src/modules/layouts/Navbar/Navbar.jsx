@@ -72,7 +72,7 @@ const Navbar = ({setButtonSelected, setMainComponent, rol}) => {
             sessionStorage.setItem('setButtonSelected', type);
             sessionStorage.setItem('optionSelected', type);
         } else {
-            window.open('https://forms.gle/3qxgAimXt7iTzXiD6', '_blank');
+            window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=nhS522ysw0OQrJGktYUZvZTFYdhKmtNDn_iaUW4jDR1UQ0tLV1JCT1pQVzBCMjdPVzk4VDhQVjVFTy4u', '_blank');
         }
     }
    
