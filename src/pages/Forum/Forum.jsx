@@ -6,6 +6,7 @@ import { FaRegCommentAlt, FaSearch } from "react-icons/fa";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { FormControl, Select, MenuItem, Avatar } from '@mui/material';
 import { useUserStore } from '../../stores/Store.js';
+import { BeatLoader } from 'react-spinners'; 
 
 const Forum = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,6 +14,7 @@ const Forum = () => {
   const [selectedProgram, setSelectedProgram] = useState('');
   const [postData, setPostData] = useState([]);
   const [showAllLikers, setShowAllLikers] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useUserStore(); 
   const userId = user?.userId;
 
@@ -25,6 +27,7 @@ const Forum = () => {
 
   const fetchPosts = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get("http://localhost:3000/forum");
       const formattedPosts = response.data.map(post => {
         const hasLiked = post.postLikes?.some(like => like.id_user === userId);
@@ -53,6 +56,8 @@ const Forum = () => {
       setPostData(formattedPosts);
     } catch (error) {
       console.error("Error al obtener publicaciones:", error);
+    }finally{
+      setIsLoading(false);
     }
   };
 
@@ -178,113 +183,122 @@ const Forum = () => {
 
         <div className="posts-container">
           <h2>Publicaciones</h2>
-          {filteredPosts.length > 0 ? (
-            filteredPosts.map(post => (
-              <div className="post-card" key={post.id}>
-                <div className="post-header">
-                  <div className="post-author">
-                    <Avatar src={post.avatar || undefined} alt={post.author}>
-                      {!post.avatar && stringAvatar(post.author).children}
-                    </Avatar>
-                    <span>{post.author}</span>
-                  </div>
-                  <div style={{ gap: "10px", display: "flex" }}>
-                    <span className="post-date">{post.program}</span>
-                    <span className="post-date">{post.date}</span>
-                  </div>
-                </div>
-                <h3 className="post-title">{post.title}</h3>
-                <p className="post-content"><strong>Contenido:</strong> {post.content}</p>
-                {Array.isArray(post.attachments) && post.attachments.length > 0 && (
-                    <div className="post-attachments">
-                        <h4>Archivos adjuntos:</h4>
-                      <ul>
-                        {post.attachments.map((fileUrl, index) => (
-                          <li key={index} className="attachment-item">
-                            <span className="attachment-icon">📎</span>
-                            <a
-                              href={`http://localhost:3000/${fileUrl}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="attachment-link"
-                            >
-                              Ver archivo {index + 1}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    )}
-                <div className="post-footer">
-                  <div className="post-stats">
-                    <button
-                      className={`like-btn ${post.likedByUser ? 'liked' : ''}`}
-                      onClick={() => handleLike(post.id)}
-                    >
-                      {post.likedByUser ? <AiFillLike /> : <AiOutlineLike />} {post.likes}
-                    </button>
-
-                    {Array.isArray(post.postLikes) && post.postLikes.length > 0 && post.postLikes[0].user && (
-                      <div className="liked-by">
-                        <strong>
-                          A {post.postLikes[0].user.username}
-                          {post.postLikes.length > 1 && ` y ${post.postLikes.length - 1} más`}
-                        </strong> les gusta esto
-                      </div>
-                    )}
-
-                    <button className="comment-toggle-btn" onClick={() => toggleComments(post.id)}>
-                      <FaRegCommentAlt /> {post.comments} {post.showComments ? 'Ocultar' : 'Ver'}
-                    </button>
-                  </div>
-                </div>
-
-                {post.showComments && (
-                  <div className="comments-section">
-                    <h4>Comentarios</h4>
-                    {post.commentsList.map(comment => (
-                      <div className="comment" key={comment.id}>
-                        <div className="comment-header">
-                          <Avatar src={comment.avatar || undefined} alt={comment.author}>
-                            {!comment.avatar && stringAvatar(comment.author).children}
-                          </Avatar>
-                          <div className="comment-meta">
-                            <span className="comment-author">{comment.author}</span>
-                            <span className="comment-date">
-                              {new Date(comment.date).toLocaleString('es-CO', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
-                              })}
-                            </span>
-                          </div>
-                        </div>
-                        <p className="comment-text">{comment.text}</p>
-                      </div>
-                    ))}
-                    <div className="new-comment">
-                      <textarea
-                        placeholder="Escribe un comentario..."
-                        value={post.newComment}
-                        onChange={(e) => handleCommentChange(post.id, e.target.value)}
-                        className="comment-input"
-                      />
-                      <button
-                        className="comment-btn"
-                        onClick={() => addComment(post.id)}
-                        disabled={!post.newComment.trim()}
-                      >
-                        Comentar
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))
+          {isLoading ? (
+            <div className='loadingComponents'>
+              Cargando Publicaciones...
+              <BeatLoader color="#184ea5"/>
+            </div>
           ) : (
-            <p className="no-posts">No hay publicaciones que coincidan con tu búsqueda</p>
+            <div>
+              {filteredPosts.length > 0 ? (
+                filteredPosts.map(post => (
+                  <div className="post-card" key={post.id}>
+                    <div className="post-header">
+                      <div className="post-author">
+                        <Avatar src={post.avatar || undefined} alt={post.author}>
+                          {!post.avatar && stringAvatar(post.author).children}
+                        </Avatar>
+                        <span>{post.author}</span>
+                      </div>
+                      <div style={{ gap: "10px", display: "flex" }}>
+                        <span className="post-date">{post.program}</span>
+                        <span className="post-date">{post.date}</span>
+                      </div>
+                    </div>
+                    <h3 className="post-title">{post.title}</h3>
+                    <p className="post-content"><strong>Contenido:</strong> {post.content}</p>
+                    {Array.isArray(post.attachments) && post.attachments.length > 0 && (
+                        <div className="post-attachments">
+                            <h4>Archivos adjuntos:</h4>
+                          <ul>
+                            {post.attachments.map((fileUrl, index) => (
+                              <li key={index} className="attachment-item">
+                                <span className="attachment-icon">📎</span>
+                                <a
+                                  href={`http://localhost:3000/${fileUrl}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="attachment-link"
+                                >
+                                  Ver archivo {index + 1}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        )}
+                    <div className="post-footer">
+                      <div className="post-stats">
+                        <button
+                          className={`like-btn ${post.likedByUser ? 'liked' : ''}`}
+                          onClick={() => handleLike(post.id)}
+                        >
+                          {post.likedByUser ? <AiFillLike /> : <AiOutlineLike />} {post.likes}
+                        </button>
+
+                        {Array.isArray(post.postLikes) && post.postLikes.length > 0 && post.postLikes[0].user && (
+                          <div className="liked-by">
+                            <strong>
+                              A {post.postLikes[0].user.username}
+                              {post.postLikes.length > 1 && ` y ${post.postLikes.length - 1} más`}
+                            </strong> les gusta esto
+                          </div>
+                        )}
+
+                        <button className="comment-toggle-btn" onClick={() => toggleComments(post.id)}>
+                          <FaRegCommentAlt /> {post.comments} {post.showComments ? 'Ocultar' : 'Ver'}
+                        </button>
+                      </div>
+                    </div>
+
+                    {post.showComments && (
+                      <div className="comments-section">
+                        <h4>Comentarios</h4>
+                        {post.commentsList.map(comment => (
+                          <div className="comment" key={comment.id}>
+                            <div className="comment-header">
+                              <Avatar src={comment.avatar || undefined} alt={comment.author}>
+                                {!comment.avatar && stringAvatar(comment.author).children}
+                              </Avatar>
+                              <div className="comment-meta">
+                                <span className="comment-author">{comment.author}</span>
+                                <span className="comment-date">
+                                  {new Date(comment.date).toLocaleString('es-CO', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                  })}
+                                </span>
+                              </div>
+                            </div>
+                            <p className="comment-text">{comment.text}</p>
+                          </div>
+                        ))}
+                        <div className="new-comment">
+                          <textarea
+                            placeholder="Escribe un comentario..."
+                            value={post.newComment}
+                            onChange={(e) => handleCommentChange(post.id, e.target.value)}
+                            className="comment-input"
+                          />
+                          <button
+                            className="comment-btn"
+                            onClick={() => addComment(post.id)}
+                            disabled={!post.newComment.trim()}
+                          >
+                            Comentar
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <p className="no-posts">No hay publicaciones que coincidan con tu búsqueda</p>
+              )}
+            </div>
           )}
         </div>
 
